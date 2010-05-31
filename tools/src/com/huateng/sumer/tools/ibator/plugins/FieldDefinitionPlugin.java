@@ -28,8 +28,8 @@ public class FieldDefinitionPlugin extends IbatorPluginAdapter {
 
 	public List<GeneratedXmlFile> contextGenerateAdditionalXmlFiles(
 			IntrospectedTable introspectedTable) {
-		//½¨Á¢Ä¿±ê¶ÔÏó
-		//ibatorµÄ¼ò»¯µÄXML½Ó¿ÚÍÁÁËµã£¬²»ÄÜÖ§³ÖSchemaµÄ£¬ËùÒÔÖ»ÄÜÓÃDTDÉùÃ÷ÁË
+		//å»ºç«‹ç›®æ ‡å¯¹è±¡
+		//ibatorçš„ç®€åŒ–çš„XMLæ¥å£åœŸäº†ç‚¹ï¼Œä¸èƒ½æ”¯æŒSchemaçš„ï¼Œæ‰€ä»¥åªèƒ½ç”¨DTDå£°æ˜äº†
 		Document doc = new Document("-//SPRING//DTD BEAN 2.0//EN", "http://www.springframework.org/dtd/spring-beans-2.0.dtd");
 		XmlElement beans = new XmlElement("beans");
 		doc.setRootElement(beans);
@@ -39,19 +39,19 @@ public class FieldDefinitionPlugin extends IbatorPluginAdapter {
 			pdmTableMap = pdmMap.get(introspectedTable.getFullyQualifiedTable().getIntrospectedTableName());
 		for (IntrospectedColumn ic : introspectedTable.getAllColumns())
 		{
-			//½¨Á¢×Ö¶Î¶¨Òå
+			//å»ºç«‹å­—æ®µå®šä¹‰
 			XmlElement bean = new XmlElement("bean");
 			beans.addElement(bean);
 			
 			String id = introspectedTable.getFullyQualifiedTable().getIntrospectedTableName()+"__"+ic.getActualColumnName();
 
-			bean.addAttribute(new Attribute("id", "ibatorgenerated_"+id));	//Õâ¸öÎªÁË¿ÉÒÔMerge¶øÊ¹ÓÃµÄÇ°×º
-			bean.addAttribute(new Attribute("name", id));					//ÓÃÕâ¸öÀ´Êµ¼Ê·ÃÎÊ
+			bean.addAttribute(new Attribute("id", "ibatorgenerated_"+id));	//è¿™ä¸ªä¸ºäº†å¯ä»¥Mergeè€Œä½¿ç”¨çš„å‰ç¼€
+			bean.addAttribute(new Attribute("name", id));					//ç”¨è¿™ä¸ªæ¥å®é™…è®¿é—®
 			bean.addAttribute(new Attribute("abstract", "true"));
 			
 			addBeanProperty(bean, "path", ic.getJavaProperty());
 			
-			//¾ö¶¨×Ö¶ÎÀàĞÍ
+			//å†³å®šå­—æ®µç±»å‹
 			if (ic.getFullyQualifiedJavaType().equals(FullyQualifiedJavaType.getDateInstance()))
 			{
 				bean.addAttribute(new Attribute("class", DATE_FILED_TYPE));
@@ -61,12 +61,12 @@ public class FieldDefinitionPlugin extends IbatorPluginAdapter {
 				bean.addAttribute(new Attribute("class", TEXT_FILED_TYPE));
 			}
 			
-			//È¡PDM¾ö¶¨ÎÄ±¾
+			//å–PDMå†³å®šæ–‡æœ¬
 			if (pdmTableMap != null)
 			{
 				Element col = pdmTableMap.get(ic.getActualColumnName());
 				String label = col.selectSingleNode("a:Name").getText().trim();
-				addBeanProperty(bean, "label", label);	//iBatorµÄ¿ò¼ÜÌ«ÍÁÁË£¬¾¹È»°ÑXMLÎÄ¼şĞ´ËÀUTF-8±àÂë£¬È»ºó°´ÏµÍ³Ä¬ÈÏ±àÂëÊä³ö£¬ĞèÒª½â¾ö
+				addBeanProperty(bean, "label", label);	//iBatorçš„æ¡†æ¶å¤ªåœŸäº†ï¼Œç«Ÿç„¶æŠŠXMLæ–‡ä»¶å†™æ­»UTF-8ç¼–ç ï¼Œç„¶åæŒ‰ç³»ç»Ÿé»˜è®¤ç¼–ç è¾“å‡ºï¼Œéœ€è¦è§£å†³
 			}
 		}
 		GeneratedXmlFile gxf = new GeneratedXmlFile(doc, introspectedTable.getFullyQualifiedTable().getIntrospectedTableName()+".xml", "field", "src/META-INF", true);
@@ -90,14 +90,14 @@ public class FieldDefinitionPlugin extends IbatorPluginAdapter {
 		
 		try
 		{
-			//½âÎöPDM
+			//è§£æPDM
 			String pdmfile = getProperties().getProperty("powerdesigner");
 			
 			if (StringUtils.isNotBlank(pdmfile))
 			{
 				SAXReader sar = new SAXReader();
 				
-				//½âÎöÔ´ÎÄ¼ş
+				//è§£ææºæ–‡ä»¶
 				org.dom4j.Document pdm = sar.read(new FileInputStream(pdmfile));
 				pdmMap = new HashMap<String, Map<String,Element>>();
 				
@@ -117,7 +117,7 @@ public class FieldDefinitionPlugin extends IbatorPluginAdapter {
 		}
 		catch (Exception e)
 		{
-			throw new IllegalArgumentException("PDMÎÄ¼ş½âÎö´í", e);
+			throw new IllegalArgumentException("PDMæ–‡ä»¶è§£æé”™", e);
 		}
 
 		return true;

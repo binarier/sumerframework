@@ -6,12 +6,12 @@ import org.apache.tools.ant.Task;
 
 /**
  * 
- * <p>¶¨ÒåÒ»ÖÖÃüÁîĞĞ¸ñÊ½£¬²¢ÇÒ½øĞĞÏàÓ¦½âÎö</p>
+ * <p>å®šä¹‰ä¸€ç§å‘½ä»¤è¡Œæ ¼å¼ï¼Œå¹¶ä¸”è¿›è¡Œç›¸åº”è§£æ</p>
  * <p><b>[command] [action] param1=value1 param2=value2 ...</b></p>
- * <p>Õâ¸öTaskÊ¹ÓÃÊ±£¬ÓÃpropertyÊôĞÔÖ¸¶¨½âÎö½á¹û´æ·ÅµÄÎ»ÖÃ£¬±ÈÈç£º</p>
+ * <p>è¿™ä¸ªTaskä½¿ç”¨æ—¶ï¼Œç”¨propertyå±æ€§æŒ‡å®šè§£æç»“æœå­˜æ”¾çš„ä½ç½®ï¼Œæ¯”å¦‚ï¼š</p>
  * <p>&lt;taskdef name="parse" classpathref="shell.classpath" classname="com.huateng.sumer.tools.shell.ant.CommandParser"/&gt;</p>
  * <p>&lt;parse property="cmd" commandLine="${xxx}"/&gt;</p>
- * <p>ÕâÑù£¬${cmd.command}¾ÍÊÇ[command]£¬${cmd.action}Îª[action], ²ÎÊıÒ²Í¬Ñù¼ÓÉÏcmdÇ°×º¡£</p>
+ * <p>è¿™æ ·ï¼Œ${cmd.command}å°±æ˜¯[command]ï¼Œ${cmd.action}ä¸º[action], å‚æ•°ä¹ŸåŒæ ·åŠ ä¸Šcmdå‰ç¼€ã€‚</p>
  * 
  * @author chenjun.li
  *
@@ -26,19 +26,19 @@ public class CommandParser extends Task {
 	public void execute() throws BuildException {
 		
 		if (StringUtils.isBlank(property))
-			throw new BuildException("±ØĞëÖ¸¶¨propertyÊôĞÔ");
+			throw new BuildException("å¿…é¡»æŒ‡å®špropertyå±æ€§");
 		
 		String parts[] = StringUtils.split(StringUtils.trim(commandLine), " ");
 		
 		if (parts.length < 2)
-			throw new BuildException("ÃüÁî¸ñÊ½²»ÕıÈ·");
+			throw new BuildException("å‘½ä»¤æ ¼å¼ä¸æ­£ç¡®");
 		
 		//command
 		getProject().setUserProperty(property+".command", parts[0]);
 		//action
 		getProject().setUserProperty(property+".action", parts[1]);
 		
-		//²ÎÊı
+		//å‚æ•°
 		for (int i = 2; i<parts.length; i++)
 		{
 			if (StringUtils.contains(parts[i], "="))
