@@ -3,7 +3,7 @@ package com.huateng.sumer.runtime.web.meta;
 import java.io.Serializable;
 
 /**
- * ¶¨ÒåÊı¾İ¿â×Ö¶ÎµÄÏÔÊ¾ÊôĞÔ
+ * å®šä¹‰æ•°æ®åº“å­—æ®µçš„æ˜¾ç¤ºå±æ€§
  * 
  * @author chenjun.li
  */
@@ -18,7 +18,7 @@ public abstract class AbstractField implements Serializable {
 
 	public String getDojoConstraints()
 	{
-		return "";//Áô¸ø×ÓÀàÊµÏÖ
+		return "";//ç•™ç»™å­ç±»å®ç°
 	}
 	
 	public Object getReference(Object context)

@@ -7,10 +7,10 @@ import com.huateng.sumer.runtime.service.api.BrowseService;
 import com.huateng.sumer.runtime.web.meta.Pagination;
 
 /**
- * Ê¹ÓÃ¾²Ì¬Êý¾Ý×÷ÎªÊý¾ÝÔ´µÄä¯ÀÀ·þÎñ£¬Í¨¹ý×¢Èë{@link #data}ÊôÐÔÀ´¾²Ì¬È·¶¨Êý¾Ý£¬±¾ÀàÌá¹©·ÖÒ³·þÎñ
+ * ä½¿ç”¨é™æ€æ•°æ®ä½œä¸ºæ•°æ®æºçš„æµè§ˆæœåŠ¡ï¼Œé€šè¿‡æ³¨å…¥{@link #data}å±žæ€§æ¥é™æ€ç¡®å®šæ•°æ®ï¼Œæœ¬ç±»æä¾›åˆ†é¡µæœåŠ¡
  * @author chenjun.li
  *
- * @param <T> Êý¾ÝÀàÐÍ
+ * @param <T> æ•°æ®ç±»åž‹
  */
 public class StaticCollectionBrowseService<T> implements BrowseService<T> {
 

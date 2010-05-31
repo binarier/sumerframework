@@ -10,18 +10,18 @@ public class PanelLayout extends AbstractLayout {
 	private static final long serialVersionUID = -2694254112874664040L;
 
 	/**
-	 * °´Ë³ĞòµÄÏÔÊ¾×Ö¶ÎÁĞ±í
+	 * æŒ‰é¡ºåºçš„æ˜¾ç¤ºå­—æ®µåˆ—è¡¨
 	 */
 	protected List<AbstractField> fields;
 	
 	/**
-	 * ÊÇ·ñËùÓĞ×Ö¶ÎÎªÖ»¶Á
+	 * æ˜¯å¦æ‰€æœ‰å­—æ®µä¸ºåªè¯»
 	 */
 	protected boolean readOnly = false;
 
 	public List<List<Cell>> getExtractedCells() {
 
-		//ÏÈ°Ñ×Ö¶Î¹ıÒ»±é£¬Ìíµ½ĞÂÁĞ±í£¬Èç¹ûÊÇInputField£¬Ôò¶îÍâÌí¼Ólabel×Ö¶Î
+		//å…ˆæŠŠå­—æ®µè¿‡ä¸€éï¼Œæ·»åˆ°æ–°åˆ—è¡¨ï¼Œå¦‚æœæ˜¯InputFieldï¼Œåˆ™é¢å¤–æ·»åŠ labelå­—æ®µ
 		List<AbstractField> extractedFields = new ArrayList<AbstractField>();
 		for (AbstractField af : fields)
 		{
@@ -34,7 +34,7 @@ public class PanelLayout extends AbstractLayout {
 				lf.setColSpan(aif.getLabelColSpan());
 				lf.setMandatoryMark(
 					aif.isMandatory()&&
-					!(aif.isReadOnly() && readOnly));	//Ö»ÓĞÔÚ·ÇÖ»¶ÁµÄÇé¿öÏÂ²ÅÏÔÊ¾ĞÇ±ê
+					!(aif.isReadOnly() && readOnly));	//åªæœ‰åœ¨éåªè¯»çš„æƒ…å†µä¸‹æ‰æ˜¾ç¤ºæ˜Ÿæ ‡
 				extractedFields.add(lf);
 			}
 			extractedFields.add(af);

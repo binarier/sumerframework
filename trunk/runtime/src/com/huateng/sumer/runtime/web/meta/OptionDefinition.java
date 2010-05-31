@@ -1,11 +1,11 @@
 package com.huateng.sumer.runtime.web.meta;
 
 /**
- * <p>ÁĞ±íÑ¡Ïî¶¨Òå</p>
+ * <p>åˆ—è¡¨é€‰é¡¹å®šä¹‰</p>
  * <ul>
- * <li><b>label</b> ÏÔÊ¾±êÇ©</li>
- * <li><b>value</b> Ñ¡ÏîÈ¡Öµ</li>
- * <li><b>tag</b> ×Ô¶¨Òå×Ö¶Î</li>
+ * <li><b>label</b> æ˜¾ç¤ºæ ‡ç­¾</li>
+ * <li><b>value</b> é€‰é¡¹å–å€¼</li>
+ * <li><b>tag</b> è‡ªå®šä¹‰å­—æ®µ</li>
  *
  * @author chenjun.li
  * @version $Id$
@@ -16,7 +16,7 @@ public class OptionDefinition<T extends Comparable<T>> implements Comparable<Opt
 	private Object tag;
     
     public int compareTo(OptionDefinition<T> o) {
-        if (value == null || o.getValue() == null)    //nullÎª×îĞ¡
+        if (value == null || o.getValue() == null)    //nullä¸ºæœ€å°
             return -1;
         return value.compareTo(o.getValue());
     }

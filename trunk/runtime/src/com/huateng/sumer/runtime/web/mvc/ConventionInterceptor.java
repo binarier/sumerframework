@@ -21,9 +21,9 @@ public class ConventionInterceptor extends HandlerInterceptorAdapter {
 			ModelAndView modelAndView) throws Exception {
 		modelAndView.addAllObjects(conventionBeans);
 		
-		//´¦ÀíÄ¬ÈÏÖµ
+		//å¤„ç†é»˜è®¤å€¼
 		if (!modelAndView.getModel().containsKey("sumer_title"))
-			modelAndView.addObject("sumer_title", "ÎŞ±êÌâ");
+			modelAndView.addObject("sumer_title", "æ— æ ‡é¢˜");
 	}
 
 	public Map<String, Object> getConventionBeans() {

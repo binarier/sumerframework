@@ -1,7 +1,7 @@
 package com.huateng.sumer.runtime.annotation;
 
 /**
- * ÓÃÓÚ±êÊ¶ÔÚWeb ContextÖĞµÄËùÓĞ×¢ÊÍ×é¼ş
+ * ç”¨äºæ ‡è¯†åœ¨Web Contextä¸­çš„æ‰€æœ‰æ³¨é‡Šç»„ä»¶
  * @author chenjun.li
  *
  */

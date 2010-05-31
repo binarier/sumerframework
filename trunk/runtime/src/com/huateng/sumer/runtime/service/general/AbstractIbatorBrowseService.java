@@ -33,15 +33,15 @@ public abstract class AbstractIbatorBrowseService<T> implements BrowseService<T>
 		}
 		catch (SQLException e)
 		{
-			logger.error("Êı¾İ¿âÖ´ĞĞ³ö´í", e);
+			logger.error("æ•°æ®åº“æ‰§è¡Œå‡ºé”™", e);
 			throw new RuntimeException(e);
 		}
 	}
 
 	/**
-	 * ×ÓÀà½Ó¿Ú£¬ÓÃÓÚÈ·ÊµÈ·¶¨example¶ÔÏó
-	 * @param context ÓÉ {@link BrowseService}½Ó¿Ú´«À´µÄcontext¶ÔÏó
-	 * @return example¶ÔÏó
+	 * å­ç±»æ¥å£ï¼Œç”¨äºç¡®å®ç¡®å®šexampleå¯¹è±¡
+	 * @param context ç”± {@link BrowseService}æ¥å£ä¼ æ¥çš„contextå¯¹è±¡
+	 * @return exampleå¯¹è±¡
 	 */
 	protected abstract Object example(Object context);
 

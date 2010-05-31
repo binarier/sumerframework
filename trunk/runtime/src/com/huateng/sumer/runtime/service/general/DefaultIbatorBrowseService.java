@@ -11,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Required;
 
 /**
- * ÊµÏÖÒ»¸öÍ¨ÓÃµÄ»ùÓÚexampleµÄä¯ÀÀ·şÎñÊµÏÖ
+ * å®ç°ä¸€ä¸ªé€šç”¨çš„åŸºäºexampleçš„æµè§ˆæœåŠ¡å®ç°
  * @author chenjun.li
  *
  * @param <T>
@@ -39,18 +39,18 @@ public class DefaultIbatorBrowseService<T> extends AbstractIbatorBrowseService<T
 		{
 			Object example = exampleClass.newInstance();
 			
-			if (context != null && criteriaList != null)		//Èç¹ûcontext»òcriteriaÎªnull£¬ÔòÈ«²é
+			if (context != null && criteriaList != null)		//å¦‚æœcontextæˆ–criteriaä¸ºnullï¼Œåˆ™å…¨æŸ¥
 			{
-				//´¦ÀícontextPath
+				//å¤„ç†contextPath
 				if (StringUtils.isNotBlank(contextPath))
 					context = PropertyUtils.getNestedProperty(context, contextPath);
 				
-				//½¨Á¢criteria
+				//å»ºç«‹criteria
 				Object criteria = MethodUtils.invokeExactMethod(example, "createCriteria", null);
 				
 				for (Entry<Object, Object> entry : criteriaList.entrySet())
 				{
-					String name = (String)entry.getKey();		//ÊôĞÔÃû
+					String name = (String)entry.getKey();		//å±æ€§å
 					Object value = PropertyUtils.getSimpleProperty(context, name);
 					
 					if (value == null)
@@ -61,18 +61,18 @@ public class DefaultIbatorBrowseService<T> extends AbstractIbatorBrowseService<T
 					else
 					{
 						boolean skip = 
-								((value instanceof String)&&(StringUtils.isBlank((String)value)&&excludeBlank) ||	//ÅÅ³ıÎª¿ÕµÄÇé¿ö
-								((value instanceof Number)&&(((Number)value).longValue() == 0l)&&excludeZeroes))||		//ÅÅ³ıÎªÁãµÄÇé¿ö
+								((value instanceof String)&&(StringUtils.isBlank((String)value)&&excludeBlank) ||	//æ’é™¤ä¸ºç©ºçš„æƒ…å†µ
+								((value instanceof Number)&&(((Number)value).longValue() == 0l)&&excludeZeroes))||		//æ’é™¤ä¸ºé›¶çš„æƒ…å†µ
 								((value instanceof BigDecimal)&&(value.equals(BigDecimal.valueOf(0)))&&excludeZeroes);
 
 						if (!skip)
 							MethodUtils.invokeExactMethod(criteria, "and" + StringUtils.capitalize(name) + "EqualTo", value);
-						//TODO Ö§³ÖLIKE
+						//TODO æ”¯æŒLIKE
 					}
 				}
 			}
 				
-			//´¦ÀíÅÅĞò
+			//å¤„ç†æ’åº
 			if (orders != null && !orders.isEmpty())
 			{
 				StringBuilder clause = new StringBuilder();
@@ -80,7 +80,7 @@ public class DefaultIbatorBrowseService<T> extends AbstractIbatorBrowseService<T
 				while (iter.hasNext())
 				{
 					Entry<Object, Object> order = iter.next();
-					// Èç¹ûÖ¸¶¨ÁË"xxx=desc"£¬ÔòÊ¹ÓÃ½µĞò£¬·ñÔòÒ»ÂÉÉıĞò¡£
+					// å¦‚æœæŒ‡å®šäº†"xxx=desc"ï¼Œåˆ™ä½¿ç”¨é™åºï¼Œå¦åˆ™ä¸€å¾‹å‡åºã€‚
 					if (StringUtils.equalsIgnoreCase("desc", StringUtils.trim((String) order.getValue())))
 					{
 						clause.append(order.getKey());

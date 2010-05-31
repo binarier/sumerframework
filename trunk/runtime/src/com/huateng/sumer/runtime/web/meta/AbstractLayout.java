@@ -9,7 +9,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * ¶¨ÒåÒ»¸ö²¼¾Ö¿é
+ * å®šä¹‰ä¸€ä¸ªå¸ƒå±€å—
  * 
  * @author chenjun.li
  * @version $Id$
@@ -22,23 +22,23 @@ public abstract class AbstractLayout implements Serializable {
 	protected String							nestedPath;
 
 	/**
-	 * ×ÓÀàµÄ¹«¹²·şÎñ£¬ÓÃÓÚĞÎ³ÉCell±í¸ñ
+	 * å­ç±»çš„å…¬å…±æœåŠ¡ï¼Œç”¨äºå½¢æˆCellè¡¨æ ¼
 	 * @param fields
-	 * @return ¼ÆËãºÃµÄCell±í¸ñ
+	 * @return è®¡ç®—å¥½çš„Cellè¡¨æ ¼
 	 */
 	protected List<List<Cell>> calculateCells(List<AbstractField> fields)
 	{
-		//ÏÈ¼ÆËã±í¸ñ¿í¶È
+		//å…ˆè®¡ç®—è¡¨æ ¼å®½åº¦
 		int columnWidths[] = new int[columns];
 
-		// °´columnRatesÒÔ°Ù·Ö±È·ÖÅäÁĞ¿í
+		// æŒ‰columnRatesä»¥ç™¾åˆ†æ¯”åˆ†é…åˆ—å®½
 		if (columnRatios == null) {
-			// Èç¹ûcolumnRatesÃ»ÓĞÅä£¬ÔòÊ¹ÓÃ"*"×÷ÎªÁĞ¿í
+			// å¦‚æœcolumnRatesæ²¡æœ‰é…ï¼Œåˆ™ä½¿ç”¨"*"ä½œä¸ºåˆ—å®½
 			for (int i = 0; i < columns; i++) {
 				columnWidths[i] = 0;
 			}
 		} else {
-			// °´±ÈÀı·ÖÅäÁĞ¿í
+			// æŒ‰æ¯”ä¾‹åˆ†é…åˆ—å®½
 
 			String ratios[] = StringUtils.split(columnRatios, ":");
 
@@ -51,15 +51,15 @@ public abstract class AbstractLayout implements Serializable {
 				columnWidths[i++] = Integer.valueOf(s) * 100 / sum;
 		}
 		
-		//È»ºóÉú³É±í¸ñ
+		//ç„¶åç”Ÿæˆè¡¨æ ¼
 		List<List<Cell>> table = new ArrayList<List<Cell>>();
 		Iterator<AbstractField> iter = fields.iterator();
 		while (iter.hasNext())
 		{
-			//Ìí¼ÓĞĞ
+			//æ·»åŠ è¡Œ
 			ArrayList<Cell> cols = new ArrayList<Cell>(columns);
 			table.add(cols);
-			//Ìí¼ÓÁĞ
+			//æ·»åŠ åˆ—
 			for (int i = 0; (i < columns) && iter.hasNext();)
 			{
 				AbstractField af = iter.next();
@@ -67,7 +67,7 @@ public abstract class AbstractLayout implements Serializable {
 				cols.add(cell);
 				cell.setField(af);
 				
-				//¼ÆËã¿í¶È
+				//è®¡ç®—å®½åº¦
 				int width = 0;
 				for (int j = 0; j<af.getColSpan(); j++)
 					width += columnWidths[i + j];

@@ -9,10 +9,10 @@ import com.huateng.sumer.runtime.service.api.BrowseService;
 import com.huateng.sumer.runtime.web.meta.Pagination;
 
 /**
- * 使用绑定数据作为数据源的浏览服务，通过{@link #path}属性来从当前对象中取得数据
+ * 浣跨敤缁戝畾鏁版嵁浣滀负鏁版嵁婧愮殑娴忚鏈嶅姟锛岄�氳繃{@link #path}灞炴�ф潵浠庡綋鍓嶅璞′腑鍙栧緱鏁版嵁
  * @author chenjun.li
  *
- * @param <T> 数据类型
+ * @param <T> 鏁版嵁绫诲瀷
  */
 @SuppressWarnings("unchecked")
 public class PathCollectionBrowseService<T> implements BrowseService<T> {

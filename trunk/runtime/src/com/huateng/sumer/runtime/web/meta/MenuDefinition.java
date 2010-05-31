@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * ²Ëµ¥Ïî¶¨Òå£¬°üÀ¨°´Å¥¡¢Á´½Ó¡£
+ * èœå•é¡¹å®šä¹‰ï¼ŒåŒ…æ‹¬æŒ‰é’®ã€é“¾æ¥ã€‚
  * @author chenjun.li
  *
  */

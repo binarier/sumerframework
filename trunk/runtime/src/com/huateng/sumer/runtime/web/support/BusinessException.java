@@ -1,8 +1,8 @@
 package com.huateng.sumer.runtime.web.support;
 
 /**
- * ÓÃÀ´°ü×°È«¾ÖÒµÎñÒì³£¡£
- * TODO ÔİÊ±Ã»ÓĞ¿¼ÂÇ¹ú¼Ê»¯
+ * ç”¨æ¥åŒ…è£…å…¨å±€ä¸šåŠ¡å¼‚å¸¸ã€‚
+ * TODO æš‚æ—¶æ²¡æœ‰è€ƒè™‘å›½é™…åŒ–
  * @author chenjun.li
  * 
  */

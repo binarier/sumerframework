@@ -8,32 +8,32 @@ public class DateField extends AbstractInputField {
 
 	public enum FormatType {
 		/**
-		 * ½öÈÕÆÚ
+		 * ä»…æ—¥æœŸ
 		 */
 		DATE,
 				/**
-		 * ½öÊ±¼ä
+		 * ä»…æ—¶é—´
 		 */
 		TIME,
 				/**
-		 * Ê±¼äÈÕÆÚ¶¼ÓĞĞ§
+		 * æ—¶é—´æ—¥æœŸéƒ½æœ‰æ•ˆ
 		 */
 		BOTH
 	};
 
 	/**
-	 * ÈÕÆÚÀàĞÍ£¬¼û {@link FormatType}¡£
+	 * æ—¥æœŸç±»å‹ï¼Œè§ {@link FormatType}ã€‚
 	 */
 	private FormatType	formatType;
 
 	/**
-	 * ÈÕÆÚ¸ñÊ½»¯ÀàĞÍ£¬Óë&lt;fmt:formatDate/&gt;µÄdateStyleÊôĞÔ¶ÔÓ¦£¬Ä¬ÈÏÎª"long"£¬Ñ¡Ïî¼û
-	 * {@link DateFormat}¡£
+	 * æ—¥æœŸæ ¼å¼åŒ–ç±»å‹ï¼Œä¸&lt;fmt:formatDate/&gt;çš„dateStyleå±æ€§å¯¹åº”ï¼Œé»˜è®¤ä¸º"long"ï¼Œé€‰é¡¹è§
+	 * {@link DateFormat}ã€‚
 	 */
 	private String		dateStyle	= "long";
 	/**
-	 * ÈÕÆÚ¸ñÊ½»¯ÀàĞÍ£¬Óë&lt;fmt:formatDate/&gt;µÄtimeStyleÊôĞÔ¶ÔÓ¦£¬Ä¬ÈÏÎª"long"£¬Ñ¡Ïî¼û
-	 * {@link DateFormat}¡£
+	 * æ—¥æœŸæ ¼å¼åŒ–ç±»å‹ï¼Œä¸&lt;fmt:formatDate/&gt;çš„timeStyleå±æ€§å¯¹åº”ï¼Œé»˜è®¤ä¸º"long"ï¼Œé€‰é¡¹è§
+	 * {@link DateFormat}ã€‚
 	 */
 	private String		timeStyle	= "long";
 

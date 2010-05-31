@@ -10,7 +10,7 @@ public abstract class AbstractInputField extends AbstractField {
 	private boolean mandatory = false;
 	private boolean disableAutoComplete = false;
 	private String linkedEvent;
-	private String highlighted = null; // null´ú±í²»¸ßÁÁ
+	private String highlighted = null; // nullä»£è¡¨ä¸é«˜äº®
 
 	private String label;
 	private int labelColSpan = 1;

@@ -28,7 +28,7 @@ import com.huateng.sumer.runtime.web.meta.PanelLayout;
 import com.huateng.sumer.runtime.web.meta.TextField;
 
 /**
- * ÓÃÓÚÊµÏÖWebFlow¹ı³ÌÖĞµÄĞ£Ñé¹æ·¶ºÍ¹ßÀı
+ * ç”¨äºå®ç°WebFlowè¿‡ç¨‹ä¸­çš„æ ¡éªŒè§„èŒƒå’Œæƒ¯ä¾‹
  * @author chenjun.li
  *
  */
@@ -81,7 +81,7 @@ public class ValidationHelper extends MultiAction {
 
 	public Event validateForms(RequestContext context, FormDefinition fd)
 	{
-		Assert.notNull(fd, "FormDefinition²»ÄÜÎª¿Õ");
+		Assert.notNull(fd, "FormDefinitionä¸èƒ½ä¸ºç©º");
 
 		MessageContext mc = context.getMessageContext();
 		Object model = getModelObject(context);
@@ -102,16 +102,16 @@ public class ValidationHelper extends MultiAction {
 					if (af instanceof AbstractInputField)
 					{
 						AbstractInputField aif = (AbstractInputField)af;
-						//¶ÔÓÚÊäÈëÀà×Ö¶ÎÒªÈ¡Öµ
+						//å¯¹äºè¾“å…¥ç±»å­—æ®µè¦å–å€¼
 						Object value;
 						String fullPath = nestedPath + aif.getPath();
 						try {
 							value = PropertyUtils.getNestedProperty(model, fullPath);
 						} catch (Exception e) {
-							throw new IllegalArgumentException("·ÃÎÊ" + fullPath + "Ê§°Ü", e);
+							throw new IllegalArgumentException("è®¿é—®" + fullPath + "å¤±è´¥", e);
 						}
 
-						//ÏÈÅĞ¹«¹²ÊôĞÔ
+						//å…ˆåˆ¤å…¬å…±å±æ€§
 						if (aif.isMandatory()&&
 							((value == null)||
 							((value instanceof String)&&StringUtils.isBlank((String)value))))
@@ -119,13 +119,13 @@ public class ValidationHelper extends MultiAction {
 							mc.addMessage(new MessageBuilder()
 								.error()
 								.source(fullPath)
-								.defaultText("ÇëÌîĞ´")
+								.defaultText("è¯·å¡«å†™")
 								.build());
 						}
 						
-						//ÔÙÅĞ¸÷ÀàĞÍ×Ö¶ÎÊôĞÔ
+						//å†åˆ¤å„ç±»å‹å­—æ®µå±æ€§
 						
-						//ÎÄ±¾×Ö¶Î
+						//æ–‡æœ¬å­—æ®µ
 						if (aif instanceof TextField)
 						{
 							TextField tf = (TextField)aif;
@@ -138,21 +138,21 @@ public class ValidationHelper extends MultiAction {
 										mc.addMessage(new MessageBuilder()
 											.error()
 											.source(fullPath)
-											.defaultText("×î´ó³¤¶ÈÎª"+tf.getMaxLength())
+											.defaultText("æœ€å¤§é•¿åº¦ä¸º"+tf.getMaxLength())
 											.build());
 								}
 								catch (Exception e)
 								{
-									throw new RuntimeException("ÏµÍ³±àÂë´íÎó", e);
+									throw new RuntimeException("ç³»ç»Ÿç¼–ç é”™è¯¯", e);
 								}
 
-								//ÅĞÌØÊâ×Ö·û
+								//åˆ¤ç‰¹æ®Šå­—ç¬¦
 								if (StringUtils.containsAny(str, excludingCharacters))
 								{
 									mc.addMessage(new MessageBuilder()
 										.error()
 										.source(fullPath)
-										.defaultText("ÊäÈëÖĞ²»ÄÜ³öÏÖ×Ö·û[{0}]")
+										.defaultText("è¾“å…¥ä¸­ä¸èƒ½å‡ºç°å­—ç¬¦[{0}]")
 										.arg(excludingCharacters)
 										.build());
 								}
@@ -167,7 +167,7 @@ public class ValidationHelper extends MultiAction {
 	}
 	
 	/**
-	 * °´¹ßÀıĞ£Ñé£¬Õâ¸ö¿ÉÒÔÓÃ&lt;evaluate expression="validationHelper.validateForms"/&gt;Ö±½Óµ÷
+	 * æŒ‰æƒ¯ä¾‹æ ¡éªŒï¼Œè¿™ä¸ªå¯ä»¥ç”¨&lt;evaluate expression="validationHelper.validateForms"/&gt;ç›´æ¥è°ƒ
 	 * @param context
 	 * @return
 	 */

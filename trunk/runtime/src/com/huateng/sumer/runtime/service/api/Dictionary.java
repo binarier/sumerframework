@@ -3,7 +3,7 @@ package com.huateng.sumer.runtime.service.api;
 import java.util.Map;
 
 /**
- * 数据字典通用接口
+ * 鏁版嵁瀛楀吀閫氱敤鎺ュ彛
  * @author chenjun.li
  *
  */
