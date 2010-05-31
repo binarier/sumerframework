@@ -23,7 +23,7 @@ import com.huateng.sumer.runtime.web.meta.FormDefinition;
 import com.huateng.sumer.runtime.web.meta.Pagination;
 
 /**
- * Ìá¹©¸÷ÖÖ¹ßÀıµÄ¼¯ÖĞ¹ÜÀíµÄµØ·½
+ * æä¾›å„ç§æƒ¯ä¾‹çš„é›†ä¸­ç®¡ç†çš„åœ°æ–¹
  * @author chenjun.li
  *
  */
@@ -47,7 +47,7 @@ public class ConventionHelper extends MultiAction {
 					{
 						String browseServiceId = null;
 						
-						//´ÓÓÅÏÈ¼¶×îµÍµÄÕÒÆğ
+						//ä»ä¼˜å…ˆçº§æœ€ä½çš„æ‰¾èµ·
 						String prefix = context.getActiveFlow().getId() + "#" + context.getCurrentState().getId()+"#browse";
 						
 						String probe = prefix; 
@@ -73,19 +73,19 @@ public class ConventionHelper extends MultiAction {
 						
 						if (browseServiceId != null)
 						{
-							//Èç¹ûÕÒµ½¶ÔÓ¦BrowseService, Ôò½øĞĞµ÷ÓÃ
+							//å¦‚æœæ‰¾åˆ°å¯¹åº”BrowseService, åˆ™è¿›è¡Œè°ƒç”¨
 							BrowseService<?> bs = ctx.getBean(browseServiceId, BrowseService.class);
 							BrowserLayout bl = (BrowserLayout) al;
 							Object model = getModelObject(context);
 							Object obj = model;
-							if (StringUtils.isNotBlank(bl.getNestedPath()))//´¦ÀínestedPath
+							if (StringUtils.isNotBlank(bl.getNestedPath()))//å¤„ç†nestedPath
 								obj = PropertyUtils.getNestedProperty(obj, bl.getNestedPath());
-							//È¡·ÖÒ³¶ÔÏó
+							//å–åˆ†é¡µå¯¹è±¡
 							Pagination pagination = (Pagination)PropertyUtils.getNestedProperty(obj, bl.getPaginationPath());
-							Assert.notNull(pagination, "ÔÚ"+bl.getNestedPath()+"/"+bl.getPaginationPath()+"ÏÂÃ»ÕÒµ½Pagination¶ÔÏó");
+							Assert.notNull(pagination, "åœ¨"+bl.getNestedPath()+"/"+bl.getPaginationPath()+"ä¸‹æ²¡æ‰¾åˆ°Paginationå¯¹è±¡");
 	
 							List<?> list = bs.browse(obj, pagination);
-							Assert.notNull(list, "BrowseService·µ»ØnullÖµ");
+							Assert.notNull(list, "BrowseServiceè¿”å›nullå€¼");
 							
 							PropertyUtils.setProperty(obj, bl.getDataPath(), list);
 						}
@@ -96,7 +96,7 @@ public class ConventionHelper extends MultiAction {
 		}
 		catch (Exception e)
 		{
-			logger.fatal("BrowseSerivice´¦Àí³ö´í", e);
+			logger.fatal("BrowseSeriviceå¤„ç†å‡ºé”™", e);
 			return error();
 		}
 	}
@@ -104,34 +104,34 @@ public class ConventionHelper extends MultiAction {
 	@SuppressWarnings("unchecked")
 	public List<FormDefinition> getViewStateFormDefinitions(RequestContext context)
 	{
-		//Ä¬ÈÏforms bean¶¨ÒåÃûÎª[flowId]#[stateId]
+		//é»˜è®¤forms beanå®šä¹‰åä¸º[flowId]#[stateId]
 		String defaultBeanId = context.getActiveFlow().getId()+"#"+context.getCurrentState().getId()+"#forms";
 		
 		String id = getCurrentViewState(context).getAttributes().getString("forms", defaultBeanId);
 
-		//´ÓÈİÆ÷ÀïÈ¡¶¨Òå
+		//ä»å®¹å™¨é‡Œå–å®šä¹‰
 		Object tmp;
 		if (ctx.containsBean(id))
 		{
 			tmp = ctx.getBean(id);
-			//´¦Àí¼¯ºÏÀàĞÍ
-			List<FormDefinition> forms = new ArrayList<FormDefinition>();		//±£Ö¤¿ÉĞòÁĞ»¯
+			//å¤„ç†é›†åˆç±»å‹
+			List<FormDefinition> forms = new ArrayList<FormDefinition>();		//ä¿è¯å¯åºåˆ—åŒ–
 			if (tmp instanceof List<?>)
 				forms.addAll((List<FormDefinition>)tmp);
 			else if (tmp instanceof FormDefinition)
 				forms.add((FormDefinition)tmp);
 			else
-				Assert.isInstanceOf(FormDefinition.class, tmp, "ÎŞĞ§ÀàĞÍ");
+				Assert.isInstanceOf(FormDefinition.class, tmp, "æ— æ•ˆç±»å‹");
 			return forms;
 		}
 		else
-			return new ArrayList<FormDefinition>(0);		//Ã»ÓĞµÄ»°¾Í·µ»ØÒ»¸ö¿ÕµÄ
+			return new ArrayList<FormDefinition>(0);		//æ²¡æœ‰çš„è¯å°±è¿”å›ä¸€ä¸ªç©ºçš„
 	}
 	
 	private ViewState getCurrentViewState(RequestContext context)
 	{
 		StateDefinition sd = context.getCurrentState();
-		Assert.isInstanceOf(ViewState.class, sd, "±ØĞëÔÚViewStateÏÂ²ÅÄÜµ÷ÓÃ");
+		Assert.isInstanceOf(ViewState.class, sd, "å¿…é¡»åœ¨ViewStateä¸‹æ‰èƒ½è°ƒç”¨");
 		
 		return (ViewState)sd;
 	}

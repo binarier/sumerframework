@@ -38,13 +38,13 @@ public class FlowListener extends FlowExecutionListenerAdapter {
 	public void viewRendering(RequestContext context, View view, StateDefinition viewState) {
 		try
 		{
-			//°´¹ßÀıÈ¡±íµ¥¶¨ÒåÁĞ±í
-			List<FormDefinition> sumer_forms = conventionHelper.getViewStateFormDefinitions(context);		//±£Ö¤¿ÉĞòÁĞ»¯
+			//æŒ‰æƒ¯ä¾‹å–è¡¨å•å®šä¹‰åˆ—è¡¨
+			List<FormDefinition> sumer_forms = conventionHelper.getViewStateFormDefinitions(context);		//ä¿è¯å¯åºåˆ—åŒ–
 	
-			//¼ÓÈë°´¹ßÀı×¢ÈëµÄbean
+			//åŠ å…¥æŒ‰æƒ¯ä¾‹æ³¨å…¥çš„bean
 			context.getRequestScope().asMap().putAll(conventionBeans);
 			
-			//´¦Àí²Î¿¼Êı¾İ
+			//å¤„ç†å‚è€ƒæ•°æ®
 			Map<AbstractLayout, Map<AbstractField, Object>> sumer_reference = new HashMap<AbstractLayout, Map<AbstractField, Object>>();
 			for (FormDefinition fd : sumer_forms)
 			{
@@ -55,14 +55,14 @@ public class FlowListener extends FlowExecutionListenerAdapter {
 				}
 			}
 			
-			//°Ñsumer´òÍ·µÄ¹ßÀı±äÁ¿·ÅÈëViewScope
+			//æŠŠsumeræ‰“å¤´çš„æƒ¯ä¾‹å˜é‡æ”¾å…¥ViewScope
 			context.getFlashScope().put("sumer_forms", sumer_forms);
 			context.getFlashScope().put("sumer_model_name", context.getCurrentState().getAttributes().get("model"));
 			context.getFlashScope().put("sumer_reference", sumer_reference);
 		}
 		catch(Exception e)
 		{
-			logger.error("View RenderÔ¤´¦Àí³ö´í", e);
+			logger.error("View Renderé¢„å¤„ç†å‡ºé”™", e);
 			throw new RuntimeException(e);
 		}
 	}

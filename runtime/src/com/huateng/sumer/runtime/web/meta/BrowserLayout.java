@@ -7,8 +7,8 @@ import java.util.Map;
 
 
 /**
- * <p> ¶¨Òåä¯ÀÀ²¼¾Ö </p> <ul> <li>¸ÃlayoutĞèÒªÓëht:browser-layout±êÇ©ÅäºÏÊ¹ÓÃ</li> <li>ÔÚÖ¸¶¨ÁË
- * {@link #multiline}ÊôĞÔÎª<code>true</code>µÄÇé¿öÏÂ£¬ columnsÊôĞÔ²ÅÉúĞ§¡£</li> </ul>
+ * <p> å®šä¹‰æµè§ˆå¸ƒå±€ </p> <ul> <li>è¯¥layoutéœ€è¦ä¸ht:browser-layoutæ ‡ç­¾é…åˆä½¿ç”¨</li> <li>åœ¨æŒ‡å®šäº†
+ * {@link #multiline}å±æ€§ä¸º<code>true</code>çš„æƒ…å†µä¸‹ï¼Œ columnså±æ€§æ‰ç”Ÿæ•ˆã€‚</li> </ul>
  * 
  * @author chenjun.li
  * 
@@ -16,29 +16,29 @@ import java.util.Map;
 public class BrowserLayout extends AbstractLayout {
 	private static final long serialVersionUID = 6991748088855108270L;
 	/**
-	 * Êı¾İ°ó¶¨¶ÔÏóÖĞÊı¾İËùÔÚµÄÊôĞÔ£¬Ä¬ÈÏÎª"data"¡£
+	 * æ•°æ®ç»‘å®šå¯¹è±¡ä¸­æ•°æ®æ‰€åœ¨çš„å±æ€§ï¼Œé»˜è®¤ä¸º"data"ã€‚
 	 */
 	private String dataPath = "data";
 	/**
-	 * Êı¾İ°ó¶¨¶ÔÏóÖĞ{@link Pagination}¶ÔÏóËùÔÚµÄÊôĞÔ¡£Ä¬ÈÏÎª"pagination"¡£
+	 * æ•°æ®ç»‘å®šå¯¹è±¡ä¸­{@link Pagination}å¯¹è±¡æ‰€åœ¨çš„å±æ€§ã€‚é»˜è®¤ä¸º"pagination"ã€‚
 	 */
 	private String paginationPath = "pagination";
 	/**
-	 * ÊÇ·ñÏÔÊ¾·ÖÒ³¿ØÖÆ
+	 * æ˜¯å¦æ˜¾ç¤ºåˆ†é¡µæ§åˆ¶
 	 */
 	private boolean paginated = true;
 	/**
-	 * ±í¸ñÁĞ¶¨ÒåÁĞ±í
+	 * è¡¨æ ¼åˆ—å®šä¹‰åˆ—è¡¨
 	 */
 	protected List<AbstractField> fields;
 	/**
-	 * ÊÇ·ñÖ§³Ö¶àĞĞ±íÍ·£¬Ä¬ÈÏÎªfalse£¬´ËÊ±±í¸ñµÄÁĞÊıÓÉ×¢ÈëµÄ×Ö¶ÎÁĞ±í¾ö¶¨£¬ÒÔ¼ò»¯ÅäÖÃ¡£
+	 * æ˜¯å¦æ”¯æŒå¤šè¡Œè¡¨å¤´ï¼Œé»˜è®¤ä¸ºfalseï¼Œæ­¤æ—¶è¡¨æ ¼çš„åˆ—æ•°ç”±æ³¨å…¥çš„å­—æ®µåˆ—è¡¨å†³å®šï¼Œä»¥ç®€åŒ–é…ç½®ã€‚
 	 */
 	protected boolean multiline = false;
 	
 	public List<List<Cell>> getBodyCells()
 	{
-		// ´¦ÀímultilineÎÊÌâ
+		// å¤„ç†multilineé—®é¢˜
 		if (!multiline)
 			setColumns(fields.size());
 		return calculateCells(fields);
@@ -46,7 +46,7 @@ public class BrowserLayout extends AbstractLayout {
 
 	public List<List<Cell>> getHeaderCells()
 	{
-		// ´¦ÀímultilineÎÊÌâ
+		// å¤„ç†multilineé—®é¢˜
 		if (!multiline)
 			setColumns(fields.size());
 

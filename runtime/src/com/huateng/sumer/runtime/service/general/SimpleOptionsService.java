@@ -14,7 +14,7 @@ import com.huateng.sumer.runtime.web.meta.OptionsService;
 /**
  * @author chenjun.li
  *
- * @param <T> Ñ¡Ïî¶ÔÓ¦È¡ÖµµÄÀàĞÍ
+ * @param <T> é€‰é¡¹å¯¹åº”å–å€¼çš„ç±»å‹
  */
 public class SimpleOptionsService<T extends Comparable<T>> implements
 		OptionsService<T>, InitializingBean {
@@ -36,7 +36,7 @@ public class SimpleOptionsService<T extends Comparable<T>> implements
 	@Override
 	public void afterPropertiesSet() throws Exception {
 
-		Assert.notNull(options, "±ØĞèÉèÖÃoptionsÊôĞÔ");
+		Assert.notNull(options, "å¿…éœ€è®¾ç½®optionså±æ€§");
 
 		for (OptionDefinition<T> od : options) {
 			map.put(od.getValue(), od.getLabel());

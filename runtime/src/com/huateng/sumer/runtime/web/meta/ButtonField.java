@@ -3,8 +3,8 @@ package com.huateng.sumer.runtime.web.meta;
 import java.io.Serializable;
 
 /**
- * ÓÃÓÚ´æ·Å²Ù×÷ĞĞÎª¶¨ÒåÊı¾İ,°üÀ¨:
- * TODO ×öÊôĞÔĞ£Ñé£¬±ÈÈçpathÀï²»ÄÜÓĞÖµµÈ
+ * ç”¨äºå­˜æ”¾æ“ä½œè¡Œä¸ºå®šä¹‰æ•°æ®,åŒ…æ‹¬:
+ * TODO åšå±æ€§æ ¡éªŒï¼Œæ¯”å¦‚pathé‡Œä¸èƒ½æœ‰å€¼ç­‰
  * @author chenjun.li
  * @version $Id$
  */
@@ -12,18 +12,18 @@ public class ButtonField extends AbstractField implements Serializable {
 
 	private static final long serialVersionUID = -5692978010840186778L;
     /**
-     * ²Ù×÷·¢ÉúÊ±²úÉúµÄevent
+     * æ“ä½œå‘ç”Ÿæ—¶äº§ç”Ÿçš„event
      */
     private String event;
     
     private String label;
     /**
-     * ÊÇ·ñ×ö¿Í»§¶ËĞ£Ñé£¬Ä¬ÈÏÎªtrue¡£
+     * æ˜¯å¦åšå®¢æˆ·ç«¯æ ¡éªŒï¼Œé»˜è®¤ä¸ºtrueã€‚
      */
     private boolean validation = true;
     
     /**
-     * ÊÇ·ñÊ¹ÓÃAJAX·½Ê½µÄ°´Å¥
+     * æ˜¯å¦ä½¿ç”¨AJAXæ–¹å¼çš„æŒ‰é’®
      */
     private boolean ajax = false;
 

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.validation.Validator;
 
 /**
- * ¶¨ÒåÊı¾İ¿â×Ö¶ÎµÄÏÔÊ¾ÊôĞÔ
+ * å®šä¹‰æ•°æ®åº“å­—æ®µçš„æ˜¾ç¤ºå±æ€§
  * 
  * @author chenjun.li
  */
@@ -25,7 +25,7 @@ public abstract class FieldDefinition implements Serializable, InitializingBean,
 
 	private int labelColSpan = 1;
 	private int fieldColSpan = 1;
-	private String highlighted = null; // null´ú±í²»¸ßÁÁ
+	private String highlighted = null; // nullä»£è¡¨ä¸é«˜äº®
 	private boolean readOnly = false;
 
 	@Override
@@ -34,7 +34,7 @@ public abstract class FieldDefinition implements Serializable, InitializingBean,
 	
 	public String getDojoConstraints()
 	{
-		return "";//Áô¸ø×ÓÀàÊµÏÖ
+		return "";//ç•™ç»™å­ç±»å®ç°
 	}
 	
 	public Object getReference(Object context)

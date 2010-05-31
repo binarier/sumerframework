@@ -5,7 +5,7 @@ import java.util.Map;
 import com.huateng.sumer.runtime.service.api.Dictionary;
 
 /**
- * ¼òµ¥µÄ×¢ÈëÊ½Êı¾İ×Öµä
+ * ç®€å•çš„æ³¨å…¥å¼æ•°æ®å­—å…¸
  * @author chenjun.li
  *
  */

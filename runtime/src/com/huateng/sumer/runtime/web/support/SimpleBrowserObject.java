@@ -6,7 +6,7 @@ import java.util.List;
 import com.huateng.sumer.runtime.web.meta.Pagination;
 
 /**
- * 常用浏览对象
+ * 甯哥敤娴忚瀵硅薄
  * @author chenjun.li
  *
  * @param <T>

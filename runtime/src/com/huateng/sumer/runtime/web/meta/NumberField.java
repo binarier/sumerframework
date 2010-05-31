@@ -6,29 +6,29 @@ public class NumberField extends AbstractInputField {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * ÓÃÓÚĞ£Ñé£¬×îĞ¡Öµ
+	 * ç”¨äºæ ¡éªŒï¼Œæœ€å°å€¼
 	 */
 	private BigDecimal minValue = new BigDecimal(0);
 	/**
-	 * ÓÃÓÚĞ£Ñé£¬×î´óÖµ
+	 * ç”¨äºæ ¡éªŒï¼Œæœ€å¤§å€¼
 	 */
 	private BigDecimal maxValue;
 	/**
-	 * ÊäÈë×Ö¶Î×î´ó³¤¶È
+	 * è¾“å…¥å­—æ®µæœ€å¤§é•¿åº¦
 	 */
 	private int maxLength = 20;
 	/**
-	 * Êı×Ö¸ñÊ½»¯ÀàĞÍ£¬Óë&lt;fmt:formatNumber/&gt;µÄtypeÊôĞÔ¶ÔÓ¦£¬Ä¬ÈÏÎª"number"£¬¿ÉÑ¡µÄ»¹ÓĞ"percent","currency"µÈ¡£
+	 * æ•°å­—æ ¼å¼åŒ–ç±»å‹ï¼Œä¸&lt;fmt:formatNumber/&gt;çš„typeå±æ€§å¯¹åº”ï¼Œé»˜è®¤ä¸º"number"ï¼Œå¯é€‰çš„è¿˜æœ‰"percent","currency"ç­‰ã€‚
 	 */
 	private String formatType = "number";
 	
 	/**
-	 * Ğ¡ÊıÎ»Êı£¬Í¬Ê±ÓÃÓÚÊäÈëĞ£ÑéºÍÊä³ö¸ñÊ½»¯
+	 * å°æ•°ä½æ•°ï¼ŒåŒæ—¶ç”¨äºè¾“å…¥æ ¡éªŒå’Œè¾“å‡ºæ ¼å¼åŒ–
 	 */
 	private int fraction = 0;
 	
 	/**
-	 * ¸ñÊ½»¯Êä³öÊ±µÄÄ£°æ£¬Óë&lt;fmt:formatNumber/&gt;µÄpatternÊôĞÔ¶ÔÓ¦¡£
+	 * æ ¼å¼åŒ–è¾“å‡ºæ—¶çš„æ¨¡ç‰ˆï¼Œä¸&lt;fmt:formatNumber/&gt;çš„patternå±æ€§å¯¹åº”ã€‚
 	 */
 	private String pattern;
 	
