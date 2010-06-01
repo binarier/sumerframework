@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+  <bean abstract="true" class="com.huateng.sumer.runtime.web.meta.TextField" id="ibatorgenerated_tbl_adm_user__user_id" name="tbl_adm_user__user_id">
+    <property name="path" value="userId" />
+    <property name="label" value="User ID" />
+  </bean>
+  <bean abstract="true" class="com.huateng.sumer.runtime.web.meta.TextField" id="ibatorgenerated_tbl_adm_user__password" name="tbl_adm_user__password">
+    <property name="path" value="password" />
+    <property name="label" value="Password" />
+  </bean>
+  <bean abstract="true" class="com.huateng.sumer.runtime.web.meta.TextField" id="ibatorgenerated_tbl_adm_user__name" name="tbl_adm_user__name">
+    <property name="path" value="name" />
+    <property name="label" value="User Name" />
+  </bean>
+  <bean abstract="true" class="com.huateng.sumer.runtime.web.meta.DateField" id="ibatorgenerated_tbl_adm_user__expire" name="tbl_adm_user__expire">
+    <property name="path" value="expire" />
+    <property name="label" value="Expire Date" />
+  </bean>
+  <bean abstract="true" class="com.huateng.sumer.runtime.web.meta.TextField" id="ibatorgenerated_tbl_adm_user__enabled" name="tbl_adm_user__enabled">
+    <property name="path" value="enabled" />
+    <property name="label" value="Active" />
+  </bean>
+  <bean abstract="true" class="com.huateng.sumer.runtime.web.meta.TextField" id="ibatorgenerated_tbl_adm_user__organization" name="tbl_adm_user__organization">
+    <property name="path" value="organization" />
+    <property name="label" value="Organization" />
+  </bean>
+  <bean abstract="true" class="com.huateng.sumer.runtime.web.meta.TextField" id="ibatorgenerated_tbl_adm_user__group_id" name="tbl_adm_user__group_id">
+    <property name="path" value="groupId" />
+    <property name="label" value="Group ID" />
+  </bean>
+</beans>

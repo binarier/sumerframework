@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+  <bean abstract="true" class="com.huateng.sumer.runtime.web.meta.TextField" id="ibatorgenerated_tbl_adm_group__group_id" name="tbl_adm_group__group_id">
+    <property name="path" value="groupId" />
+    <property name="label" value="Group ID" />
+  </bean>
+  <bean abstract="true" class="com.huateng.sumer.runtime.web.meta.TextField" id="ibatorgenerated_tbl_adm_group__name" name="tbl_adm_group__name">
+    <property name="path" value="name" />
+    <property name="label" value="Group Name" />
+  </bean>
+</beans>

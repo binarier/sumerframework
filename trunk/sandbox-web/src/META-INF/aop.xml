@@ -1,0 +1,12 @@
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+	<weaver>
+		<!-- only weave classes in our application-specific packages -->
+		<include within="org.springframework.webflow.engine.*" />
+	</weaver>
+	<aspects>
+		<!-- weave in just this aspect -->
+		<include within="com.huateng.sumer.platform.Asp"/>
+		<aspect name="com.huateng.sumer.platform.Asp" />
+	</aspects>
+</aspectj>

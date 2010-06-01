@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<bean id="sumer_dashboard_shortcuts" class="org.springframework.beans.factory.config.ListFactoryBean">
+		<!-- 为了使用qualifier，所以使用原始方式定义list而不用util:list -->
+		<qualifier value="convention"/>
+		<property name="sourceList">
+			<list>
+				<bean p:name="google_01.jpg" p:url="abc" p:label="提醒1" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+				<bean p:name="google_02.jpg" p:url="abc" p:label="提醒2" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+				<bean p:name="google_03.jpg" p:url="abc" p:label="提醒3" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+				<bean p:name="google_04.jpg" p:url="abc" p:label="提醒4" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+				<bean p:name="google_05.jpg" p:url="abc" p:label="提醒5" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+				<bean p:name="google_06.jpg" p:url="abc" p:label="提醒6" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+				<bean p:name="google_07.jpg" p:url="abc" p:label="提醒7" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+			</list>
+		</property>
+	</bean>
+</beans>

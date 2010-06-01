@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<settings cacheModelsEnabled="true" enhancementEnabled="true"
+		lazyLoadingEnabled="true" maxRequests="128" maxSessions="50"
+		maxTransactions="50" useStatementNamespaces="true"
+		defaultStatementTimeout="10" statementCachingEnabled="true"
+		classInfoCacheEnabled="true"/>
+	<sqlMap resource="com/huateng/sumer/runtime/web/support/sqlmap-dummy.xml"/>
+</sqlMapConfig>
