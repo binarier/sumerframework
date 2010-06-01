@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<view-state id="start" view="simple-view" model="bo">
+		<var name="bo" class="com.huateng.sumer.runtime.web.support.SimpleBrowserObject"/>
+		<on-entry>
+			<evaluate result="bo.criteria" expression="new com.huateng.sumer.platform.db.model.TblAbcDef()"/>
+			<evaluate expression="conventionHelper.retrieveBrowseData"/>
+		</on-entry>
+		<transition on="continue">
+			<evaluate expression="service.do(model,asd)"/>
+		</transition>
+		<transition on="search">
+			<evaluate expression="validationHelper.validateForms"/>
+			<evaluate expression="conventionHelper.retrieveBrowseData"/>
+		</transition>
+		<transition on="page">
+			<evaluate expression="conventionHelper.retrieveBrowseData"/>
+		</transition>
+	</view-state>
+
+	<end-state id="end" view="sldkfj"/>
+</flow>

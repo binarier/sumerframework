@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean name="admin/group#browse#browse" class="com.huateng.sumer.runtime.service.general.DefaultIbatorBrowseService">
+		<property name="table" value="tbl_adm_group"/>
+		<property name="exampleClass" value="com.huateng.sumer.platform.db.model.TblAdmGroupExample"/>
+	</bean>
+</beans>

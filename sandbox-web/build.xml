@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="com.huateng.sumer.platform" xmlns:ivy="antlib:org.apache.ivy.ant" default="shell">
+	<property name="build.dir" location="${basedir}/build" />
+	<property name="classes.dir" location="${build.dir}/classes" />
+	<property name="report.dir" location="${build.dir}/report" />
+	<property name="dist.dir" location="${build.dir}/dist" />
+	<property name="src.dir" location="${basedir}/src" />
+	<property name="artifact" value="com.huateng.sumer.platform"/>
+
+	<target name="retrieve">
+		<ivy:retrieve conf="runtime"/>
+	</target>
+
+	<target name="compile">
+		<ivy:cachepath pathid="compile.classpath" conf="compile" />
+		<ivy:report todir="${report.dir}" />
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="compile.classpath" />
+	</target>
+
+    <target name="pack">
+		<mkdir dir="${dist.dir}" />
+    	<jar destfile="${dist.dir}/${artifact}.jar" >
+    		<fileset dir=".">
+    			<include name="src/**"/>
+    			<include name="webapp/**"/>
+    			<include name="ivy.xml"/>
+    			<include name="ivysettings.xml"/>
+    			<include name=".settings/*"/>
+    			<include name=".*"/>
+    			<exclude name="**/*.class"/>
+    			<exclude name="**/.svn"/>
+    		</fileset>
+    	</jar>
+    </target>
+
+	<target name="publish" depends="pack">
+		<ivy:info file="ivy.xml"/>
+		<ivy:retrieve conf="runtime"/>
+		<ivy:buildnumber organisation="${ivy.organisation}" module="${ivy.module}" revision="${ivy.revision}" branch="${ivy.branch}" resolver="projects"/>
+		<ivy:publish artifactspattern="${dist.dir}/[artifact].[ext]" resolver="projects" status="${ivy.status}" pubrevision="${ivy.new.revision}" overwrite="true" forcedeliver="true" />
+	</target>
+
+	<target name="clean">
+		<delete includeemptydirs="false">
+			<fileset dir="${basedir}/build" />
+		</delete>
+	</target>
+	<target name="shell">
+		<ivy:cachepath pathid="shell.classpath" conf="shell" />
+		<taskdef name="parse" classpathref="shell.classpath" classname="com.huateng.sumer.tools.shell.ant.CommandParser"/>
+		<input message="cmd" addproperty="command.line"/>
+		<parse property="cmd" commandLine="${command.line}"/>
+		<!-- 这里与命令脚本约定，使用"cmd"做为参数的前缀 -->
+		<property name="antfile" location="shell/${cmd.command}/build.xml"/>
+		<ant antfile="${antfile}" target="${cmd.action}"/>
+	</target>
+	
+	<target name="generate">
+		<ivy:cachepath pathid="generate.classpath" conf="generate" />
+		<mkdir dir="${src.dir}/META-INF"/>	<!-- 用来放sqlmap-config.xml文件 -->
+		<taskdef name="ibator" classname="org.apache.ibatis.ibator.ant.IbatorAntTask" classpathref="generate.classpath" />
+		<ibator overwrite="true" configfile="ibator-config.xml" verbose="true">
+			<propertyset>
+				<propertyref name="src.dir" />
+			</propertyset>
+		</ibator>
+	</target>
+</project>

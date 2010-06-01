@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<alias name="security/params#start#forms" alias="abc"/>
+	<bean id="sd" class="com.huateng.sumer.runtime.service.general.SimpleDictionary">
+		<property name="table">
+			<map>
+				<entry key="row1-002" value="第一项"/>
+				<entry key="2" value="第二项"/>
+				<entry key="3" value="第三项"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean name="security/params#start#forms" class="com.huateng.sumer.runtime.web.meta.FormDefinition">
+		<property name="layouts">
+			<list>
+				<bean class="com.huateng.sumer.runtime.web.meta.PanelLayout" p:caption="搜索" p:columns="4" p:columnRatios="1:3:1:3" p:nestedPath="criteria">
+					<property name="fields">
+						<list>
+							<bean class="com.huateng.sumer.runtime.web.meta.TextField" p:label="001" p:path="field001"/>
+							<bean class="com.huateng.sumer.runtime.web.meta.SelectField" p:label="002" p:path="field002">
+								<property name="options" ref="sd"/>
+							</bean>
+							<bean class="com.huateng.sumer.runtime.web.meta.ButtonField" p:label="search" p:event="search" p:colSpan="4"/>
+						</list>
+					</property>
+				</bean>
+				<bean class="com.huateng.sumer.runtime.web.meta.BrowserLayout" p:caption="浏览">
+					<property name="fields">
+						<list>
+							<bean class="com.huateng.sumer.runtime.web.meta.TextField" p:label="001" p:path="field001"/>
+							<bean class="com.huateng.sumer.runtime.web.meta.SelectField" p:label="002" p:path="field002" p:options-ref="sd"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>
