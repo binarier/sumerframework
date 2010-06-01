@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="com.huateng.sumer.platform">
+        <wb-resource deploy-path="/" source-path="/WebContent"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <property name="context-root" value="com.huateng.sumer.platform"/>
+        <property name="java-output-path" value="/com.huateng.sumer.platform/bin"/>
+    </wb-module>
+</project-modules>
