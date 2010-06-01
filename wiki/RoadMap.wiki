@@ -9,7 +9,11 @@
 
 ==Version 0.1==
 
+===主要目标===
 ||*模块*||*目标*||*备注*||
 ||~.runtime||核心运行库基本可用|| ||
 ||~.platform||可以做到打开即用，并且实现Shell的基础框架|| ||
 
+===具体列表===
+[http://code.google.com/p/sumerframework/issues/detail?id=2 Issue 2]
+[http://code.google.com/p/sumerframework/issues/detail?id=3 Issue 3]
