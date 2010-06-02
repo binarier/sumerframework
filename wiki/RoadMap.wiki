@@ -18,4 +18,4 @@
 ||~.runtime||核心运行库基本可用|| ||
 ||~.platform||可以做到打开即用，并且实现Shell的基础框架|| ||
 
- * 具体列表 [http://code.google.com/p/sumerframework/issues/list?can=1&q=label%3AVersion-0.1]
+ * 具体列表 [http://code.google.com/p/sumerframework/issues/list?can=1&q=label%3AVersion-0.2]
