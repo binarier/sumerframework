@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="sumer" xmlns:ivy="antlib:org.apache.ivy.ant" default="setup">
+	<target name="setup" description="初始化建立整个项目平台">
+		<input message="请输入项目模块名" defaultvalue="com.huateng.sumer.platform" addproperty="module.name"/>
+		<input message="请输入Sumer的版本号" defaultvalue="latest.integration" addproperty="sumer.version"/>
+		<input message="请输入项目使用的Ivy库" defaultvalue="d:/ivy_repos" addproperty="ivyrep"/>
+		<!-- 生成project-info.properties -->
+		<echo file="project-info.properties">
+#Global settings here
+module=${module.name}
+sumer=${sumer.version}
+repository.dir=${ivyrep}
+		</echo>
+		<!-- 生成安装过程及以后要用的ivysettings.xml -->
+		<echoxml file="ivysettings.xml">
+			<ivysettings>
+				<properties file="project-info.properties"/>
+				<resolvers>
+					<chain>
+						<filesystem name="projects">
+							<artifact pattern="${repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+							<ivy pattern="${repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+						</filesystem>
+						<url name="com.springsource.repository.bundles.release">
+							<ivy pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+							<artifact pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+						</url>
+						<url name="com.springsource.repository.bundles.external">
+							<ivy pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+							<artifact pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+						</url>
+						<ibiblio name="maven" m2compatible="true" usepoms="false"/>
+					</chain>
+				</resolvers>
+			</ivysettings>
+		</echoxml>
+		<!-- 生成仅用于安装过程的ivy.xml -->
+		<echoxml file="setup-ivy.xml">
+			<ivy-module version="2.0">
+				<info organisation="com.huateng.sumer" module="com.huateng.sumer.platform"/>
+				<dependencies>
+					<dependency org="com.huateng.sumer" name="com.huateng.sumer.platform" rev="${sumer.version}"/>
+				</dependencies>
+			</ivy-module>
+		</echoxml>
+		
+		<!-- 取回该版本  -->
+		<ivy:resolve organisation="com.huateng.sumer" module="com.huateng.sumer.platform" revision="${sumer.version}" inline="true" keep="true"/>
+		<ivy:retrieve pattern="[artifact].[ext]"/>
+		
+		<unjar src="com.huateng.sumer.platform.jar" dest="."/>
+	</target>
+							
+	<target name="clean">
+		<delete file="setup-ivy.xml"/>
+		<delete file="com.huateng.sumer.platform.jar"/>
+	</target>
+</project>

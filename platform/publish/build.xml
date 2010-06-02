@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="com.huateng.sumer.platform" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property name="dist.dir" location="dist" />
+	<property name="artifact" value="com.huateng.sumer.platform"/>
+
+    <target name="pack">
+		<mkdir dir="${dist.dir}" />
+    	<jar destfile="${dist.dir}/${artifact}.jar" >
+    		<fileset dir="..">
+    			<include name="src/**"/>
+    			<include name="WebContent/**"/>
+    			<include name="ivy.xml"/>
+    			<include name="ivysettings.xml"/>
+    			<include name=".settings/*"/>
+    			<include name=".*"/>
+    			<exclude name="**/*.class"/>
+    			<exclude name="**/.svn"/> 
+    		</fileset>
+    	</jar>
+    </target>
+
+	<target name="publish" depends="pack">
+		<ivy:info file="ivy.xml"/>
+		<ivy:resolve/>
+		<ivy:buildnumber organisation="${ivy.organisation}" module="${ivy.module}" revision="${ivy.revision}" branch="${ivy.branch}" resolver="projects"/>
+		<ivy:publish artifactspattern="${dist.dir}/[artifact].[ext]" resolver="projects" status="${ivy.status}" pubrevision="${ivy.new.revision}" overwrite="true" forcedeliver="true" />
+	</target>
+
+	<target name="clean">
+		<delete includeemptydirs="false">
+			<fileset dir="${dest.dir}" />
+		</delete>
+	</target>
+</project>
