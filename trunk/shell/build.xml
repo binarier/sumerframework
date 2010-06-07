@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="com.huateng.sumer.shell" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property name="build.dir" location="build" />
+	<property name="classes.dir" location="${build.dir}/classes" />
+	<property name="report.dir" location="${build.dir}/report" />
+	<property name="dist.dir" location="${build.dir}/dist" />
+	<property name="src.dir" location="${basedir}/src" />
+	<property name="artifact" value="com.huateng.sumer.shell"/>
+
+	<target name="compile">
+		<ivy:cachepath pathid="compile.classpath" conf="compile" />
+		<ivy:report todir="${report.dir}" />
+		<mkdir dir="${classes.dir}" />
+		<javac debug="true" srcdir="${src.dir}" destdir="${classes.dir}" classpathref="compile.classpath" encoding="utf-8"/>
+		<copy todir="${classes.dir}" overwrite="true">
+			<fileset dir="${src.dir}">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${dist.dir}" />
+		<jar destfile="${dist.dir}/${artifact}.jar">
+			<fileset dir="${classes.dir}" />
+		</jar>
+		<jar destfile="${dist.dir}/${artifact}-src.jar">
+			<fileset dir="${src.dir}">
+				<exclude name=".*" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="publish" depends="jar">
+		<ivy:info file="ivy.xml"/>
+		<ivy:buildnumber organisation="${ivy.organisation}" module="${ivy.module}" revision="${ivy.revision}" branch="${ivy.branch}" resolver="projects"/>
+		<ivy:publish artifactspattern="${dist.dir}/[artifact].[ext]" resolver="projects" status="${ivy.status}" pubrevision="${ivy.new.revision}" overwrite="true" forcedeliver="true" />
+	</target>
+
+	<target name="clean">
+		<delete includeemptydirs="false">
+			<fileset dir="${basedir}/build" />
+		</delete>
+	</target>
+	
+	<target name="test">
+		<ivy:cachepath pathid="runtime.classpath" conf="runtime" type="jar"/>
+		<taskdef name="parse" classname="com.huateng.sumer.shell.ant.CommandProcessor">
+			<classpath>
+				<pathelement location="bin"/>
+				<path refid="runtime.classpath"/>
+			</classpath>
+		</taskdef>
+		<parse/>
+	</target>
+
+</project>
