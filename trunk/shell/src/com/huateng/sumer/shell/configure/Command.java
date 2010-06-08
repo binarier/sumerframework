@@ -5,6 +5,8 @@ public class Command {
 	private String handler;
 	private boolean quit = false;
 	private String description = "";
+	private String ant;
+	private String target;
 
 	public String getName() {
 		return name;
@@ -36,5 +38,21 @@ public class Command {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getAnt() {
+		return ant;
+	}
+
+	public void setAnt(String ant) {
+		this.ant = ant;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
 	}
 }

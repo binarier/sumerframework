@@ -1,15 +1,21 @@
 package com.huateng.sumer.shell.ant;
 
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Properties;
 
 import jline.ConsoleReader;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.Ant;
@@ -64,17 +70,32 @@ public class CommandProcessor extends Task {
 					handler.handle(reader, params);
 				}
 				
+				if (StringUtils.isNotBlank(cmd.getAnt()))
+				{
+					File dir = new File(getProject().getBaseDir(), "shell");
+					String antFilename = WordUtils.capitalizeFully(cmd.getName()) + ".xml";
+					
+					FileUtils.forceMkdir(dir);
+					
+					//TODO 按参数来判断是否覆盖，开发时先默认覆盖
+					InputStream is = this.getClass().getResourceAsStream(cmd.getAnt());
+					OutputStream os = new FileOutputStream(antFilename);
+					IOUtils.copy(is, os);
+					IOUtils.closeQuietly(is);
+					IOUtils.closeQuietly(os);
+					
+					//执行调用
+					Ant ant = new Ant();
+					ant.setAntfile(antFilename);
+					ant.setTarget(cmd.getTarget());
+					ant.setProject(getProject());
+					
+					ant.execute();
+				}
+				
 				if (cmd.isQuit())
 					break;
 			}
-			
-			
-			Ant ant = new Ant();
-			ant.setAntfile("build.xml");
-			ant.setTarget("clean");
-			ant.setProject(getProject());
-			
-			ant.execute();
 		}
 		catch (Exception e)
 		{

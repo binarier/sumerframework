@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shell>
-	<command name="a" handler="com.huateng.sumer.shell.handler.Help"/>
 	<command name="help" handler="com.huateng.sumer.shell.handler.Help"/>
-	<command name="help me please thanks a lot" handler="com.huateng.sumer.shell.handler.Help"/>
 	<command name="quit" quit="true"/>
 	<command name="install" handler="com.huateng.sumer.shell.handler.Install" quit="true" description="安装Shell相关的模块依项，需要重启Shell生效"/>
-	<command name="ibator"/>
+	<command name="add dependency" description="添加项目依赖项">
+		<param name="org" description="依赖项的ORG参数"/>
+		<param name="name" description="依赖项的name参数"/> 
+		<param name="rev" description="依赖项的rev参数"/> 
+		<param name="conf" description="依赖项的conf参数"/> 
+	</command>
+	<command name="ibator config" description="同步数据库中的表和视图列表到ibator-config.xml中"
+		ant="com/huateng/sumer/shell/ant/ibator.xml" target="config">
+	</command>
 </shell>
