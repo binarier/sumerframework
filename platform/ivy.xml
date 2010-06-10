@@ -5,6 +5,7 @@
 	<configurations >
 		<conf name="runtime"/>
 		<conf name="compile" extends="runtime"/>
+		<conf name="shell"/>
 	</configurations>
 	<publications>
 		<artifact name="com.huateng.sumer.platform" type="war" ext="war"/>
@@ -13,14 +14,14 @@
 		<dependency org="com.huateng.sumer" name="com.huateng.sumer.runtime" rev="latest.integration" changing="true"/>
 		<dependency org="com.huateng.sumer" name="com.huateng.sumer.tools" rev="latest.integration" changing="true" conf="generate->ibator;shell -> shell"/>
 
-		<dependency org="org.springframework" name="org.springframework.beans" rev="3.0.2.RELEASE" />
-		<dependency org="org.springframework" name="org.springframework.context" rev="3.0.2.RELEASE" />
-		<dependency org="org.springframework" name="org.springframework.transaction" rev="3.0.2.RELEASE" />
-		<dependency org="org.springframework" name="org.springframework.web" rev="3.0.2.RELEASE" />
-		<dependency org="org.springframework" name="org.springframework.jdbc" rev="3.0.2.RELEASE" />
-		<dependency org="org.springframework" name="org.springframework.web.servlet" rev="3.0.2.RELEASE" />
-		<dependency org="org.springframework" name="org.springframework.aspects" rev="3.0.2.RELEASE" />
-		<dependency org="org.springframework" name="org.springframework.orm" rev="3.0.2.RELEASE" conf="runtime, compile -> runtime; generate -> ibatis"/>
+		<dependency org="org.springframework" name="org.springframework.beans" rev="${spring.version}" />
+		<dependency org="org.springframework" name="org.springframework.context" rev="${spring.version}" />
+		<dependency org="org.springframework" name="org.springframework.transaction" rev="${spring.version}" />
+		<dependency org="org.springframework" name="org.springframework.web" rev="${spring.version}" />
+		<dependency org="org.springframework" name="org.springframework.jdbc" rev="${spring.version}" />
+		<dependency org="org.springframework" name="org.springframework.web.servlet" rev="${spring.version}" />
+		<dependency org="org.springframework" name="org.springframework.aspects" rev="${spring.version}" />
+		<dependency org="org.springframework" name="org.springframework.orm" rev="${spring.version}" conf="runtime, compile -> runtime; generate -> ibatis"/>
 		<dependency org="org.apache.commons" name="com.springsource.org.apache.commons.lang" rev="2.4.0" />
 		<dependency org="org.apache.commons" name="com.springsource.org.apache.commons.dbcp" rev="1.2.2.osgi" />
 		<dependency org="org.apache.log4j" name="com.springsource.org.apache.log4j" rev="1.2.15" />

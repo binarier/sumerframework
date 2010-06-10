@@ -5,8 +5,7 @@
 		<input message="请输入Sumer的版本号" defaultvalue="latest.integration" addproperty="sumer.version"/>
 		<input message="请输入项目使用的Ivy库" defaultvalue="d:/ivy_repos" addproperty="ivyrep"/>
 		<!-- 生成project-info.properties -->
-		<echo file="project-info.properties">
-#Global settings here
+		<echo file="project-info.properties">#Global settings here
 module=${module.name}
 sumer=${sumer.version}
 repository.dir=${ivyrep}
@@ -21,15 +20,6 @@ repository.dir=${ivyrep}
 							<artifact pattern="${repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
 							<ivy pattern="${repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
 						</filesystem>
-						<url name="com.springsource.repository.bundles.release">
-							<ivy pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-							<artifact pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-						</url>
-						<url name="com.springsource.repository.bundles.external">
-							<ivy pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-							<artifact pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-						</url>
-						<ibiblio name="maven" m2compatible="true" usepoms="false"/>
 					</chain>
 				</resolvers>
 			</ivysettings>
