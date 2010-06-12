@@ -42,6 +42,10 @@ public class CommandLoader {
 			digester.addObjectCreate("shell/command", Command.class);
 			digester.addSetProperties("shell/command");
 			digester.addSetNext("shell/command", "add");
+
+			digester.addObjectCreate("shell/command/dependency", Dependency.class);
+			digester.addSetProperties("shell/command/dependency");
+			digester.addSetNext("shell/command/dependency", "addDependency");
 			
 			commands = new ArrayList<Command>();
 			

@@ -27,11 +27,9 @@ import com.huateng.sumer.shell.configure.CommandLoader;
 /**
  * 
  * <p>定义一种命令行格式，并且进行相应解析</p>
- * <p><b>[command] [action] param1=value1 param2=value2 ...</b></p>
- * <p>这个Task使用时，用property属性指定解析结果存放的位置，比如：</p>
+ * <p><b>&lt;command&gt; [options] ...</b></p>
  * <p>&lt;taskdef name="parse" classpathref="shell.classpath" classname="com.huateng.sumer.tools.shell.ant.CommandParser"/&gt;</p>
  * <p>&lt;parse property="cmd" commandLine="${xxx}"/&gt;</p>
- * <p>这样，${cmd.command}就是[command]，${cmd.action}为[action], 参数也同样加上cmd前缀。</p>
  * 
  * @author chenjun.li
  *
@@ -73,20 +71,22 @@ public class CommandProcessor extends Task {
 				if (StringUtils.isNotBlank(cmd.getAnt()))
 				{
 					File dir = new File(getProject().getBaseDir(), "shell");
-					String antFilename = WordUtils.capitalizeFully(cmd.getName()) + ".xml";
+					String antFilename = StringUtils.remove(WordUtils.capitalizeFully(cmd.getName()), ' ') + ".xml";
+					File antFile = new File(dir, antFilename);
 					
 					FileUtils.forceMkdir(dir);
 					
 					//TODO 按参数来判断是否覆盖，开发时先默认覆盖
-					InputStream is = this.getClass().getResourceAsStream(cmd.getAnt());
-					OutputStream os = new FileOutputStream(antFilename);
+					System.out.println(cmd.getAnt());
+					InputStream is = CommandProcessor.class.getClassLoader().getResourceAsStream(cmd.getAnt());
+					OutputStream os = new FileOutputStream(antFile);
 					IOUtils.copy(is, os);
 					IOUtils.closeQuietly(is);
 					IOUtils.closeQuietly(os);
 					
 					//执行调用
 					Ant ant = new Ant();
-					ant.setAntfile(antFilename);
+					ant.setAntfile(antFile.getAbsolutePath());
 					ant.setTarget(cmd.getTarget());
 					ant.setProject(getProject());
 					

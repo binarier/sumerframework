@@ -47,13 +47,13 @@
 		</delete>
 	</target>
 	<target name="shell">
-		<ivy:cachepath pathid="shell.classpath" conf="shell" />
-		<taskdef name="parse" classpathref="shell.classpath" classname="com.huateng.sumer.tools.shell.ant.CommandParser"/>
+		<ivy:cachepath pathid="shell.classpath" conf="shell" type="jar"/>
+		<taskdef name="process" classpathref="shell.classpath" classname="com.huateng.sumer.shell.ant.CommandProcessor"/>
 		<input message="cmd" addproperty="command.line"/>
-		<parse property="cmd" commandLine="${command.line}"/>
+		<process property="cmd" commandLine="${command.line}"/>
 		<!-- 这里与命令脚本约定，使用"cmd"做为参数的前缀 -->
-		<property name="antfile" location="shell/${cmd.command}/build.xml"/>
-		<ant antfile="${antfile}" target="${cmd.action}"/>
+<!--		<property name="antfile" location="shell/${cmd.command}/build.xml"/>
+		<ant antfile="${antfile}" target="${cmd.action}"/>-->
 	</target>
 	
 	<target name="generate">

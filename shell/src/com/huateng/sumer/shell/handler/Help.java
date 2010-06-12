@@ -13,7 +13,7 @@ import com.huateng.sumer.shell.configure.CommandLoader;
 public class Help implements Handler {
 
 	@Override
-	public void handle(ConsoleReader console, Properties params) {
+	public void handle(ConsoleReader console, Properties params) throws Exception{
 		try
 		{
 			for (Command cmd : CommandLoader.getCommands())

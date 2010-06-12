@@ -12,7 +12,8 @@
 	</publications>
 	<dependencies defaultconfmapping="runtime, compile -> runtime">
 		<dependency org="com.huateng.sumer" name="com.huateng.sumer.runtime" rev="latest.integration" changing="true"/>
-		<dependency org="com.huateng.sumer" name="com.huateng.sumer.tools" rev="latest.integration" changing="true" conf="generate->ibator;shell -> shell"/>
+		<dependency org="com.huateng.sumer" name="com.huateng.sumer.tools" rev="latest.integration" changing="true" conf="generate->ibator"/>
+		<dependency org="com.huateng.sumer" name="com.huateng.sumer.shell" rev="latest.integration" changing="true" conf="shell->runtime"/>
 
 		<dependency org="org.springframework" name="org.springframework.beans" rev="3.0.2.RELEASE" />
 		<dependency org="org.springframework" name="org.springframework.context" rev="3.0.2.RELEASE" />
