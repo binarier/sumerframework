@@ -1,26 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="sumer" xmlns:ivy="antlib:org.apache.ivy.ant" default="setup">
 	<target name="setup" description="初始化建立整个项目平台">
-		<input message="请输入项目模块名" defaultvalue="com.huateng.sumer.platform" addproperty="module.name"/>
-		<input message="请输入Sumer的版本号" defaultvalue="latest.integration" addproperty="sumer.version"/>
-		<input message="请输入项目使用的Ivy库" defaultvalue="d:/ivy_repos" addproperty="ivyrep"/>
+		<property name="sumer.version" value="latest.integration"/>
+		<input message="请输入项目模块名" defaultvalue="com.huateng.sumer.platform" addproperty="sumer.project.module"/>
+		<input message="请输入项目使用的Ivy库" defaultvalue="d:/ivy_repos" addproperty="sumer.repository.dir"/>
 		<!-- 生成project-info.properties -->
-		<echo file="project-info.properties">#Global settings here
-module=${module.name}
-sumer=${sumer.version}
-repository.dir=${ivyrep}
-		</echo>
+		<propertyfile file="project-info.properties" comment="Global settings here, used only in development or for shell.">
+			<entry key="sumer.project.module" value="${sumer.project.module}"/>
+			<entry key="sumer.version" value="${sumer.version}"/>
+			<entry key="sumer.repository.dir" value="${sumer.repository.dir}"/>
+			<entry key="sumer.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<entry key="sumer.jdbc.url" value="jdbc:mysql://localhost:3306/sumer?characterEncoding=gbk"/>
+			<entry key="sumer.jdbc.user" value="root"/>
+			<entry key="sumer.jdbc.password" value="mysql"/>
+		</propertyfile>
 		<!-- 生成安装过程及以后要用的ivysettings.xml -->
 		<echoxml file="ivysettings.xml">
 			<ivysettings>
 				<properties file="project-info.properties"/>
 				<resolvers>
-					<chain>
-						<filesystem name="projects">
-							<artifact pattern="${repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-							<ivy pattern="${repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-						</filesystem>
-					</chain>
+				    <chain returnFirst="true">
+				      <filesystem name="projects">
+				        <artifact pattern="${sumer.repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				        <ivy pattern="${sumer.repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				      </filesystem>
+				      <url name="com.springsource.repository.bundles.release">
+				        <ivy pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				        <artifact pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				      </url>
+				      <url name="com.springsource.repository.bundles.external">
+				        <ivy pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				        <artifact pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				      </url>
+				      <ibiblio m2compatible="true" name="maven" usepoms="false" />
+				    </chain>
 				</resolvers>
 			</ivysettings>
 		</echoxml>
@@ -39,6 +52,15 @@ repository.dir=${ivyrep}
 		<ivy:retrieve pattern="[artifact].[ext]"/>
 		
 		<unjar src="com.huateng.sumer.platform.jar" dest="."/>
+		
+		<delete file="com.huateng.sumer.platform.jar"/>
+		<delete file="setup-ivy.xml"/>
+
+		<echo>
+项目基础结构建立完成，下一步：
+1) 请修改project-info.properties文件，配置开发时使用的jdbc及相关属性，然后通过Shell运行ibator相关脚本。
+2) 运行 jdbc dependency 命令，配置数据库依赖项。
+		</echo>
 	</target>
 							
 	<target name="clean">

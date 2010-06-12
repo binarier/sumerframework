@@ -10,5 +10,5 @@ import jline.ConsoleReader;
  *
  */
 public interface Handler {
-	void handle(ConsoleReader console, Properties params);
+	void handle(ConsoleReader console, Properties params) throws Exception;
 }

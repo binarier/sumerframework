@@ -10,9 +10,10 @@
     			<include name="src/**"/>
     			<include name="WebContent/**"/>
     			<include name="ivy.xml"/>
-    			<include name="ivysettings.xml"/>
     			<include name=".settings/*"/>
     			<include name=".*"/>
+    			<include name="build.xml"/>
+    			<include name="ibator-config.xml"/>
     			<exclude name="**/*.class"/>
     			<exclude name="**/.svn"/> 
     		</fileset>

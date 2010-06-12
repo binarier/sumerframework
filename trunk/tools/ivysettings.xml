@@ -3,7 +3,7 @@
 	<!--	<settings defaultResolver="com.springsource.repository.bundles.release" />-->
 	<property name="repository.dir" value="d:/ivy_repos" />
 	<resolvers>
-		<chain>
+		<chain returnFirst="true">
 			<filesystem name="projects">
 				<artifact pattern="${repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
 				<ivy pattern="${repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />

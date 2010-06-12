@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="com.huateng.sumer.platform" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<target name="ivy">
+		<ivy:cachepath pathid="classpath" conf="shell" type="jar"/>
+		<taskdef name="dependency" classname="com.huateng.sumer.shell.ant.AddDependency" classpathref="classpath"/>
+		<dependency org="org.apache.ibatis" name="ibator" rev="1.2.1.681" conf="ibator->default"/>
+	</target>	
+
+	<target name="generate" depends="ivy">
+		<ivy:cachepath pathid="generate.classpath" conf="ibator" type="jar"/>
+		<mkdir dir="${src.dir}/META-INF"/>	<!-- 用来放sqlmap-config.xml文件 -->
+		<taskdef name="ibator" classname="org.apache.ibatis.ibator.ant.IbatorAntTask" classpathref="generate.classpath" />
+		<ibator overwrite="true" configfile="ibator-config.xml" verbose="true">
+			<propertyset>
+				<propertyref name="src.dir" />
+			</propertyset>
+		</ibator>
+	</target>
+</project>

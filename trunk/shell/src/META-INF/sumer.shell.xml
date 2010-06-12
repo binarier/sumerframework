@@ -9,7 +9,11 @@
 		<param name="rev" description="依赖项的rev参数"/> 
 		<param name="conf" description="依赖项的conf参数"/> 
 	</command>
-	<command name="ibator config" description="同步数据库中的表和视图列表到ibator-config.xml中"
-		ant="com/huateng/sumer/shell/ant/ibator.xml" target="config">
+	<command name="jdbc driver mysql" ant="com/huateng/sumer/shell/builtin/jdbcdriver.xml" target="mysql" description="添加mysql用的JDBC驱动"/>
+	<command name="ibator setup" handler="com.huateng.sumer.shell.ibator.Setup"/>
+	<command name="ibator config" handler="com.huateng.sumer.shell.ibator.Config">
+	</command>
+	<command name="ibator generate" description="同步数据库中的表和视图列表到ibator-config.xml中"
+		ant="com/huateng/sumer/shell/ibator/ibator.xml" target="generate">
 	</command>
 </shell>
