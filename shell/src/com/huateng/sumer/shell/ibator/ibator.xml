@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="com.huateng.sumer.platform" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="com.huateng.sumer.platform" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:sumer="antlib:com.huateng.sumer.shell.ant">
 	<target name="ivy">
-		<ivy:cachepath pathid="classpath" conf="shell" type="jar"/>
-		<taskdef name="dependency" classname="com.huateng.sumer.shell.ant.AddDependency" classpathref="classpath"/>
-		<dependency org="org.apache.ibatis" name="ibator" rev="1.2.1.681" conf="ibator->default"/>
+		<taskdef uri="antlib:com.huateng.sumer.shell.ant" classpathref="classpath"/>
+		<dependency org="org.apache.ibatis" name="ibator" rev="1.2.1.681"							conf="ibator -> default"/>
+		<dependency org="com.huateng.sumer" name="com.huateng.sumer.tools" rev="${sumer.version}"	conf="ibator -> ibator"/>
 	</target>	
 
 	<target name="generate" depends="ivy">
