@@ -18,7 +18,7 @@
 		<ivy:cachepath pathid="compile.classpath" conf="compile" />
 		<ivy:report todir="${report.dir}" />
 		<mkdir dir="${classes.dir}" />
-		<javac debug="true" srcdir="${src.dir}" destdir="${classes.dir}" classpathref="compile.classpath" />
+		<javac debug="true" srcdir="${src.dir}" destdir="${classes.dir}" classpathref="compile.classpath" encoding="utf-8"/>
 	</target>
 
 	<target name="jar" depends="compile">
