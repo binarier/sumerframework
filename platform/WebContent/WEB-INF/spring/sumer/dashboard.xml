@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<bean id="sumer_dashboard_shortcuts" class="org.springframework.beans.factory.config.ListFactoryBean">
+		<!-- 为了使用qualifier，所以使用原始方式定义list而不用util:list -->
+		<qualifier value="convention"/>
+		<property name="sourceList">
+			<list>
+				<bean p:name="sample_01.jpg" p:url="abc" p:label="样例1" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+				<bean p:name="sample_02.jpg" p:url="abc" p:label="样例2" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+				<bean p:name="sample_03.jpg" p:url="abc" p:label="样例3" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+				<bean p:name="sample_04.jpg" p:url="abc" p:label="样例4" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+				<bean p:name="sample_05.jpg" p:url="abc" p:label="样例5" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+				<bean p:name="sample_06.jpg" p:url="abc" p:label="样例6" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+				<bean p:name="sample_07.jpg" p:url="abc" p:label="样例7" class="com.huateng.sumer.runtime.web.meta.MenuDefinition"/>
+			</list>
+		</property>
+	</bean>
+</beans>

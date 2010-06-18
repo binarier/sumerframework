@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+/* browse-panel标签对应的样式 */
+
+.browse_layout table {
+	background: #EEEEEE;
+	margin: 2px 0 0 0;
+	border: 1px solid #BBBBBB;
+	border-collapse: collapse;
+	width:100%;
+}
+
+.browse_layout table {
+	margin: -5px 0;
+	border: 0px solid #e0e7d3;
+}
+
+.browse_layout table td,.browse_layout table th {
+	padding: 2px;
+	border: 1px solid #CCCCCC;
+}
+
+.browse_layout table td form {
+	text-align:center;
+	vertical-align: middle;
+	margin: 0px;
+}
+
+.browse_layout table th {
+	font-size: 0.75em;
+	text-align: left;
+	font-weight: bold;
+	color: #FFF;
+	background: #999;
+}
+
+.browse_layout table thead {
+	font-weight: bold;
+	font-style: italic;
+	background-color: #BBBBBB;
+}
+
+.browse_layout table a:link {color: #303030;}

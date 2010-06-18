@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<!-- 配置全局菜单树，包括导航栏和左侧菜单 -->
+	<!-- 
+		这里定下几个id约定：
+		sumer_navigator		:	List<MenuDefinition>型，系统导航栏菜单
+	-->
+	<bean id="sumer_navigator" class="org.springframework.beans.factory.config.ListFactoryBean">
+		<!-- 为了使用qualifier，所以使用原始方式定义list而不用util:list -->
+		<qualifier value="convention"/>
+		<property name="sourceList">
+			<list>
+				<bean class="com.huateng.sumer.runtime.web.meta.MenuDefinition">
+					<property name="label" value="测试模块"/>
+					<property name="submenus">
+						<list>
+							<bean class="com.huateng.sumer.runtime.web.meta.MenuDefinition" p:label="一级子菜单01" p:url="/spring/admin/user"/>
+							<bean class="com.huateng.sumer.runtime.web.meta.MenuDefinition" p:label="一级子菜单02" p:url="def"/>
+						</list>
+					</property>
+				</bean>
+				<bean class="com.huateng.sumer.runtime.web.meta.MenuDefinition">
+					<property name="label" value="系统管理"/>
+					<property name="submenus">
+						<list>
+							<bean class="com.huateng.sumer.runtime.web.meta.MenuDefinition" p:label="用户管理" p:url="abc"/>
+							<bean class="com.huateng.sumer.runtime.web.meta.MenuDefinition" p:label="权限管理" p:url="def"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

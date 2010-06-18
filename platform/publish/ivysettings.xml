@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivysettings>
-  <property name="repository.dir" value="d:/ivy_repos"/>
+ <properties file="../project-info.properties"/>
   <resolvers>
       <filesystem name="projects">
-        <artifact pattern="${repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
-        <ivy pattern="${repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+        <artifact pattern="${sumer.repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+        <ivy pattern="${sumer.repository.dir}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
       </filesystem>
   </resolvers>
 </ivysettings>
