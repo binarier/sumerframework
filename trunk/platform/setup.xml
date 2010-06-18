@@ -2,17 +2,20 @@
 <project name="sumer" xmlns:ivy="antlib:org.apache.ivy.ant" default="setup">
 	<target name="setup" description="初始化建立整个项目平台">
 		<property name="sumer.version" value="latest.integration"/>
-		<input message="请输入项目模块名" defaultvalue="com.huateng.sumer.platform" addproperty="sumer.project.module"/>
+		<input message="请输入项目模块名" defaultvalue="com.huateng.myproject" addproperty="project.module"/>
 		<input message="请输入项目使用的Ivy库" defaultvalue="d:/ivy_repos" addproperty="sumer.repository.dir"/>
 		<!-- 生成project-info.properties -->
 		<propertyfile file="project-info.properties" comment="Global settings here, used only in development or for shell.">
-			<entry key="sumer.project.module" value="${sumer.project.module}"/>
+			<entry key="project.module" value=""/>
+			<entry key="project.version" value="0.1.0"/>
 			<entry key="sumer.version" value="${sumer.version}"/>
 			<entry key="sumer.repository.dir" value="${sumer.repository.dir}"/>
 			<entry key="sumer.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<entry key="sumer.jdbc.url" value="jdbc:mysql://localhost:3306/sumer?characterEncoding=gbk"/>
 			<entry key="sumer.jdbc.user" value="root"/>
 			<entry key="sumer.jdbc.password" value="mysql"/>
+			<entry key="spring.version" value="3.0.2.RELEASE"/>
+			<entry key="spring.security.version" value="3.0.2.RELEASE"/>
 		</propertyfile>
 		<!-- 生成安装过程及以后要用的ivysettings.xml -->
 		<echoxml file="ivysettings.xml">
@@ -55,7 +58,22 @@
 		
 		<delete file="com.huateng.sumer.platform.jar"/>
 		<delete file="setup-ivy.xml"/>
+		
+		<!-- 替换模块名 -->
+		<replace file=".project" token="com.huateng.sumer.platform" value="${project.module}"/>
+		<replace file="WebContent/WEB-INF/web.xml" token="com.huateng.sumer.platform" value="${project.module}"/>
 
+		<!-- 生成WST配置 -->
+		<echoxml file=".settings/org.eclipse.wst.common.component">
+			<project-modules id="moduleCoreId" project-version="1.5.0">
+			    <wb-module deploy-name="${project.module}">
+			        <wb-resource deploy-path="/" source-path="/WebContent"/>
+			        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+			        <property name="context-root" value="${project.module}"/>
+			    </wb-module>
+			</project-modules>
+		</echoxml>
+		
 		<echo>
 项目基础结构建立完成，下一步：
 1) 请修改project-info.properties文件，配置开发时使用的jdbc及相关属性，然后通过Shell运行ibator相关脚本。

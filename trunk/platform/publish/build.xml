@@ -16,6 +16,7 @@
     			<include name="ibator-config.xml"/>
     			<exclude name="**/*.class"/>
     			<exclude name="**/.svn"/> 
+    			<exclude name=".settings/org.eclipse.wst.common.component"/>	<!-- setup时生成 -->
     		</fileset>
     	</jar>
     </target>
