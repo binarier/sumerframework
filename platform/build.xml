@@ -7,8 +7,8 @@
 	<property name="src.dir" location="${basedir}/src" />
 
 	<target name="shell">
-		<ivy:cachepath pathid="runtime.classpath" conf="shell" type="jar"/>
-		<taskdef name="shell" classname="com.huateng.sumer.shell.ant.CommandProcessor" classpathref="runtime.classpath"/>
+		<ivy:cachepath pathid="shell.classpath" conf="shell" type="jar"/>
+		<taskdef name="shell" classname="com.huateng.sumer.shell.ant.CommandProcessor" classpathref="shell.classpath"/>
 		<shell/>
 	</target>
 
