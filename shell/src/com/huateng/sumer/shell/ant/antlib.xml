@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <antlib xmlns:current="ant:current">
 	<taskdef name="dependency" classname="com.huateng.sumer.shell.ant.AddDependency"/>
+	<taskdef name="conf" classname="com.huateng.sumer.shell.ant.AddConf"/>
 </antlib>

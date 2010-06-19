@@ -2,9 +2,10 @@
 <ivy-module version="2.0">
 	<info organisation="com.huateng.sumer" module="${project.module}" revision="${project.version}"/>
 	<configurations >
-		<conf name="runtime"/>
-		<conf name="compile" extends="runtime"/>
-		<conf name="shell"/>
+		<conf name="jdbc"/>
+		<conf name="runtime" extends="jdbc"/>
+		<conf name="compile" extends="jdbc"/>
+		<conf name="shell" extends="jdbc"/>
 	</configurations>
 	<publications>
 		<artifact name="${project.module}" type="war" ext="war"/>
@@ -34,6 +35,7 @@
 		<dependency conf="compile, runtime -> runtime" org="org.slf4j" name="com.springsource.slf4j.log4j" rev="1.5.10" />
 		<dependency conf="compile, runtime -> runtime" org="org.springframework.webflow" name="org.springframework.webflow" rev="2.1.0.M1"/>
 		<dependency conf="compile, runtime -> runtime" org="org.dojotoolkit" name="com.huateng.org.dojotoolkit.dojo" rev="1.4.2"/>
+		<dependency conf="compile, runtime -> runtime" org="javax.servlet" name="com.springsource.javax.servlet.jsp.jstl" rev="1.2.0" />
 
 		<dependency conf="compile -> runtime" org="javax.servlet" name="com.springsource.javax.servlet.jsp.jstl" rev="1.2.0" />
 

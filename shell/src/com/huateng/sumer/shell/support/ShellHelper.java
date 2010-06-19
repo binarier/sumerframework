@@ -24,58 +24,6 @@ import org.dom4j.util.NodeComparator;
  */
 public class ShellHelper {
 
-	/**
-	 * 出于简化设计考虑，可以规定所有的dependency项的conf都只配置一个conf对应，
-	 * 以便于查找重复，也提高ivy.xml的可读性。
-	 * @param org
-	 * @param name
-	 * @param rev
-	 * @param conf
-	 */
-	public static void addDependency(String org, String name,String rev, String conf)
-	{
-		try
-		{
-			boolean modified = false;
-			File ivyFile = new File("ivy.xml");
-			SAXReader reader = new SAXReader();
-			Document ivy = reader.read(ivyFile);
-			//除去可能存在于conf中的"->"
-			String parts [] = StringUtils.split(conf, "-");
-			String pureConf = StringUtils.trim(parts[0]);
-			
-			//先确认conf存在
-			if (ivy.selectSingleNode("/ivy-module/configurations/conf[@name='"+pureConf+"']") == null)
-			{
-				Element confs = (Element)ivy.selectSingleNode("/ivy-module/configurations");
-				confs.addElement("conf").addAttribute("name", pureConf);
-				modified = true;
-			}
-			
-			//再查找是否已经存在配置
-			if (ivy.selectSingleNode("/ivy-module/dependencies/dependency[@org='"+org+"'" +
-					" and @name='"+name+"'" +
-					" and starts-with(@conf, '"+pureConf+"')]") == null)
-			{
-				Element dependencies = (Element)ivy.selectSingleNode("/ivy-module/dependencies");
-				dependencies.addElement("dependency")
-					.addAttribute("conf", conf)
-					.addAttribute("org", org)
-					.addAttribute("name", name)
-					.addAttribute("rev", rev);
-				modified = true;
-			}
-			
-			if (modified)
-				writeDocument(ivy, ivyFile);
-		}
-		catch (Exception e)
-		{
-			throw new IllegalArgumentException(e);
-		}
-		
-	}
-	
 	public static Properties getProjectInfo()
 	{
 		try
@@ -129,6 +77,8 @@ public class ShellHelper {
 	public static void writeDocument(Document doc, File file) throws IOException
 	{
 		FileOutputStream fos = new FileOutputStream(file);
+		OutputFormat of = OutputFormat.createPrettyPrint();
+		of.setIndent("	");
 		XMLWriter xw = new XMLWriter(fos, OutputFormat.createPrettyPrint());
 		xw.write(doc);
 		IOUtils.closeQuietly(fos);

@@ -3,7 +3,7 @@
 	<target name="mysql">
 		<ivy:cachepath pathid="classpath" conf="shell" type="jar"/>
 		<taskdef uri="antlib:com.huateng.sumer.shell.ant" classpathref="classpath"/>
-		<sumer:dependency org="com.mysql.jdbc" name="com.springsource.com.mysql.jdbc" rev="5.1.6" conf="compile, runtime -> runtime"/>
-		<sumer:dependency org="com.mysql.jdbc" name="com.springsource.com.mysql.jdbc" rev="5.1.6" conf="shell -> runtime"/>
+		<sumer:conf name="jdbc"/>
+		<sumer:dependency org="com.mysql.jdbc" name="com.springsource.com.mysql.jdbc" rev="5.1.6" conf="jdbc -> runtime"/>
 	</target>
 </project>
