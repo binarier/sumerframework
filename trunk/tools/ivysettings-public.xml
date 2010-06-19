@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ivysettings>
+	<!-- 在使用这个文件发布前，需要建立ivysettings-public.properties文件，
+	用于指定各项用户名和密码。出于安全考虑，SVN库中不保留该文件，需要发布的客户端请自建 -->
 	<properties file="ivysettings-public.properties"/>
 	<typedef name="svn" classname="fm.last.ivy.plugins.svnresolver.SvnResolver"/> 
 	<resolvers>
