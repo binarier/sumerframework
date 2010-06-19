@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ivysettings>
+	<properties file="ivysettings-public.properties"/>
+	<typedef name="svn" classname="fm.last.ivy.plugins.svnresolver.SvnResolver"/> 
+	<resolvers>
+		<svn name="googlecode" repositoryRoot="https://sumerframework.googlecode.com/svn/ivyrep"
+				userName="${googlecode.user}" userPassword="${googlecode.password}" binaryDiff="false">
+			<ivy pattern="[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+			<artifact pattern="[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+		</svn>
+		<svn name="assembla" repositoryRoot="https://subversion.assembla.com/svn/sumer/ivyrep"
+				userName="${assembla.user}" userPassword="${assembla.password}" binaryDiff="false">
+			<ivy pattern="[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+			<artifact pattern="[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+		</svn> 
+	</resolvers>
+</ivysettings>
