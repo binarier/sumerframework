@@ -3,10 +3,10 @@ package com.huateng.sumer.shell.ant;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
-import com.huateng.sumer.shell.support.ShellHelper;
+import com.huateng.sumer.shell.support.IvyHelper;
 
 /**
- * 添加Ivy依赖项，对 {@link ShellHelper}的addDependency做简单包装
+ * 添加Ivy依赖项，对 {@link IvyHelper}的addDependency做简单包装
  * @author chenjun.li
  *
  */
@@ -19,7 +19,14 @@ public class AddDependency extends Task {
 	
 	@Override
 	public void execute() throws BuildException {
-		ShellHelper.addDependency(org, name, rev, conf);
+		try
+		{
+			IvyHelper.addDependency(org, name, rev, conf);
+		}
+		catch(Exception e)
+		{
+			throw new BuildException(e);
+		}
 	}
 
 	public String getOrg() {
@@ -53,5 +60,4 @@ public class AddDependency extends Task {
 	public void setRev(String rev) {
 		this.rev = rev;
 	}
-
 }

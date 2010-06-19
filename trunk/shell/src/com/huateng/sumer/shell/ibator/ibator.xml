@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="com.huateng.sumer.platform" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:sumer="antlib:com.huateng.sumer.shell.ant">
+<project name="com.huateng.sumer.shell" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:sumer="antlib:com.huateng.sumer.shell.ant">
 	<target name="ivy">
-		<taskdef uri="antlib:com.huateng.sumer.shell.ant" classpathref="classpath"/>
-		<dependency org="org.apache.ibatis" name="ibator" rev="1.2.1.681"							conf="ibator -> default"/>
-		<dependency org="com.huateng.sumer" name="com.huateng.sumer.tools" rev="${sumer.version}"	conf="ibator -> ibator"/>
+		<ivy:cachepath pathid="shell.classpath" conf="shell" type="jar"/>
+		<taskdef uri="antlib:com.huateng.sumer.shell.ant" classpathref="shell.classpath"/>
+		<sumer:conf name="ibator" extend="jdbc"/>
+		<sumer:dependency conf="ibator -> default" org="org.apache.ibatis" name="ibator" rev="1.2.1.681"/>
+		<sumer:dependency conf="ibator -> ibator"  org="com.huateng.sumer" name="com.huateng.sumer.tools" rev="$${sumer.version}"/>
 	</target>	
 
 	<target name="generate" depends="ivy">
 		<ivy:cachepath pathid="generate.classpath" conf="ibator" type="jar"/>
 		<mkdir dir="${src.dir}/META-INF"/>	<!-- 用来放sqlmap-config.xml文件 -->
-		<taskdef name="ibator" classname="org.apache.ibatis.ibator.ant.IbatorAntTask" classpathref="generate.classpath" />
+		<taskdef name="ibator" classname="org.apache.ibatis.ibator.ant.IbatorAntTask">
+			<classpath>
+				<pathelement location="."/>		<!-- 这是为了能用resource="project-info.properties"定位文件而加上的，因为ibator-config太土，不支持file://的相对路径 -->
+				<path refid="generate.classpath"/>
+			</classpath>
+		</taskdef>
 		<ibator overwrite="true" configfile="ibator-config.xml" verbose="true">
 			<propertyset>
 				<propertyref name="src.dir" />
 			</propertyset>
 		</ibator>
+	</target>
+	
+	<target name="config" depends="ivy">
+		<ivy:cachepath pathid="config.classpath" conf="shell" type="jar"/>
+		<mkdir dir="${src.dir}/META-INF"/>	<!-- 用来放sqlmap-config.xml文件 -->
+		<taskdef name="config" classname="com.huateng.sumer.shell.ibator.ConfigTask" classpathref="config.classpath"/>
+		<config driver="${sumer.jdbc.driver}" url="${sumer.jdbc.url}" user="${sumer.jdbc.user}" password="${sumer.jdbc.password}"/>
 	</target>
 </project>

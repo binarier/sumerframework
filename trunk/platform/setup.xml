@@ -3,11 +3,12 @@
 	<target name="setup" description="初始化建立整个项目平台">
 		<property name="sumer.version" value="latest.integration"/>
 		<input message="请输入项目模块名" defaultvalue="com.huateng.myproject" addproperty="project.module"/>
+		<input message="请输入项目初始版本" defaultvalue="0.1.0" addproperty="project.version"/>
 		<input message="请输入项目使用的Ivy库" defaultvalue="d:/ivy_repos" addproperty="sumer.repository.dir"/>
 		<!-- 生成project-info.properties -->
 		<propertyfile file="project-info.properties" comment="Global settings here, used only in development or for shell.">
-			<entry key="project.module" value=""/>
-			<entry key="project.version" value="0.1.0"/>
+			<entry key="project.module" value="${project.module}"/>
+			<entry key="project.version" value="${project.version}"/>
 			<entry key="sumer.version" value="${sumer.version}"/>
 			<entry key="sumer.repository.dir" value="${sumer.repository.dir}"/>
 			<entry key="sumer.jdbc.driver" value="com.mysql.jdbc.Driver"/>
