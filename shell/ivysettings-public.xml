@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ivysettings>
+	<!-- 在使用这个文件发布前，需要建立ivysettings-public.properties文件，
+	用于指定各项用户名和密码。出于安全考虑，SVN库中不保留该文件，需要发布的客户端请自建 -->
+	<properties file="ivysettings-public.properties"/>
+	<typedef name="svn" classname="fm.last.ivy.plugins.svnresolver.SvnResolver"/> 
+	<resolvers>
+		<svn name="googlecode" repositoryRoot="https://sumerframework.googlecode.com/svn/ivyrep"
+				userName="${googlecode.user}" userPassword="${googlecode.password}" binaryDiff="false">
+			<ivy pattern="[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+			<artifact pattern="[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+		</svn>
+		<svn name="assembla" repositoryRoot="https://subversion.assembla.com/svn/sumer/ivyrep"
+				userName="${assembla.user}" userPassword="${assembla.password}" binaryDiff="false">
+			<ivy pattern="[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+			<artifact pattern="[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+		</svn> 
+	</resolvers>
+</ivysettings>
