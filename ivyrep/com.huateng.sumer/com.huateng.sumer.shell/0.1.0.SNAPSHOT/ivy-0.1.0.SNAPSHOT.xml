@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ivy-module version="2.0"> 
+  <info organisation="com.huateng.sumer" module="com.huateng.sumer.shell" revision="0.1.0.SNAPSHOT" status="integration" publication="20100620143549"/>  
+  <configurations> 
+    <conf name="runtime"/>  
+    <conf name="compile"/>  
+  </configurations>  
+  <publications> 
+    <artifact name="com.huateng.sumer.shell" type="jar" ext="jar"/>  
+    <artifact name="com.huateng.sumer.shell-src" type="src" ext="jar"/> 
+  </publications>  
+  <dependencies> 
+    <dependency org="net.sourceforge.jline" name="com.springsource.jline" rev="0.9.94" conf="compile, runtime -> runtime"/>  
+    <dependency org="org.apache.commons" name="com.springsource.org.apache.commons.lang" rev="2.4.0" conf="compile, runtime -> runtime"/>  
+    <dependency org="org.apache.commons" name="com.springsource.org.apache.commons.digester" rev="1.8.1" conf="compile, runtime -> runtime"/>  
+    <dependency org="org.apache.commons" name="com.springsource.org.apache.commons.io" rev="1.4.0" conf="compile, runtime -> runtime"/>  
+    <dependency org="org.apache.ant" name="com.springsource.org.apache.tools.ant.nodep" rev="1.7.1" conf="compile -> runtime"/>  
+    <dependency org="org.dom4j" name="com.springsource.org.dom4j" rev="1.6.1" conf="compile -> runtime; runtime->optional"/>
+  </dependencies> 
+</ivy-module>
