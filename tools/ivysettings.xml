@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--  标准版Sumer项目的ivysettings.xml，优先查找本地目录，然后查找googlecode上的SVN形式的库 -->
 <ivysettings>
 	<properties file="project-info.properties"/>
 	<resolvers>
