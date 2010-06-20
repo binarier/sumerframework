@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="com.huateng.sumer.platform" xmlns:ivy="antlib:org.apache.ivy.ant">
-	<property file="../project-info.properties"/>
+	<property file="project-info.properties"/>
 	<property name="dist.dir" location="dist" />
 
     <target name="pack">
