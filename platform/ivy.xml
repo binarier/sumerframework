@@ -7,9 +7,6 @@
 		<conf name="compile" extends="jdbc"/>
 		<conf name="shell" extends="jdbc"/>
 	</configurations>
-	<publications>
-		<artifact name="${project.module}" type="war" ext="war"/>
-	</publications>
 	<dependencies>
 		<dependency conf="runtime, compile -> runtime" org="com.huateng.sumer" name="com.huateng.sumer.runtime" rev="${sumer.version}" />
 		<dependency conf="compile, runtime -> runtime" org="org.springframework" name="org.springframework.beans" rev="${spring.version}" />
