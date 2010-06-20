@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="2.0">
-	<info organisation="com.huateng.sumer" module="com.huateng.sumer.tools" revision="0.1.0.SNAPSHOT" status="integration" publication="20100620135433"/>
+	<info organisation="com.huateng.sumer" module="com.huateng.sumer.tools" revision="0.1.0.SNAPSHOT" status="integration" publication="20100620144516"/>
 	<configurations>
 		<conf name="runtime"/>
 		<conf name="compile"/>
