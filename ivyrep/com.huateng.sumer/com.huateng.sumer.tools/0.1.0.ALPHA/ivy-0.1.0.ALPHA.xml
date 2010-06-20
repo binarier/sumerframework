@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0">
+	<info organisation="com.huateng.sumer" module="com.huateng.sumer.tools" revision="0.1.0.ALPHA" status="integration" publication="20100620134129"/>
+	<configurations>
+		<conf name="runtime"/>
+		<conf name="compile"/>
+		<conf name="ibator" extends="runtime"/>
+	</configurations>
+	<publications>
+		<artifact name="com.huateng.sumer.tools" type="jar" ext="jar"/>
+		<artifact name="com.huateng.sumer.tools-src" type="src" ext="jar"/>
+	</publications>
+	<dependencies>
+		<dependency org="org.apache.commons" name="com.springsource.org.apache.commons.lang" rev="2.4.0" conf="* -> runtime"/>
+		<dependency org="org.dom4j" name="com.springsource.org.dom4j" rev="1.6.1" conf="compile -> runtime; ibator -> optional"/>
+		<dependency org="org.apache.ibatis" name="ibator" rev="1.2.1.681" conf="compile, ibator -> default"/>
+	</dependencies>
+</ivy-module>
