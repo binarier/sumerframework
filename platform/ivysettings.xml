@@ -3,7 +3,7 @@
 <ivysettings>
 	<properties file="project-info.properties"/>
 	<resolvers>
-		<chain name="default" returnFirst="true">
+		<chain returnFirst="true">
 			<filesystem name="local">
 				<artifact pattern="${sumer.local.repository}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
 				<ivy pattern="${sumer.local.repository}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
