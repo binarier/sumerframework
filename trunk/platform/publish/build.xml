@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="com.huateng.sumer.platform" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<property file="../project-info.properties"/>
 	<property name="dist.dir" location="dist" />
-	<property name="artifact" value="com.huateng.sumer.platform"/>
 
     <target name="pack">
 		<mkdir dir="${dist.dir}" />
-    	<jar destfile="${dist.dir}/${artifact}.jar" >
+    	<jar destfile="${dist.dir}/${sumer.module.name}.jar" >
     		<fileset dir="..">
     			<include name="src/**"/>
     			<include name="WebContent/**"/>
@@ -24,13 +24,20 @@
 	<target name="publish" depends="pack">
 		<ivy:info file="ivy.xml"/>
 		<ivy:resolve/>
-		<ivy:buildnumber organisation="${ivy.organisation}" module="${ivy.module}" revision="${ivy.revision}" branch="${ivy.branch}" resolver="projects"/>
-		<ivy:publish artifactspattern="${dist.dir}/[artifact].[ext]" resolver="projects" status="${ivy.status}" pubrevision="${ivy.new.revision}" overwrite="true" forcedeliver="true" />
+		<ivy:buildnumber organisation="${ivy.organisation}" module="${ivy.module}" revision="${ivy.revision}" branch="${ivy.branch}" resolver="local"/>
+		<ivy:publish artifactspattern="${dist.dir}/[artifact].[ext]" resolver="local" status="${ivy.status}" pubrevision="${ivy.new.revision}" overwrite="true" forcedeliver="true" />
+	</target>
+
+	<target name="publish-public" depends="pack">
+		<ivy:settings file="ivysettings-public.xml" id="ivy.public.settings"/>
+		<ivy:info file="ivy.xml" settingsRef="ivy.public.settings"/>
+		<input message="发布状态(${ivy.revision}.x)" defaultvalue="SNAPSHOT" addproperty="status"/> 
+		<ivy:publish resolver="googlecode" settingsRef="ivy.public.settings" artifactspattern="${dist.dir}/[artifact].[ext]" status="${ivy.status}" pubrevision="${ivy.revision}.${status}" forceDeliver="true" overwrite="true"/>
 	</target>
 
 	<target name="clean">
 		<delete includeemptydirs="false">
-			<fileset dir="${dest.dir}" />
+			<fileset dir="${dist.dir}" />
 		</delete>
 	</target>
 </project>

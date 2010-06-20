@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ivy-module version="2.0">
-	<info organisation="com.huateng.sumer" module="${project.module}" revision="${project.version}"/>
+	<info organisation="com.huateng.sumer" module="${sumer.module.name}" revision="${sumer.module.version}"/>
 	<publications>
-		<artifact name="com.huateng.sumer.platform" type="jar" ext="jar"/>
+		<artifact name="${sumer.module.name}" type="jar" ext="jar"/>
 	</publications>
 </ivy-module>

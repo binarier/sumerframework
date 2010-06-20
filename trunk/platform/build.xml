@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="com.huateng.sumer.shell" xmlns:ivy="antlib:org.apache.ivy.ant" default="shell">
+	<property file="project-info.properties"/>
 	<property name="build.dir" location="build" />
 	<property name="classes.dir" location="${build.dir}/classes" />
 	<property name="report.dir" location="${build.dir}/report" />
