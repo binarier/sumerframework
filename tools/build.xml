@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="sumerframework" xmlns:ivy="antlib:org.apache.ivy.ant">
+	<!-- Sumer模版标准build文件 -->
 	<property name="build.dir" location="${basedir}/build" />
 	<property name="classes.dir" location="${build.dir}/classes" />
 	<property name="report.dir" location="${build.dir}/report" />
@@ -48,5 +49,7 @@
 			<fileset dir="${basedir}/build" />
 		</delete>
 	</target>
+	
+	<!-- 以下供各模块扩展 -->
 
 </project>
