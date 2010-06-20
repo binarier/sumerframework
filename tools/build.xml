@@ -39,7 +39,7 @@
 	<target name="publish-public" depends="jar">
 		<ivy:settings file="ivysettings-public.xml" id="ivy.public.settings"/>
 		<ivy:info file="ivy.xml" settingsRef="ivy.public.settings"/>
-		<ivy:publish resolver="assembla" settingsRef="ivy.public.settings" artifactspattern="${dist.dir}/[artifact].[ext]" status="${ivy.status}" pubrevision="${ivy.revision}" forceDeliver="true"/>
+		<ivy:publish resolver="googlecode" settingsRef="ivy.public.settings" artifactspattern="${dist.dir}/[artifact].[ext]" status="${ivy.status}" pubrevision="${ivy.revision}.SNAPSHOT" forceDeliver="true"/>
 	</target>
 
 	<target name="clean">
