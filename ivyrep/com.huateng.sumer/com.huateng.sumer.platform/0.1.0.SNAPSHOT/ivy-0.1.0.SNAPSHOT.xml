@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="2.0">
-	<info organisation="com.huateng.sumer" module="com.huateng.sumer.platform" revision="0.1.0.SNAPSHOT" status="integration" publication="20100620164326"/>
+	<info organisation="com.huateng.sumer" module="com.huateng.sumer.platform" revision="0.1.0.SNAPSHOT" status="integration" publication="20100621132752"/>
 	<configurations>
 		<conf name="jdbc"/>
 		<conf name="runtime" extends="jdbc"/>
