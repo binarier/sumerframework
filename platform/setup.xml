@@ -2,10 +2,10 @@
 <project name="sumer" xmlns:ivy="antlib:org.apache.ivy.ant" default="setup">
 	<target name="setup" description="初始化建立整个项目平台">
 		<property name="sumer.version" value="latest.integration"/>
-		<input message="请输入项目组织名(org)" defaultvalue="com.huateng.myproject" addproperty="project.module"/>
+		<input message="请输入项目组织名(org)" defaultvalue="com.huateng.myproject" addproperty="project.org"/>
 		<input message="请输入项目模块名(module)" defaultvalue="com.huateng.myproject.module" addproperty="project.module"/>
 		<input message="请输入项目初始版本" defaultvalue="0.1.0" addproperty="project.version"/>
-		<input message="请输入项目使用的Ivy库" defaultvalue="d:/ivy_repos" addproperty="sumer.local.repository"/>
+		<input message="请输入项目使用的本地Ivy库" defaultvalue="d:/ivy_repos" addproperty="sumer.local.repository"/>
 		<!-- 生成project-info.properties -->
 		<propertyfile file="project-info.properties" comment="Global settings here, used only in development or for shell.">
 			<entry key="project.org" value="${project.org}"/>
@@ -24,6 +24,7 @@
 		<echoxml file="ivysettings.xml">
 			<ivysettings>
 				<properties file="project-info.properties"/>
+				<settings defaultResolver="default"/>
 				<resolvers>
 					<chain name="default" returnFirst="true">
 						<filesystem name="local">

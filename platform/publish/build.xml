@@ -31,6 +31,7 @@
 	<target name="publish-public" depends="pack">
 		<ivy:settings file="ivysettings-public.xml" id="ivy.public.settings"/>
 		<ivy:info file="ivy.xml" settingsRef="ivy.public.settings"/>
+		<ivy:resolve settingsRef="ivy.public.settings"/>
 		<input message="发布状态(${ivy.revision}.x)" defaultvalue="SNAPSHOT" addproperty="status"/> 
 		<ivy:publish resolver="googlecode" settingsRef="ivy.public.settings" artifactspattern="${dist.dir}/[artifact].[ext]" status="${ivy.status}" pubrevision="${ivy.revision}.${status}" forceDeliver="true" overwrite="true"/>
 	</target>
