@@ -19,7 +19,6 @@ public class PathCollectionBrowseService<T> implements BrowseService<T> {
 
 	private String path;
 	
-	@Override
 	public List<T> browse(Object context, Pagination pagination) {
 		List<T> data = null;
 		

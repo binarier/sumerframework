@@ -16,7 +16,6 @@ public class StaticCollectionBrowseService<T> implements BrowseService<T> {
 
 	private List<T> data;
 	
-	@Override
 	public List<T> browse(Object context, Pagination pagination) {
 		if (data != null)
 		{
