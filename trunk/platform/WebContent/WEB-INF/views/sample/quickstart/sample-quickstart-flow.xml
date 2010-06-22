@@ -12,8 +12,10 @@
 		<var name="info" class="com.huateng.platform.web.model.sample.quickstart.EditorInfo"/>
 		<transition on="submit">
 			<evaluate expression="validationHelper.validateForms"/>
-		</transition>		
-		<transition on="next"/>
+		</transition>
+		<transition on="next">
+			<evaluate expression="info.a()"/>
+		</transition>
 		<transition on="previous"/>
 	</view-state>
 	
