@@ -1,11 +1,10 @@
 <!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
 <aspectj>
+	<!-- 对Webflow的org.springframework.webflow.engine.Transition类略作处理，详见 com.huateng.sumer.runtime.web.webflow.EnginePatch的JavaDoc-->
 	<weaver>
-		<!-- only weave classes in our application-specific packages -->
 		<include within="org.springframework.webflow.engine.*" />
 	</weaver>
 	<aspects>
-		<!-- weave in just this aspect -->
 		<include within="com.huateng.sumer.runtime.web.webflow.EnginePatch"/>
 		<aspect name="com.huateng.sumer.runtime.web.webflow.EnginePatch" />
 	</aspects>
