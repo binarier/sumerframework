@@ -34,7 +34,7 @@
 	<target name="publish" depends="jar">
 		<ivy:info file="ivy.xml"/>
 		<ivy:buildnumber organisation="${ivy.organisation}" module="${ivy.module}" revision="${ivy.revision}" branch="${ivy.branch}" resolver="local"/>
-		<ivy:publish artifactspattern="${dist.dir}/[artifact].[ext]" resolver="local" status="${ivy.status}" pubrevision="${ivy.new.revision}"/>
+		<ivy:publish artifactspattern="${dist.dir}/[artifact].[ext]" resolver="local" status="${ivy.status}" pubrevision="${ivy.new.revision}" forceDeliver="true"/>
 	</target>
 
 	<target name="publish-public" depends="jar">
