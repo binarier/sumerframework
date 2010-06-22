@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+        http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<view-state id="welcome" view="simple-view">
+		<transition on="next" to="editor"/>
+	</view-state>
+	
+	<view-state id="editor" view="simple-view" model="info">
+		<var name="info" class="com.huateng.platform.web.model.sample.quickstart.EditorInfo"/>
+		<transition on="submit">
+			<evaluate expression="validationHelper.validateForms"/>
+		</transition>		
+		<transition on="next"/>
+		<transition on="previous"/>
+	</view-state>
+	
+	<view-state id="browser" view="simple-view"/>
+	
+	<view-state id="buttons"/>
+	
+	<end-state id="end"/>
+</flow>
