@@ -20,7 +20,6 @@ public abstract class AbstractIbatorBrowseService<T> implements BrowseService<T>
 	private SqlMapClient sqlMapClient;
 	
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<T> browse(Object context, Pagination pagination) {
 		try
 		{

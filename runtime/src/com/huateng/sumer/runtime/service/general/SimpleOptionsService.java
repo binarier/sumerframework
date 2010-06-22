@@ -22,18 +22,15 @@ public class SimpleOptionsService<T extends Comparable<T>> implements
 	private List<OptionDefinition<T>> options;
 	private FastTreeMap map = new FastTreeMap();
 
-	@Override
 	public List<OptionDefinition<T>> getAsList(Object context) {
 		return options;
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public Map<Object, OptionDefinition<T>> getAsMap(Object context) {
 		return (Map<Object, OptionDefinition<T>>) map;
 	}
 
-	@Override
 	public void afterPropertiesSet() throws Exception {
 
 		Assert.notNull(options, "必需设置options属性");

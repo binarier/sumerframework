@@ -28,7 +28,6 @@ public abstract class FieldDefinition implements Serializable, InitializingBean,
 	private String highlighted = null; // null代表不高亮
 	private boolean readOnly = false;
 
-	@Override
 	public void afterPropertiesSet() throws Exception {
 	}
 	

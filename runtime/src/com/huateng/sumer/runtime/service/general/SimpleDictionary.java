@@ -13,12 +13,10 @@ public class SimpleDictionary implements Dictionary {
 	
 	private Map<Object, Object> table;
 
-	@Override
 	public Map<Object, Object> asMap(Object context) {
 		return table;
 	}
 
-	@Override
 	public void refresh() {
 	}
 

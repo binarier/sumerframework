@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="sumerframework" xmlns:ivy="antlib:org.apache.ivy.ant">
-	<!-- Sumer模版标准build文件 -->
+<project name="sumerframework" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:aspectj="antlib:org.aspectj">
 	<property name="build.dir" location="${basedir}/build" />
 	<property name="classes.dir" location="${build.dir}/classes" />
 	<property name="report.dir" location="${build.dir}/report" />
@@ -8,11 +7,18 @@
 	<property name="src.dir" location="${basedir}/src" />
 	<property file="project-info.properties"/>
 
-	<target name="compile">
-		<ivy:cachepath pathid="compile.classpath" conf="compile" />
+	<target name="compile1">
+		<ivy:cachepath pathid="compile.classpath" conf="compile" type="jar"/>
 		<ivy:report todir="${report.dir}" />
 		<mkdir dir="${classes.dir}" />
 		<javac debug="true" srcdir="${src.dir}" destdir="${classes.dir}" classpathref="compile.classpath" encoding="utf-8"/>
+	</target>
+	
+	<target name="compile">
+		<ivy:cachepath pathid="compile.classpath" conf="compile" type="jar"/>
+		<taskdef uri="antlib:org.aspectj" classpathref="compile.classpath"/>
+		<mkdir dir="${dist.dir}"/>
+		<aspectj:iajc sourceroots="${src.dir}" destDir="${classes.dir}" classpathRef="compile.classpath" source="1.5" encoding="utf-8"/>
 	</target>
 
 	<target name="jar" depends="compile">

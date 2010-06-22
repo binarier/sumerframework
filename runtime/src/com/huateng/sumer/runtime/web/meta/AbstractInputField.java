@@ -11,6 +11,7 @@ public abstract class AbstractInputField extends AbstractField {
 	private boolean disableAutoComplete = false;
 	private String linkedEvent;
 	private String highlighted = null; // null代表不高亮
+	private String prompt;
 
 	private String label;
 	private int labelColSpan = 1;
@@ -93,5 +94,13 @@ public abstract class AbstractInputField extends AbstractField {
 
 	public void setHighlighted(String highlighted) {
 		this.highlighted = highlighted;
+	}
+
+	public String getPrompt() {
+		return prompt;
+	}
+
+	public void setPrompt(String prompt) {
+		this.prompt = prompt;
 	}
 }
