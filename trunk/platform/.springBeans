@@ -7,6 +7,8 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
+		<config>WebContent/WEB-INF/views/sample/quickstart/sample-quickstart-services.xml</config>
+		<config>WebContent/WEB-INF/views/sample/quickstart/sample-quickstart-forms.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

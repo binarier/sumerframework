@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean name="sample/quickstart#welcome#forms" class="com.huateng.sumer.runtime.web.meta.FormDefinition">
+		<description>第一页：welcome</description>
+		<property name="layouts">
+			<bean class="com.huateng.sumer.runtime.web.meta.PanelLayout" p:columns="1" p:caption="Welcome">
+				<property name="fields">
+					<list>
+						<bean class="com.huateng.sumer.runtime.web.meta.LabelField" p:escapeXml="false">
+							<property name="label">
+								<value>
+<![CDATA[
+<p>　　这是Sumer开发平台的第一个演示流程，将为您演示怎样基于Webflow技术开发标准化的业务流程。下面将演示：</p>
+<ul>
+	<li>Spring Webflow的流程管理效果</li>
+	<li>Sumer WebUI的基本组件和显示效果</li>
+</ul>
+]]> 
+								</value>
+							</property>
+						</bean>
+						<bean class="com.huateng.sumer.runtime.web.meta.ButtonField" p:label="下一步" p:event="next"/>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean name="sample/quickstart#editor#forms" class="com.huateng.sumer.runtime.web.meta.FormDefinition">
+		<description>第二页，编辑界面[editor]</description>
+		<property name="layouts">
+			<list>
+				<bean class="com.huateng.sumer.runtime.web.meta.PanelLayout">
+					<property name="caption" value="编辑界面"/>
+					<property name="fields">
+						<list>
+							<bean p:label="在下面输入数据：" p:colSpan="2" class="com.huateng.sumer.runtime.web.meta.LabelField"/>
+							<bean p:path="birthYear" p:label="出生年份" p:suffix="年" p:prompt="出生年份必须在1900和2010之间" p:mandatory="true"
+								class="com.huateng.sumer.runtime.web.meta.TextField"/>
+						</list>
+					</property>
+				</bean>
+				<bean class="com.huateng.sumer.runtime.web.meta.PanelLayout">
+					<property name="columns" value="3"/>
+					<property name="fields">
+						<list>
+							<bean p:label="上一页" p:event="previous" class="com.huateng.sumer.runtime.web.meta.ButtonField"/>
+							<bean p:label="提交校验" p:event="submit" class="com.huateng.sumer.runtime.web.meta.ButtonField"/>
+							<bean p:label="下一页" p:event="next" class="com.huateng.sumer.runtime.web.meta.ButtonField"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

@@ -13,7 +13,7 @@
 		</c:when>
 		<c:otherwise>
 				<input type="text" id="${prefix}_${status.expression}" name="${status.expression}" value="${status.value}" size="${field.size}" maxlength="${field.maxLength}" 
-					dojoType="dijit.form.ValidationTextBox" promptMessage="请输入${field.label}" required="${field.mandatory}"/>
+					dojoType="dijit.form.ValidationTextBox" promptMessage="${field.prompt}" required="${field.mandatory}"/>
 		</c:otherwise>
 	</c:choose>
 	<c:out value="${field.suffix}"/>
