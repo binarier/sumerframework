@@ -2,8 +2,9 @@
 <!--  标准版Sumer项目的ivysettings.xml，优先查找本地目录，然后查找googlecode上的SVN形式的库 -->
 <ivysettings>
 	<properties file="project-info.properties"/>
+	<settings defaultResolver="default"/>
 	<resolvers>
-		<chain returnFirst="true">
+		<chain name="default" returnFirst="true">
 			<filesystem name="local">
 				<artifact pattern="${sumer.local.repository}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
 				<ivy pattern="${sumer.local.repository}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
