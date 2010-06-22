@@ -17,8 +17,9 @@
 			<entry key="sumer.jdbc.url" value="jdbc:mysql://localhost:3306/sumer?characterEncoding=gbk"/>
 			<entry key="sumer.jdbc.user" value="root"/>
 			<entry key="sumer.jdbc.password" value="mysql"/>
-			<entry key="spring.version" value="3.0.2.RELEASE"/>
+			<entry key="spring.version" value="3.0.3.RELEASE"/>
 			<entry key="spring.security.version" value="3.0.2.RELEASE"/>
+			<entry key="spring.webflow.version" value="2.1.0.RELEASE"/>
 		</propertyfile>
 		<!-- 生成安装过程及以后要用的ivysettings.xml -->
 		<echoxml file="ivysettings.xml">
