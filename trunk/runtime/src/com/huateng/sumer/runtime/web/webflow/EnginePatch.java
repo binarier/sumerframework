@@ -14,7 +14,7 @@ public class EnginePatch {
 	public void canExecute(RequestContext context){}
 
 	@Around("canExecute(context)")
-	public Object doBasicProfiling(ProceedingJoinPoint pjp, RequestContext context) throws Throwable 
+	public Object aroundCanExecute(ProceedingJoinPoint pjp, RequestContext context) throws Throwable 
 	{
 		try
 		{

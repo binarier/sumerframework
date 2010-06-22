@@ -9,7 +9,7 @@
 	<property file="project-info.properties"/>
 
 	<target name="compile">
-		<ivy:cachepath pathid="compile.classpath" conf="compile" />
+		<ivy:cachepath pathid="compile.classpath" conf="compile" type="jar"/>
 		<ivy:report todir="${report.dir}" />
 		<mkdir dir="${classes.dir}" />
 		<javac debug="true" srcdir="${src.dir}" destdir="${classes.dir}" classpathref="compile.classpath" encoding="utf-8"/>

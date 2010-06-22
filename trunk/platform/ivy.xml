@@ -21,6 +21,8 @@
 		<dependency conf="compile, runtime -> runtime" org="org.springframework.security" name="org.springframework.security.taglibs" rev="${spring.security.version}" />
 		<dependency conf="compile, runtime -> runtime" org="org.springframework.security" name="org.springframework.security.web" rev="${spring.security.version}" />
 		<dependency conf="compile, runtime -> runtime" org="org.springframework.security" name="org.springframework.security.config" rev="${spring.security.version}" />
+		<dependency conf="compile, runtime -> runtime" org="org.springframework.webflow" name="org.springframework.webflow" rev="${spring.webflow.version}"/>
+		<dependency conf="compile, runtime -> runtime" org="org.springframework.webflow" name="org.springframework.js" rev="${spring.webflow.version}"/>
 		<dependency conf="compile, runtime -> runtime" org="org.apache.commons" name="com.springsource.org.apache.commons.lang" rev="2.4.0" />
 		<dependency conf="compile, runtime -> runtime" org="org.apache.commons" name="com.springsource.org.apache.commons.dbcp" rev="1.2.2.osgi" />
 		<dependency conf="compile, runtime -> runtime" org="org.apache.log4j" name="com.springsource.org.apache.log4j" rev="1.2.15" />
@@ -30,7 +32,6 @@
 		<dependency conf="compile, runtime -> runtime" org="org.apache.commons" name="com.springsource.org.apache.commons.fileupload" rev="1.2.1" />
 		<dependency conf="compile, runtime -> runtime" org="org.jboss.el" name="com.springsource.org.jboss.el" rev="2.0.0.GA" />
 		<dependency conf="compile, runtime -> runtime" org="org.slf4j" name="com.springsource.slf4j.log4j" rev="1.5.10" />
-		<dependency conf="compile, runtime -> runtime" org="org.springframework.webflow" name="org.springframework.webflow" rev="2.1.0.M1"/>
 		<dependency conf="compile, runtime -> runtime" org="org.dojotoolkit" name="com.huateng.org.dojotoolkit.dojo" rev="1.4.2"/>
 		<dependency conf="compile, runtime -> runtime" org="javax.servlet" name="com.springsource.javax.servlet.jsp.jstl" rev="1.2.0" />
 

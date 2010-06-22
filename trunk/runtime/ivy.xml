@@ -15,7 +15,7 @@
 		<dependency org="org.springframework" name="org.springframework.transaction" rev="${spring.version}" conf="compile, runtime->runtime"/>
 		<dependency org="org.springframework" name="org.springframework.web" rev="${spring.version}" conf="compile, runtime->runtime"/>
 		<dependency org="org.springframework" name="org.springframework.web.servlet" rev="${spring.version}" conf="compile, runtime->runtime"/>
-		<dependency org="org.springframework.webflow" name="org.springframework.webflow" rev="2.1.0.M1" conf="compile, runtime->runtime"/>
+		<dependency org="org.springframework.webflow" name="org.springframework.webflow" rev="${spring.webflow.version}" conf="compile, runtime->runtime"/>
 		<dependency org="org.springframework" name="org.springframework.aspects" rev="${spring.version}" conf="compile, runtime->runtime"/>
 		<dependency org="org.apache.commons" name="com.springsource.org.apache.commons.lang" rev="2.4.0" conf="compile, runtime->runtime"/>
 		<dependency org="org.apache.commons" name="com.springsource.org.apache.commons.beanutils" rev="1.8.0" conf="compile, runtime->runtime"/>
@@ -23,6 +23,6 @@
 		<dependency org="org.apache.ibatis" name="com.springsource.com.ibatis" rev="2.3.4.726" conf="compile, runtime -> runtime"/>
 		<dependency org="org.slf4j" name="com.springsource.slf4j.log4j" rev="1.5.10" conf="compile, runtime -> runtime"/>
 		<dependency org="org.aspectj" name="com.springsource.org.aspectj.tools" rev="1.6.8.RELEASE" conf="compile -> runtime"/>
-		<dependency org="org.aspectj" name="com.springsource.org.aspectj.runtime" rev="1.6.8.RELEASE" conf="runtime -> runtime"/>
+		<dependency org="org.aspectj" name="com.springsource.org.aspectj.runtime" rev="1.6.8.RELEASE" conf="compile, runtime -> runtime"/>
 	</dependencies>
 </ivy-module>
