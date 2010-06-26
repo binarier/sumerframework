@@ -9,13 +9,12 @@
 	</view-state>
 	
 	<view-state id="editor" view="simple-view" model="info">
-		<var name="info" class="com.huateng.platform.web.model.sample.quickstart.EditorInfo"/>
+		<var name="info" class="com.huateng.platform.web.sample.quickstart.EditorInfo"/>
 		<transition on="submit">
 			<evaluate expression="validationHelper.validateForms"/>
+			<evaluate expression="quickStart.demoEditorValidation(info)"/>
 		</transition>
-		<transition on="next">
-			<evaluate expression="info.a()"/>
-		</transition>
+		<transition on="next"/>
 		<transition on="previous"/>
 	</view-state>
 	

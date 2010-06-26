@@ -9,6 +9,7 @@
 	</configurations>
 	<dependencies>
 		<dependency conf="runtime, compile -> runtime" org="com.huateng.sumer" name="com.huateng.sumer.runtime" rev="${sumer.version}" />
+
 		<dependency conf="compile, runtime -> runtime" org="org.springframework" name="org.springframework.beans" rev="${spring.version}" />
 		<dependency conf="compile, runtime -> runtime" org="org.springframework" name="org.springframework.context" rev="${spring.version}" />
 		<dependency conf="compile, runtime -> runtime" org="org.springframework" name="org.springframework.transaction" rev="${spring.version}" />
@@ -34,7 +35,6 @@
 		<dependency conf="compile, runtime -> runtime" org="org.slf4j" name="com.springsource.slf4j.log4j" rev="1.5.10" />
 		<dependency conf="compile, runtime -> runtime" org="org.dojotoolkit" name="com.huateng.org.dojotoolkit.dojo" rev="1.4.2"/>
 		<dependency conf="compile, runtime -> runtime" org="javax.servlet" name="com.springsource.javax.servlet.jsp.jstl" rev="1.2.0" />
-
 		<dependency conf="compile -> runtime" org="javax.servlet" name="com.springsource.javax.servlet.jsp.jstl" rev="1.2.0" />
 
 		<dependency conf="shell -> runtime" org="com.huateng.sumer" name="com.huateng.sumer.shell" rev="${sumer.version}"/>

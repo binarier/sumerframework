@@ -39,7 +39,7 @@
 					<property name="fields">
 						<list>
 							<bean p:label="在下面输入数据：" p:colSpan="2" class="com.huateng.sumer.runtime.web.meta.LabelField"/>
-							<bean p:path="birthYear" p:label="出生年份" p:suffix="年" p:prompt="出生年份必须在1900和2010之间" p:mandatory="true"
+							<bean p:path="birthYear" p:label="出生年份" p:suffix="年" p:prompt="这里演示输入文本" p:mandatory="true"
 								class="com.huateng.sumer.runtime.web.meta.TextField"/>
 						</list>
 					</property>
