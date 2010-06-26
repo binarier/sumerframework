@@ -108,12 +108,13 @@ h4 {
 }
 
 .errors {
+	border: 1px solid gray;
+	background-color: #ffffb4;
 	color: red;
-	font-weight: bold;
+	padding: 5px;
 	display: block;
-	margin-left: 105px;
 }
-
+	
 a {
 	text-decoration: underline;
 	font-size: 12px;

@@ -57,4 +57,32 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean name="sample/quickstart#browser#forms" class="com.huateng.sumer.runtime.web.meta.FormDefinition">
+		<description>第三页，浏览界面演示</description>
+		<property name="layouts">
+			<list>
+				<bean class="com.huateng.sumer.runtime.web.meta.BrowserLayout">
+					<property name="caption" value="浏览界面演示"/>
+					<property name="columnRatios" value="1:2:12"/>
+					<property name="fields">
+						<list>
+							<bean p:label="主键" p:path="id" class="com.huateng.sumer.runtime.web.meta.TextField"/>
+							<bean p:label="姓" p:path="lastName" class="com.huateng.sumer.runtime.web.meta.TextField"/>
+							<bean p:label="名字" p:path="firstName" class="com.huateng.sumer.runtime.web.meta.TextField"/>
+						</list>
+					</property>
+				</bean>
+				<bean class="com.huateng.sumer.runtime.web.meta.PanelLayout">
+					<property name="columns" value="1"/>
+					<property name="fields">
+						<list>
+							<bean p:label="上一页" p:event="previous" class="com.huateng.sumer.runtime.web.meta.ButtonField"/>
+						</list>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 </beans>

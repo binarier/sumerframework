@@ -9,16 +9,26 @@
 	</view-state>
 	
 	<view-state id="editor" view="simple-view" model="info">
-		<var name="info" class="com.huateng.platform.web.sample.quickstart.EditorInfo"/>
+		<var name="info" class="com.huateng.sumer.platform.web.sample.quickstart.EditorInfo"/>
 		<transition on="submit">
 			<evaluate expression="validationHelper.validateForms"/>
-			<evaluate expression="quickStart.demoEditorValidation(info)"/>
+			<evaluate expression="sampleQuickStart.demoEditorValidation(info)"/>
 		</transition>
-		<transition on="next"/>
-		<transition on="previous"/>
+		<transition on="previous" to="welcome"/>
+		<transition on="next" to="browser"/>
 	</view-state>
 	
-	<view-state id="browser" view="simple-view"/>
+	<view-state id="browser" view="simple-view" model="bo">
+		<var name="bo" class="com.huateng.sumer.runtime.web.support.SimpleBrowserObject"/>
+		<on-entry>
+			<evaluate result="bo.pagination.pageSize" expression="7"/>
+			<evaluate expression="conventionHelper.retrieveBrowseData"/>
+		</on-entry>
+		<transition on="page">
+			<evaluate expression="conventionHelper.retrieveBrowseData"/>
+		</transition>
+		<transition on="previous" to="editor"/>
+	</view-state>
 	
 	<view-state id="buttons"/>
 	
