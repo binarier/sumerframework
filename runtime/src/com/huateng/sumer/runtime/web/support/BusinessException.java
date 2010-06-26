@@ -8,7 +8,9 @@ package com.huateng.sumer.runtime.web.support;
  */
 public class BusinessException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
-
+	
+	private String field;
+	
 	public BusinessException(String defaultMessage) {
 		super(defaultMessage);
 	}
@@ -23,5 +25,19 @@ public class BusinessException extends RuntimeException {
 
 	public BusinessException(String defaultMessage, String code, Throwable t) {
 		super(defaultMessage);
+	}
+	
+	public BusinessException assignField(String field)
+	{
+		setField(field);
+		return this;
+	}
+
+	public String getField() {
+		return field;
+	}
+
+	public void setField(String field) {
+		this.field = field;
 	}
 }

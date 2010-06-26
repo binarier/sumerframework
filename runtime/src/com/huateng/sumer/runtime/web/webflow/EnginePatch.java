@@ -5,7 +5,10 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.binding.message.MessageBuilder;
+import org.springframework.webflow.execution.FlowExecutionException;
 import org.springframework.webflow.execution.RequestContext;
+
+import com.huateng.sumer.runtime.web.support.BusinessException;
 
 /**
  * 对Webflow的流程引擎打补丁，详见各advice上的说明
@@ -35,10 +38,15 @@ public class EnginePatch {
 		{
 			return pjp.proceed(new Object[]{context});
 		}
-		catch(Exception e)
+		catch(FlowExecutionException e)
 		{
-			context.getMessageContext().addMessage(new MessageBuilder().defaultText(e.getMessage()).error().build());
-			return false;
+			if (e.getCause() instanceof BusinessException)
+			{
+				BusinessException be = (BusinessException)e.getCause();
+				context.getMessageContext().addMessage(new MessageBuilder().defaultText(be.getMessage()).error().source(be.getField()).build());
+				return false;
+			}
+			throw e;
 		}
 	}
 }
