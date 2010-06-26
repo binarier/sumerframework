@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean name="sample/quickstart#browser#browse" class="com.huateng.sumer.runtime.service.general.StaticCollectionBrowseService">
+		<property name="data">
+			<list>
+				<bean p:id="1" p:firstName="一号" p:lastName="赵" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="2" p:firstName="二号" p:lastName="钱" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="3" p:firstName="三号" p:lastName="孙" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="4" p:firstName="四号" p:lastName="李" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="5" p:firstName="五号" p:lastName="周" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="6" p:firstName="六号" p:lastName="吴" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="7" p:firstName="七号" p:lastName="郑" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="8" p:firstName="八号" p:lastName="王" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="9" p:firstName="九号" p:lastName="冯" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="10" p:firstName="十号" p:lastName="陈" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="11" p:firstName="十一号" p:lastName="诸" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="12" p:firstName="十二号" p:lastName="卫" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="13" p:firstName="十三号" p:lastName="蒋 " class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="14" p:firstName="十四号" p:lastName="沈" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="15" p:firstName="十五号" p:lastName="韩" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="16" p:firstName="十六号" p:lastName="杨" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="17" p:firstName="十七号" p:lastName="朱" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="18" p:firstName="十八号" p:lastName="秦" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="19" p:firstName="十九号" p:lastName="尤" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+				<bean p:id="20" p:firstName="十十号" p:lastName="许" class="com.huateng.sumer.platform.web.sample.quickstart.BrowseItem"/>
+			</list>
+		</property>
+	</bean>
 
 </beans>
