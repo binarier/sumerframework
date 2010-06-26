@@ -1,4 +1,4 @@
-package com.huateng.platform.web.model.sample.quickstart;
+package com.huateng.platform.web.sample.quickstart;
 
 import java.io.Serializable;
 

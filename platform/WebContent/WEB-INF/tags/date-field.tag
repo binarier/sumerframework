@@ -12,7 +12,7 @@
 		</c:when>
 		<c:otherwise>
 			<input type="text" id="${prefix}_${status.expression}" name="${status.expression}" value="${status.value}"
-				dojoType="dijit.form.DateTextBox" promptMessage="请输入${field.label}" required="${field.mandatory}"	/>
+				dojoType="dijit.form.DateTextBox" promptMessage="${field.prompt}" required="${field.mandatory}"	/>
 		</c:otherwise>
 	</c:choose>
 </spring:bind>
