@@ -17,7 +17,9 @@
  * 本地Ivy库，指定一个本地目录以发布项目模块，如果不需要发布，则不用管这个选项。
 
 　　出于演示目的，这里都取默认值，即建了一个模块，相当于Ivy依赖项：
-`<dependency org="com.huateng.myproject" name="com.huateng.myproject.module" rev="0.1.0"/>`
+{{{
+<dependency org="com.huateng.myproject" name="com.huateng.myproject.module" rev="0.1.0"/>
+}}}
 
 ===在Eclipse中导入项目===
 
