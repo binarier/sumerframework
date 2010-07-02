@@ -8,6 +8,6 @@
 
 　　建立项目目录，然后在目录中放入唯一的安装文件[http://sumerframework.googlecode.com/svn/trunk/platform/setup.xml setup.xml]，然后执行`ant -f setup.xml`，如下图所示
 
-[http://image161.poco.cn/mypoco/myphoto/20100610/23/55315051201006102338339124365714175_000.jpg]
+[http://image163.poco.cn/mypoco/myphoto/20100702/16/55315051201007021646483818408637490_000.jpg]
 
 ===在Eclipse中导入项目===
