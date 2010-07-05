@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  标准版Sumer项目的ivysettings.xml，优先查找本地目录，然后查找googlecode上的SVN形式的库 -->
+<ivysettings>
+	<properties file="project-info.properties"/>
+	<settings defaultResolver="default"/>
+	<resolvers>
+		<chain name="default" returnFirst="true">
+			<filesystem name="local">
+				<artifact pattern="${sumer.local.repository}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				<ivy pattern="${sumer.local.repository}/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+			</filesystem>
+			<url name="public">
+				<ivy pattern="http://sumerframework.googlecode.com/svn/ivyrep/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				<artifact pattern="http://sumerframework.googlecode.com/svn/ivyrep/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+			</url>
+			<url name="com.springsource.repository.bundles.release">
+				<ivy pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				<artifact pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+			</url>
+			<url name="com.springsource.repository.bundles.external">
+				<ivy pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+				<artifact pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+			</url>
+			<ibiblio name="maven" m2compatible="true" usepoms="true"/>
+		</chain>
+	</resolvers>
+</ivysettings>

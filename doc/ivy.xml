@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ivy-module version="2.0"> 
+  <info organisation="com.huateng.sumer" module="com.huateng.sumer.doc" revision="${sumer.module.version}"/>  
+  <configurations> 
+    <conf name="runtime"/>  
+    <conf name="compile"/>  
+  </configurations>  
+  <dependencies> 
+	<dependency org="org.apache.xalan" name="com.springsource.org.apache.xalan" rev="2.7.1" conf="compile"/>
+  </dependencies> 
+</ivy-module>
