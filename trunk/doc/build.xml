@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="sumerframework" xmlns:ivy="antlib:org.apache.ivy.ant" default="all">
+	<!-- Sumer模版标准build文件 -->
+	<property name="build.dir" location="${basedir}/build" />
+	<property name="classes.dir" location="${build.dir}/classes" />
+	<property name="report.dir" location="${build.dir}/report" />
+	<property name="dist.dir" location="${build.dir}/dist" />
+	<property name="src.dir" location="${basedir}/src" />
+	<property name="docbook.xml.dir" location="${basedir}/resource/docbook-xml-4.5"/>
+	<property name="docbook.xsl.dir" location="${basedir}/resource/docbook-xsl-1.75.2"/>
+	<property file="project-info.properties"/>
+
+	<target name="clean">
+		<delete includeemptydirs="false">
+			<fileset dir="${basedir}/build" />
+		</delete>
+	</target>
+	
+	<target name="all">
+		<antcall target="preview"/>
+		<antcall target="html"/>
+	</target>
+	
+	<target name="preview">
+		<property name="book.name" value="preview"/>
+	</target>
+	
+	<xmlcatalog id="docbook.dtd">
+		<dtd publicId="-//OASIS//DTD DocBook XML V4.5//EN" location="${docbook.xml.dir}/docbookx.dtd" />
+	</xmlcatalog>
+
+	<target name="html">
+		<ivy:cachepath pathid="compile.classpath" conf="compile" type="jar"/>
+		<property name="target.dir" value="${build.dir}/html" />
+		<mkdir dir="${target.dir}" />
+		<xslt classpathref="compile.classpath" extension=".html" destdir="${target.dir}" basedir="." includes="docbook/${book.name}/*.xml" style="${docbook.xsl.dir}/html/docbook.xsl">
+			<param name="l10n.gentext.language" expression="zh_cn" />
+			<xmlcatalog refid="docbook.dtd"/>
+		</xslt>
+	</target>
+
+</project>
