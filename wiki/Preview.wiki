@@ -21,7 +21,42 @@
 <dependency org="com.huateng.myproject" name="com.huateng.myproject.module" rev="0.1.0"/>
 }}}
 
+　　接下来安装程序继续，如下图所示：
 
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/002.png]
+
+　　setup.xml会建立临时的ivy控制文件，以便从sumer的ivy库里取出最新版本的platform模版包，解压形成基础的项目，并且对一些基础设置，如项目名等信息按收集的项目信息进行更改。
+
+===首次运行Shell===
+
+　　项目建立完成后，在项目主目录直接输入ant，就可以进入SumerShell的提示符。如果是第一次运行，Ivy会按初始配置下载运行所需要的依赖项，可能要花点时间。
+　　目前的SumerShell还只是个框架，但它是可扩展的结构，每次运行时，会按Ivy的配置，查找最新版本进行更新。可以通过Help命令来查看当前支持哪些功能。
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/003.png]
 
 ===在Eclipse中导入项目===
+
+　　与Spring ROO不同，Sumer新建的项目是完全按Eclipse方式配置的，所以不需要利用eclipse:eclipse之类的命令来初始化设置，可以直接导入Eclipse。
+　　为了避免潜在的问题，这里建议用户使用SpringSource Tool Suite (STS) 来进行开发。
+
+====新建一个Workspace====
+
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/004.png]
+
+　　如果用户已经有Workspace，则可以直接在其中导入项目，但要注意Workspace的编码，Sumer项目的源码和文档的开发都是基于UTF-8的，在默认编码（中文Windows为GBK）下可能有未知的麻烦。
+　　这里建议，如果可能的话，新建一个独立的workspace来开发Sumer项目，并且在Preferences->General->Workspace里将workspace的编码设置为UTF-8，如下图所示：
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/005.png]
+
+====Import项目====
+
+　　选择File->Import
+
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/006.png]
+
+　　选择General -> Existing Project into Workspace
+
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/007.png]
+
+　　选定刚才建立的项目目录，点击Finish
+
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/008.png]
 
