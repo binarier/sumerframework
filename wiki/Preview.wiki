@@ -44,6 +44,7 @@
 
 　　如果用户已经有Workspace，则可以直接在其中导入项目，但要注意Workspace的编码，Sumer项目的源码和文档的开发都是基于UTF-8的，在默认编码（中文Windows为GBK）下可能有未知的麻烦。
 　　这里建议，如果可能的话，新建一个独立的workspace来开发Sumer项目，并且在Preferences->General->Workspace里将workspace的编码设置为UTF-8，如下图所示：
+
 [http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/005.png]
 
 ====Import项目====
@@ -60,3 +61,6 @@
 
 [http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/008.png]
 
+　　至此，一个基础的项目已经建立完成。新建项目中的一个红色图标是因为ibator-config.xml是个空文件，违反了schema校验，这在生成数据库包装后就不会出现了。
+
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/009.png]
