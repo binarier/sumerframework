@@ -6,18 +6,17 @@
 	<property name="report.dir" location="${build.dir}/report" />
 	<property name="dist.dir" location="${build.dir}/dist" />
 	<property name="src.dir" location="${basedir}/src" />
-	<property name="docbook.xml.dir" location="${basedir}/resource/docbook-xml-4.5"/>
-	<property name="docbook.xsl.dir" location="${basedir}/resource/docbook-xsl-1.75.2"/>
 	<property file="project-info.properties"/>
+	<property name="docbook.xsl.version" value="1.75.2"/>
+	<property name="docbook.xml.version" value="4.5"/>
+	<property name="docbook.xml.dir" location="${build.dir}/docbook-xml-${docbook.xml.version}"/>
+	<property name="docbook.xsl.dir" location="${build.dir}/docbook-xsl-${docbook.xsl.version}"/>
 
 	<target name="clean">
-		<delete includeemptydirs="false">
-			<fileset dir="${basedir}/build" />
-		</delete>
+		<delete dir="build"/>
 	</target>
 	
-	<target name="all">
-		<antcall target="preview"/>
+	<target name="all" depends="preview">
 		<antcall target="html"/>
 	</target>
 	
@@ -29,14 +28,29 @@
 		<dtd publicId="-//OASIS//DTD DocBook XML V4.5//EN" location="${docbook.xml.dir}/docbookx.dtd" />
 	</xmlcatalog>
 
-	<target name="html">
+	<target name="html" depends="docbook">
 		<ivy:cachepath pathid="compile.classpath" conf="compile" type="jar"/>
 		<property name="target.dir" value="${build.dir}/html" />
 		<mkdir dir="${target.dir}" />
-		<xslt classpathref="compile.classpath" extension=".html" destdir="${target.dir}" basedir="." includes="docbook/${book.name}/*.xml" style="${docbook.xsl.dir}/html/docbook.xsl">
+		<xslt classpathref="compile.classpath" extension=".html" destdir="${target.dir}" basedir="." includes="docbook/${book.name}/**/*.xml" style="${docbook.xsl.dir}/html/docbook.xsl">
 			<param name="l10n.gentext.language" expression="zh_cn" />
 			<xmlcatalog refid="docbook.dtd"/>
 		</xslt>
 	</target>
+	
+	<target name="docbook">
+		<ivy:retrieve conf="docbook" pattern="${build.dir}/[artifact].[ext]" type="tar.bz2"/>
+		<uptodate property="docbook.xml.unpack.notrequired" targetfile="${build.dir}/docbook-xml-${docbook.xml.version}" srcfile="${build.dir}/com.huateng.org.docbook.xml.tar.bz2"/>
+		<uptodate property="docbook.xsl.unpack.notrequired" targetfile="${build.dir}/docbook-xsl-${docbook.xsl.version}" srcfile="${build.dir}/com.huateng.org.docbook.xsl.tar.bz2"/>
+		<antcall target="docbook.xml.unpack"/>
+		<antcall target="docbook.xsl.unpack"/>
+	</target>
 
+	<target name="docbook.xml.unpack" unless="docbook.xml.unpack.notrequired">
+		<untar compression="bzip2" src="${build.dir}/com.huateng.org.docbook.xml.tar.bz2" dest="${build.dir}" />
+	</target>
+
+	<target name="docbook.xsl.unpack" unless="docbook.xsl.unpack.notrequired">
+		<untar compression="bzip2" src="${build.dir}/com.huateng.org.docbook.xsl.tar.bz2" dest="${build.dir}" />
+	</target>
 </project>

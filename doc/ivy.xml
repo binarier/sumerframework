@@ -4,9 +4,12 @@
   <info organisation="com.huateng.sumer" module="com.huateng.sumer.doc" revision="${sumer.module.version}"/>  
   <configurations> 
     <conf name="runtime"/>  
-    <conf name="compile"/>  
+    <conf name="compile"/>
+    <conf name="docbook" description="用于取Docbook的压缩包"/>
   </configurations>  
   <dependencies> 
-	<dependency org="org.apache.xalan" name="com.springsource.org.apache.xalan" rev="2.7.1" conf="compile"/>
+	<dependency org="org.docbook" name="com.huateng.org.docbook.xsl" rev="${docbook.xsl.version}" conf="docbook -> runtime"/>
+	<dependency org="org.docbook" name="com.huateng.org.docbook.xml" rev="${docbook.xml.version}" conf="docbook -> runtime"/>
+	<dependency org="org.apache.xalan" name="com.springsource.org.apache.xalan" rev="2.7.1" conf="compile -> runtime"/>
   </dependencies> 
 </ivy-module>
