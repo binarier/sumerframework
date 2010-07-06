@@ -2,13 +2,13 @@
 
 　　在完整的手册编写完成之前，各位读者可以通过本文了解到大体的Sumer项目的工作方式，并且可以及时实际动手试一下。同时，目前sumer建立的平台项目已经可以作为实际的项目的启动，目前已经可以作为轻量级JavaEE项目的初始导入了。
 
-　　在开始之前，开发机需要[Preview_AntIvy 安装Ant和Ivy]，并且将Ant的执行目录放到Path中，以便在命令行中可以使用ANT命令。
+　　在开始之前，开发机需要[Preview_AntIvy 安装Ant和Ivy]，并且将Ant的执行目录放到Path中，以便在命令行中可以使用ANT命令。这里假定各位读者拥有Ivy和Ant的基础知识。
 
 ===项目的建立===
 
 　　建立项目目录，然后在目录中放入唯一的安装文件[http://sumerframework.googlecode.com/svn/trunk/platform/setup.xml setup.xml]，然后执行`ant -f setup.xml`，如下图所示
 
-[http://image163.poco.cn/mypoco/myphoto/20100702/17/55315051201007021703442979539332227_000.jpg]
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/001.png]
 
 　　这个由Ant脚本编写的安装程序需要收集一组Ivy相关信息：
  * 组织名，新项目在Ivy中对应的org
@@ -20,6 +20,8 @@
 {{{
 <dependency org="com.huateng.myproject" name="com.huateng.myproject.module" rev="0.1.0"/>
 }}}
+
+
 
 ===在Eclipse中导入项目===
 
