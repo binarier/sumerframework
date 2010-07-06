@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="dojo" xmlns:ivy="antlib:org.apache.ivy.ant" default="publish">
+	<description>
+		下载并重新打包docbook，以com.huateng.org.docbook.xsl.tar.bz2重新命名，并且发布到googlecode的Ivy库里，以便使用。
+		取的docbook版本见ivy.xml
+	</description>
+	<property name="pack.dir" location="pack"/>
+	
+	<target name="clean">
+		<delete dir="${pack.dir}"/>
+	</target>
+
+	<target name="publish">
+		<ivy:settings file="../ivysettings-public.xml" id="ivy.public.settings"/>
+		<ivy:info file="ivy.xml" settingsRef="ivy.public.settings"/>
+		
+		<!--取文件-->
+		<mkdir dir="${pack.dir}"/>
+		<get dest="${pack.dir}/com.huateng.org.docbook.xsl.tar.bz2" verbose="on" usetimestamp="true" src="http://downloads.sourceforge.net/project/docbook/docbook-xsl/${ivy.revision}/docbook-xsl-${ivy.revision}.tar.bz2"/>
+		<ivy:resolve settingsRef="ivy.public.settings"/>
+		<ivy:publish resolver="googlecode" settingsRef="ivy.public.settings" artifactspattern="${pack.dir}/[artifact].[ext]" status="${ivy.status}" pubrevision="${ivy.revision}" forceDeliver="true" overwrite="true"/>
+	</target>
+</project>

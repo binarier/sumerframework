@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="dojo" xmlns:ivy="antlib:org.apache.ivy.ant" default="publish">
+	<description>
+		下载并重新打包dojo，以com.huateng.org.dojotoolkit.dojo.jar重新命名，并且发布到googlecode的Ivy库里，以便使用。
+		取的Dojo版本见ivy.xml
+	</description>
+	<property name="pack.dir" location="pack"/>
+	
+	<target name="clean">
+		<delete dir="${pack.dir}"/>
+	</target>
+
+	<target name="publish">
+		<ivy:settings file="../ivysettings-public.xml" id="ivy.public.settings"/>
+		<ivy:info file="ivy.xml" settingsRef="ivy.public.settings"/>
+		
+		<!--取文件并打包-->
+		<mkdir dir="${pack.dir}"/>
+		<get dest="${pack.dir}/dojo-release-${ivy.revision}.tar.gz" verbose="on" usetimestamp="true" src="http://download.dojotoolkit.org/release-${ivy.revision}/dojo-release-${ivy.revision}.tar.gz"/>
+		<untar compression="gzip" dest="${pack.dir}" overwrite="true" src="${pack.dir}/dojo-release-${ivy.revision}.tar.gz"/>
+		<move tofile="${pack.dir}/dojo" file="${pack.dir}/dojo-release-${ivy.revision}" />
+		<jar destfile="${pack.dir}/com.huateng.org.dojotoolkit.dojo.jar" level="9">
+			<fileset dir="${pack.dir}">
+				<include name="dojo/**"/>
+			</fileset>
+		</jar>
+		<ivy:resolve settingsRef="ivy.public.settings"/>
+		<ivy:publish resolver="googlecode" settingsRef="ivy.public.settings" artifactspattern="${pack.dir}/[artifact].[ext]" status="${ivy.status}" pubrevision="${ivy.revision}" forceDeliver="true" overwrite="true"/>
+	</target>
+</project>

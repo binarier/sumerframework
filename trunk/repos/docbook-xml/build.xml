@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="dojo" xmlns:ivy="antlib:org.apache.ivy.ant" default="publish">
+	<description>
+		下载并重新打包docbook，以com.huateng.org.docbook.xml.tar.bz2重新命名，并且发布到googlecode的Ivy库里，以便使用。
+		取的docbook-xml版本见ivy.xml
+	</description>
+	<property name="pack.dir" location="pack"/>
+	
+	<target name="clean">
+		<delete dir="${pack.dir}"/>
+	</target>
+
+	<target name="publish">
+		<ivy:settings file="../ivysettings-public.xml" id="ivy.public.settings"/>
+		<ivy:info file="ivy.xml" settingsRef="ivy.public.settings"/>
+		
+		<!--取文件-->
+		<mkdir dir="${pack.dir}"/>
+		<get dest="${pack.dir}/com.huateng.org.docbook.xml.zip" verbose="on" usetimestamp="true" src="http://www.docbook.org/xml/${ivy.revision}/docbook-xml-${ivy.revision}.zip"/>
+		<unzip dest="${pack.dir}/docbook-xml-${ivy.revision}" src="${pack.dir}/com.huateng.org.docbook.xml.zip"/>
+		<tar destfile="${pack.dir}/com.huateng.org.docbook.xml.tar.bz2" compression="bzip2">
+			<fileset dir="${pack.dir}">
+				<include name="docbook-xml-${ivy.revision}/**"/>
+			</fileset>
+		</tar>
+		
+		<ivy:resolve settingsRef="ivy.public.settings"/>
+		<ivy:publish resolver="googlecode" settingsRef="ivy.public.settings" artifactspattern="${pack.dir}/[artifact].[ext]" status="${ivy.status}" pubrevision="${ivy.revision}" forceDeliver="true" overwrite="true"/>
+	</target>
+</project>
