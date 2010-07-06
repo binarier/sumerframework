@@ -15,4 +15,21 @@
  * dojo库的集成
  * 用于演示目的的Dashboard及样本Webflow
  * Sumer UI体系组件
- 
+
+　　在eclipse中可以直接放入服务器运行。
+
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/010.png]
+
+　　服务器启动后，就可以通过浏览器直接访问这一个基于Spring容器的轻量级JavaEE项目了。
+
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/011.png]
+
+　　点击进入Dashboard后的界面，这是个基于标准Spring MVC做的页面，以及使用了DOJO的效果组件。
+
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/012.png]
+
+　　点击“快速开始”图标，进入演示流程，这是用Spring Webflow技术开发的页面流程，并且使用Sumer WebUI来进行界面的配置而成的。
+
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/013.png]
+
+[http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/014.png]
