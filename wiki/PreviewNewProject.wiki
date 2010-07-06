@@ -1,6 +1,8 @@
+=新建一个项目=
+
 　　在开始之前，开发机需要[Preview_AntIvy 安装Ant和Ivy]，并且将Ant的执行目录放到Path中，以便在命令行中可以使用ANT命令。这里假定各位读者拥有Ivy和Ant的基础知识。
 
-===项目的建立===
+==项目的建立==
 
 　　建立项目目录，然后在目录中放入唯一的安装文件[http://sumerframework.googlecode.com/svn/trunk/platform/setup.xml setup.xml]，然后执行`ant -f setup.xml`，如下图所示
 
@@ -23,18 +25,18 @@
 
 　　setup.xml会建立临时的ivy控制文件，以便从sumer的ivy库里取出最新版本的platform模版包，解压形成基础的项目，并且对一些基础设置，如项目名等信息按收集的项目信息进行更改。
 
-===首次运行Shell===
+==首次运行Shell==
 
 　　项目建立完成后，在项目主目录直接输入ant，就可以进入SumerShell的提示符。如果是第一次运行，Ivy会按初始配置下载运行所需要的依赖项，可能要花点时间。
 　　目前的SumerShell还只是个框架，但它是可扩展的结构，每次运行时，会按Ivy的配置，查找最新版本进行更新。可以通过Help命令来查看当前支持哪些功能。
 [http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/003.png]
 
-===在Eclipse中导入项目===
+==在Eclipse中导入项目==
 
 　　与Spring ROO不同，Sumer新建的项目是完全按Eclipse方式配置的，所以不需要利用eclipse:eclipse之类的命令来初始化设置，可以直接导入Eclipse。
 　　为了避免潜在的问题，这里建议用户使用SpringSource Tool Suite (STS) 来进行开发。
 
-====新建一个Workspace====
+===新建一个Workspace===
 
 [http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/004.png]
 
@@ -43,7 +45,7 @@
 
 [http://sumerframework.googlecode.com/svn/trunk/doc/docbook/preview/images/005.png]
 
-====Import项目====
+===Import项目===
 
 　　选择File->Import
 
