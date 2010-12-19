@@ -11,7 +11,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<scm>
-		<connection>svn:http://sumerframework.googlecode.com/svn/trunk</connection>
+		<connection>scm:svn:http://sumerframework.googlecode.com/svn/frame/trunk/${project.artifactId}</connection>
+		<developerConnection>scm:svn:https://sumerframework.googlecode.com/svn/frame/trunk/${project.artifactId}</developerConnection>
 	</scm>
 	<distributionManagement>
 		<repository>
@@ -78,7 +79,23 @@
 					</execution>
 				</executions>
 			</plugin>
-
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+					<providerImplementations>
+						<svn>javasvn</svn>
+					</providerImplementations>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.google.code.maven-scm-provider-svnjava</groupId>
+						<artifactId>maven-scm-provider-svnjava</artifactId>
+						<version>1.12</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
 	</build>
 </project>
