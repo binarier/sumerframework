@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<archetype-descriptor
+	xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+	name="BaseFrame项目原型">
+	<requiredProperties>
+		<requiredProperty key="frameVersion"/>
+	</requiredProperties>
+	<fileSets>
+		<fileSet>
+			<directory>src</directory>
+		</fileSet>
+	</fileSets>
+</archetype-descriptor>
