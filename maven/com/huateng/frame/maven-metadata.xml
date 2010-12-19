@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <plugins>
+    <plugin>
+      <name>Maven Mojo</name>
+      <prefix>base-frame</prefix>
+      <artifactId>base-frame-plugin</artifactId>
+    </plugin>
+  </plugins>
+</metadata>
