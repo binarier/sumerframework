@@ -9,8 +9,13 @@
 	</parent>
 	<artifactId>frame-core</artifactId>
 	<packaging>jar</packaging>
-	<name>核心组件</name>
-
+	<name>Frame - 核心运行库</name>
+	<repositories>
+		<repository>
+			<id>sumer_repo</id>
+			<url>http://sumerframework.googlecode.com/svn/maven</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>

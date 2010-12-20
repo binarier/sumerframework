@@ -10,8 +10,7 @@
 	<artifactId>ibator-plugin</artifactId>
 	<packaging>jar</packaging>
 
-	<name>ibator-plugin</name>
-	<url>http://maven.apache.org</url>
+	<name>BaseFrame - ibator插件</name>
 
 	<repositories>
 		<repository>
