@@ -1,0 +1,8 @@
+<module>
+	<inherits name="com.google.gwt.user.User"/>
+	<inherits name="com.smartgwt.SmartGwt"/>
+	<inherits name="org.synthful.smartgwt.UISmartGWT"/>
+	<inherits name="com.google.gwt.activity.Activity"/>
+	<source path="mvp"/>
+	<source path="ui"/>
+</module>
