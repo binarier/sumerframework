@@ -1,4 +1,4 @@
-package com.huateng.ibatis.ibator.plugins;
+package com.huateng.frame.ibator;
 
 import java.util.List;
 
@@ -27,8 +27,8 @@ public class GenericDAO extends IbatorPluginAdapter {
 	@Override
 	public boolean daoInterfaceGenerated(Interface interfaze, IntrospectedTable introspectedTable)
 	{
-		FullyQualifiedJavaType record = getRecordType(introspectedTable);
-		FullyQualifiedJavaType key = getKeyType(introspectedTable);
+		FullyQualifiedJavaType record = ModelTypeUtils.getRecordType(introspectedTable);
+		FullyQualifiedJavaType key = ModelTypeUtils.getKeyType(introspectedTable);
 		FullyQualifiedJavaType example = introspectedTable.getExampleType();
 
 		interfaze.addImportedType(record);
@@ -51,8 +51,8 @@ public class GenericDAO extends IbatorPluginAdapter {
 	@Override
 	public boolean daoImplementationGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable)
 	{
-		FullyQualifiedJavaType record = getRecordType(introspectedTable);
-		FullyQualifiedJavaType key = getKeyType(introspectedTable);
+		FullyQualifiedJavaType record = ModelTypeUtils.getRecordType(introspectedTable);
+		FullyQualifiedJavaType key = ModelTypeUtils.getKeyType(introspectedTable);
 		FullyQualifiedJavaType example = introspectedTable.getExampleType();
 
 		topLevelClass.addImportedType(record);
@@ -86,32 +86,7 @@ public class GenericDAO extends IbatorPluginAdapter {
 		return true;
 	}
 	
-	private FullyQualifiedJavaType getKeyType(IntrospectedTable introspectedTable)
-	{
-		if (introspectedTable.getPrimaryKeyColumns().size() == 0)
-		{
-			//没有主键
-			return introspectedTable.getBaseRecordType();
-		}
-		else
-		{
-			return introspectedTable.getPrimaryKeyType();
-		}
-	}
-	
-	private FullyQualifiedJavaType getRecordType(IntrospectedTable introspectedTable)
-	{
-		if (introspectedTable.getNonPrimaryKeyColumns().size() == 0)
-		{
-			//如果全是主鍵，則使用Key類型
-			return introspectedTable.getPrimaryKeyType();
-		}
-		else
-		{
-			//否則使用記錄類型
-			return introspectedTable.getBaseRecordType();
-		}
-	}
+
 	
     public boolean daoCountByExampleMethodGenerated(Method method, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         return false;

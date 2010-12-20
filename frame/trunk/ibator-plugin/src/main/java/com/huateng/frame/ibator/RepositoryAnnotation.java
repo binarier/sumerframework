@@ -1,4 +1,4 @@
-package com.huateng.ibatis.ibator.plugins;
+package com.huateng.frame.ibator;
 
 import java.util.List;
 

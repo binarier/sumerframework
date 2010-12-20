@@ -1,4 +1,4 @@
-package com.huateng.ibatis.ibator.plugins;
+package com.huateng.frame.ibator;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -128,9 +128,9 @@ public class UIDataSource extends IbatorPluginAdapter {
 			
 			String type = col.getFullyQualifiedJavaType().getShortName();
 
-			if (type.equals("Integer")||type.equals("Long"))
+			if (type.equals("Integer")||type.equals("Long")||type.equals("Short"))
 			{
-				//Integer or Long
+				//Integer or Long or Short
 				inner.setSuperClass(new FullyQualifiedJavaType("org.synthful.smartgwt.client.widgets.UIDataSourceIntegerField"));
 				clazz.addImportedType(inner.getSuperClass());
 			}

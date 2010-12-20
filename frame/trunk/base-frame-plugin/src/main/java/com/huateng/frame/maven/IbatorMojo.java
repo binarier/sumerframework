@@ -27,6 +27,8 @@ import org.apache.maven.plugin.MojoFailureException;
  * 
  * @goal ibator
  * 
+ * @phase generate-sources
+ * 
  * @author chenjun.li
  */
 public class IbatorMojo extends AbstractMojo {

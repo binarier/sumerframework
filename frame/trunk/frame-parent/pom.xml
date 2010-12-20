@@ -25,6 +25,7 @@
 		<module>../ibator-plugin/pom.xml</module>
 		<module>../frame-core/pom.xml</module>
 		<module>../base-frame-plugin/pom.xml</module>
+		<module>../base-frame-archetype/pom.xml</module>
 	</modules>
 	<build>
 		<extensions>

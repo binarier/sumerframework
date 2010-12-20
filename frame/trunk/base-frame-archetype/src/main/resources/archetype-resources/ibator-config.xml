@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="gb18030" ?>
+<!DOCTYPE ibatorConfiguration
+        PUBLIC "-//Apache Software Foundation//DTD Apache iBATIS Ibator Configuration 1.0//EN"
+        "http://ibatis.apache.org/dtd/ibator-config_1_0.dtd">
+
+<ibatorConfiguration>
+    <classPathEntry location="${jdbcLibPath}"/>
+
+    <ibatorContext id="tables" defaultModelType="hierarchical" targetRuntime="Ibatis2Java5">
+		<ibatorPlugin type="org.apache.ibatis.ibator.plugins.SerializablePlugin"/>
+		<ibatorPlugin type="com.huateng.frame.ibator.RepositoryAnnotation"/>
+		<ibatorPlugin type="com.huateng.frame.ibator.GenericDAO"/>
+		<ibatorPlugin type="com.huateng.frame.ibator.UIDataSource">
+			<property name="targetPackage" value="${package}.client.datasource"/>
+			<property name="targetProject" value="src/main/java"/>
+		</ibatorPlugin>
+		<ibatorPlugin type="com.huateng.frame.ibator.ServerDataSource">
+			<property name="targetPackage" value="${package}.server.datasource"/>
+			<property name="targetProject" value="src/main/java"/>
+		</ibatorPlugin>
+		<commentGenerator type="com.huateng.frame.maven.IbatorNullCommentGenerator"/>
+
+        <jdbcConnection
+                driverClass="${jdbcDriverClass}"
+                connectionURL="${jdbcConnectionUrl}"
+                userId="${jdbcUsername}"
+                password="${jdbcPassword}">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="${package}.model" targetProject="src/main/java">
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="${package}.ibatis.map" targetProject="src/main/resources"/>
+        <daoGenerator targetPackage="${package}.ibatis.dao" type="SPRING" targetProject="src/main/java"/>
+
+		<table tableName="*"><property name="ignoreQualifiersAtRuntime" value="true"/></table>
+    </ibatorContext>
+</ibatorConfiguration>
