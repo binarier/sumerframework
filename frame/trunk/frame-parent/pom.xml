@@ -5,7 +5,7 @@
 	<artifactId>frame-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>frame 框架模块的基础pom定义</name>
+	<name>Frame 应用程序开发框架</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.0.5.RELEASE</spring.version>
@@ -21,6 +21,11 @@
 			<url>svn:https://sumerframework.googlecode.com/svn/maven</url>
 		</repository>
 	</distributionManagement>
+	<modules>
+		<module>../ibator-plugin/pom.xml</module>
+		<module>../frame-core/pom.xml</module>
+		<module>../base-frame-plugin/pom.xml</module>
+	</modules>
 	<build>
 		<extensions>
 			<extension>
@@ -47,8 +52,11 @@
 					<execution>
 						<id>attach-sources</id>
 						<goals>
-							<goal>jar</goal>
+							<goal>jar-no-fork</goal>
 						</goals>
+						<configuration>
+							<excludeResources>true</excludeResources>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

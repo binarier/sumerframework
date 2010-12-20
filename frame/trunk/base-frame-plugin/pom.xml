@@ -7,9 +7,15 @@
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../frame-parent/pom.xml</relativePath>
 	</parent>
-	<name>用于生成Base框架代码的Maven插件</name>
+	<name>BaseFrame - 代码生成Maven插件</name>
 	<artifactId>base-frame-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
+	<repositories>
+		<repository>
+			<id>sumer_repo</id>
+			<url>http://sumerframework.googlecode.com/svn/maven</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
