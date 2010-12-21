@@ -34,16 +34,25 @@ import com.smartgwt.client.types.EnumTranslateStrategy;
 import com.smartgwt.client.types.RPCTransport;
 import com.smartgwt.client.types.TextMatchStyle;
 
-public class UIRestDataSource
-extends UIDataSource
- {
-	public UIRestDataSource() {
+public class UIRestDataSource extends UIDataSource
+{
+	public static final String defaultDispatcherContext = "spring";
+	public static final String defaultControllerMapping = "sds";
+	
+	public UIRestDataSource()
+	{
+		this(defaultDispatcherContext, defaultControllerMapping);
+	}
+	
+	public UIRestDataSource(String dispatcherContext, String controllerMapping) {
 		datasource.setDataProtocol(DSProtocol.POSTPARAMS);
 		datasource.setDataFormat (DSDataFormat.JSON);
-		datasource.setOperationBindings(new OperationBinding(DSOperationType.FETCH, "spring/sds/fetch"),
-			new OperationBinding(DSOperationType.ADD, "spring/sds/add"),
-			new OperationBinding(DSOperationType.UPDATE, "spring/sds/update"),
-			new OperationBinding(DSOperationType.REMOVE, "spring/sds/remove"));
+		String url = dispatcherContext + "/" + controllerMapping + "/";
+		datasource.setOperationBindings(
+			new OperationBinding(DSOperationType.FETCH, url + "fetch"),
+			new OperationBinding(DSOperationType.ADD, url + "add"),
+			new OperationBinding(DSOperationType.UPDATE, url + "update"),
+			new OperationBinding(DSOperationType.REMOVE, url + "remove"));
 	}
 	final protected RestDataSource datasource = new RestDataSource();
 	

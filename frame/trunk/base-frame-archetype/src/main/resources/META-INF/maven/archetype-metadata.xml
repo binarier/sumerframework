@@ -34,6 +34,9 @@
 		<fileSet packaged="true">
 			<directory>src/main/java</directory>
 		</fileSet>
+		<fileSet packaged="true">
+			<directory>src/main/resources</directory>
+		</fileSet>
 		<fileSet filtered="true" encoding="utf-8">
 			<directory></directory>
 			<includes>
