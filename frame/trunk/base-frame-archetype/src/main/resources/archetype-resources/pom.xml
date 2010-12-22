@@ -61,12 +61,13 @@
 				<groupId>com.huateng.frame</groupId>
 				<artifactId>base-frame-plugin</artifactId>
 				<version>${frameVersion}</version>
-				<!-- 如果想要每次生成时均连接数据库进行生成，则去掉下面一节的注释 -->
+				<!-- 如果想要每次生成时均连接数据库进行生成和/或生成国际化文件，则去掉下面一节的注释 -->
 				<!--  
 				<executions>
 					<execution>
 						<goals>
 							<goal>ibator</goal>
+							<goal>i18n-pdm</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -74,6 +75,8 @@
 				<configuration>
 					<configfile>ibator-config.xml</configfile>
 					<overwrite>true</overwrite>
+					<pdmSource>model.pdm</pdmSource>
+					<targetPackage>${package}.base.client.datasource.i18n</targetPackage>
 				</configuration>
 				<dependencies>
 					<dependency>
