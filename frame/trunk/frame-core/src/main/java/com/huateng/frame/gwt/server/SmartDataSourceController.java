@@ -24,9 +24,13 @@ public class SmartDataSourceController
 	private ObjectMapper mapper = new ObjectMapper();
 
 	@RequestMapping("/fetch")
-	protected void fetch(@RequestParam("_dataSource") String dataSource, @RequestParam("_startRow") int startRow, @RequestParam("_endRow") int endRow,
+	protected void fetch(@RequestParam("_dataSource") String dataSource,
+			@RequestParam("_startRow") int startRow,
+			@RequestParam("_endRow") int endRow,
+			@RequestParam(value = "_sortBy", required = false) String sortBy, 
 			@RequestParam(value = "criteria", required = false) String criteriaJSONs[],
-			@RequestParam(value = "operator", required = false) OperatorId operator, HttpServletResponse httpServletResponse) throws Exception
+			@RequestParam(value = "operator", required = false) OperatorId operator,
+			HttpServletResponse httpServletResponse) throws Exception
 	{
 		httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		mapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false);
@@ -56,7 +60,7 @@ public class SmartDataSourceController
 			Response resp = new Response();
 			FetchOperation<?, SmartCriteria> sds = fetchDataSources.get(dataSource);
 
-			resp.setResponse(sds.fetch(sc, startRow, endRow));
+			resp.setResponse(sds.fetch(sc, startRow, endRow, sortBy));
 			httpServletResponse.getOutputStream().write(mapper.writeValueAsBytes(resp));
 			httpServletResponse.setStatus(HttpServletResponse.SC_OK);
 		}

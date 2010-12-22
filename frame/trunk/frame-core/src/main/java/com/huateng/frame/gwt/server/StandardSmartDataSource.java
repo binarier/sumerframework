@@ -1,6 +1,11 @@
 package com.huateng.frame.gwt.server;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import com.huateng.frame.orm.IbatorDAO;
 import com.huateng.frame.orm.IbatorExample;
@@ -18,21 +23,38 @@ public class StandardSmartDataSource<T, K, E extends IbatorExample> implements F
 	}
 
 	@Transactional(readOnly = true)
-	public FetchResult<T> fetch(SmartCriteria criteria, int startRow, int endRow)
+	public FetchResult<T> fetch(SmartCriteria criteria, int startRow, int endRow, String sortBy)
 	{
 		try
 		{
 			FetchResult<T> rlt = new FetchResult<T>();
-			E example = null;
+			E example = exampleClass.newInstance();
+			Map<String, String> mapping = example.getFieldNameMap();
+			Assert.notNull(mapping);
+			if (StringUtils.isNotBlank(sortBy))
+			{
+				String direction = " ASC";
+				if (sortBy.startsWith("-"))
+				{
+					direction = " DESC";
+					sortBy = sortBy.substring(1);
+				}
+				String col = mapping.get(sortBy);
+				Assert.notNull(col);
+				
+				example.setOrderByClause(col + direction);
+			}
 			if (criteria != null)
 			{
-				example = exampleClass.newInstance();
-				example.getOredCriteria().addAll(criteria.toIbatorCriteria(example.getFieldNameMap()));
+				example.getOredCriteria().addAll(criteria.toIbatorCriteria(mapping));
 			}
-			rlt.setData(ibatorDAO.selectByExample(example, startRow, endRow - startRow));
+			List<T> rows = ibatorDAO.selectByExample(example, startRow, endRow - startRow);
+			int count = ibatorDAO.countByExample(example);
+
+			rlt.setData(rows);
 			rlt.setStartRow(startRow);
 			rlt.setEndRow(startRow + rlt.getData().size());
-			rlt.setTotalRows(rlt.getData().size());
+			rlt.setTotalRows(count);
 			return rlt;
 		}
 		catch(Throwable t)

@@ -17,7 +17,7 @@ public abstract class IbatorDAOImpl<T, K, E extends IbatorExample> extends SqlMa
     }
 
     public int countByExample(E example) {
-        Integer count = (Integer)  getSqlMapClientTemplate().queryForObject(namespace + "ibatorgenerated_countByExample", example);
+        Integer count = (Integer)  getSqlMapClientTemplate().queryForObject(namespace + ".ibatorgenerated_countByExample", example);
         return count;
     }
 

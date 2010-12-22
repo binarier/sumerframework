@@ -121,6 +121,10 @@ public class UIDataSource extends IbatorPluginAdapter
 			mi.setName(fqjtInner.getShortName());
 			mi.setConstructor(true);
 			mi.addBodyLine("setName(\"" + col.getJavaProperty() + "\");");
+			
+			//主键
+			if (introspectedTable.getPrimaryKeyColumns().contains(col))
+				mi.addBodyLine("setPrimaryKey(true);");
 
 			// 国际化
 			String val = MessageFormat.format("{0}_{1}", introspectedTable.getBaseRecordType().getShortName(), fqjtInner.getShortName());
