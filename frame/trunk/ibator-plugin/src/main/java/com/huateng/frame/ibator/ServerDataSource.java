@@ -1,5 +1,6 @@
 package com.huateng.frame.ibator;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,8 @@ public class ServerDataSource extends IbatorPluginAdapter {
 		method.addAnnotation("@Autowired");
 		clazz.addImportedType(introspectedTable.getDAOInterfaceType());
 		method.addParameter(new Parameter(introspectedTable.getDAOInterfaceType(), "dao"));
-		method.addBodyLine("super(dao);");
+		clazz.addImportedType(introspectedTable.getExampleType());
+		method.addBodyLine(MessageFormat.format("super(dao, {0}.class);", introspectedTable.getExampleType().getShortName()));
 		clazz.addMethod(method);
 
 		List<GeneratedJavaFile> gjfs = new ArrayList<GeneratedJavaFile>();

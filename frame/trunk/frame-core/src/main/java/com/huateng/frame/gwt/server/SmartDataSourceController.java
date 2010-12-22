@@ -13,45 +13,66 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huateng.frame.gwt.client.ui.UIRestDataSource;
 
-
 @Controller
 @RequestMapping("/" + UIRestDataSource.defaultControllerMapping)
-public class SmartDataSourceController{
-	
+public class SmartDataSourceController
+{
+
 	@Autowired
-	private Map<String, FetchOperation<?>> fetchDataSources;
+	private Map<String, FetchOperation<?, SmartCriteria>> fetchDataSources;
 
 	private ObjectMapper mapper = new ObjectMapper();
 
 	@RequestMapping("/fetch")
-	protected void fetch(
-			@RequestParam("_dataSource") String dataSource,
-			@RequestParam("_startRow") int startRow,
-			@RequestParam("_endRow") int endRow,
-			HttpServletResponse httpServletResponse) throws Exception
+	protected void fetch(@RequestParam("_dataSource") String dataSource, @RequestParam("_startRow") int startRow, @RequestParam("_endRow") int endRow,
+			@RequestParam(value = "criteria", required = false) String criteriaJSONs[],
+			@RequestParam(value = "operator", required = false) OperatorId operator, HttpServletResponse httpServletResponse) throws Exception
 	{
 		httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
 		mapper.configure(SerializationConfig.Feature.WRITE_DATES_AS_TIMESTAMPS, false);
 
 		if (fetchDataSources.containsKey(dataSource))
 		{
+			SmartCriteria sc = null;
+			// 解析criteria
+			if (criteriaJSONs != null)
+			{
+				if (criteriaJSONs.length > 1)
+				{
+					sc = new SmartCriteria();
+					sc.setOperator(operator);
+					SmartCriteria scs[] = new SmartCriteria[criteriaJSONs.length];
+					for (int i = 0; i < criteriaJSONs.length; i++)
+					{
+						scs[i] = mapper.readValue(criteriaJSONs[i], SmartCriteria.class);
+					}
+					sc.setCriteria(scs);
+				} else
+				{
+					sc = mapper.readValue(criteriaJSONs[0], SmartCriteria.class);
+				}
+			}
+
 			Response resp = new Response();
-			FetchOperation<?> sds = fetchDataSources.get(dataSource);
-			
-			resp.setResponse(sds.fetch(null, startRow, endRow));
+			FetchOperation<?, SmartCriteria> sds = fetchDataSources.get(dataSource);
+
+			resp.setResponse(sds.fetch(sc, startRow, endRow));
 			httpServletResponse.getOutputStream().write(mapper.writeValueAsBytes(resp));
 			httpServletResponse.setStatus(HttpServletResponse.SC_OK);
 		}
 	}
-	
-	static class Response{
+
+	static class Response
+	{
 		FetchResult<?> response;
 
-		public FetchResult<?> getResponse() {
+		public FetchResult<?> getResponse()
+		{
 			return response;
 		}
 
-		public void setResponse(FetchResult<?> response) {
+		public void setResponse(FetchResult<?> response)
+		{
 			this.response = response;
 		}
 	}

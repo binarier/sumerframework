@@ -2,7 +2,7 @@ package com.huateng.frame.orm;
 
 import java.util.List;
 
-public interface IbatorDAO<T, K, E>
+public interface IbatorDAO<T, K, E extends IbatorExample>
 {
 	int countByExample(E example);
 

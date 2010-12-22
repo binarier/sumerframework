@@ -7,10 +7,10 @@ import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
 @SuppressWarnings("unchecked")
-public abstract class IbatorDAOImpl<T, K, E> extends SqlMapClientDaoSupport implements IbatorDAO<T, K, E> {
+public abstract class IbatorDAOImpl<T, K, E extends IbatorExample> extends SqlMapClientDaoSupport implements IbatorDAO<T, K, E> {
 	
 	private String namespace;
-
+	
     protected IbatorDAOImpl(SqlMapClient client, String namespace) {
         setSqlMapClient(client);
         setNamespace(namespace);
@@ -70,4 +70,5 @@ public abstract class IbatorDAOImpl<T, K, E> extends SqlMapClientDaoSupport impl
 	public void setNamespace(String namespace) {
 		this.namespace = namespace;
 	}
+	
 }
