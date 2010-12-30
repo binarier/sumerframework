@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.criterion.Conjunction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Disjunction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.util.Assert;
 
 import com.huateng.frame.orm.IbatorCriteria;
 
 public class SmartCriteria
 {
-	private String fieldName;
-	private OperatorId operator;
-	private Object value;
-	private SmartCriteria criteria[];
+	protected String fieldName;
+	protected OperatorId operator;
+	protected Object value;
+	protected List<SmartCriteria> criteria;
 
 	public String getFieldName()
 	{
@@ -45,16 +49,6 @@ public class SmartCriteria
 		this.value = value;
 	}
 
-	public SmartCriteria[] getCriteria()
-	{
-		return criteria;
-	}
-
-	public void setCriteria(SmartCriteria[] criteria)
-	{
-		this.criteria = criteria;
-	}
-
 	public void validate()
 	{
 		// TODO SQL注入检查
@@ -67,9 +61,9 @@ public class SmartCriteria
 		List<IbatorCriteria> result = new ArrayList<IbatorCriteria>();
 		if (criteria != null)
 		{
-			Assert.isTrue(criteria.length == 2);
-			List<IbatorCriteria> ic1 = criteria[0].toIbatorCriteria(nameMapping);
-			List<IbatorCriteria> ic2 = criteria[1].toIbatorCriteria(nameMapping);
+			Assert.isTrue(criteria.size() == 2);
+			List<IbatorCriteria> ic1 = criteria.get(0).toIbatorCriteria(nameMapping);
+			List<IbatorCriteria> ic2 = criteria.get(1).toIbatorCriteria(nameMapping);
 
 			switch (operator)
 			{
@@ -122,5 +116,44 @@ public class SmartCriteria
 				result.add(c);
 		}
 		return result;
+	}
+	
+	public Criterion toHibernateCriterion()
+	{
+		switch (operator)
+		{
+		case or:
+			Disjunction disjunction = Restrictions.disjunction();
+			for (SmartCriteria cri : criteria)
+				disjunction.add(cri.toHibernateCriterion());
+			return disjunction;
+		case and:
+			Conjunction conjunction = Restrictions.conjunction();
+			for (SmartCriteria cri : criteria)
+				conjunction.add(cri.toHibernateCriterion());
+			return conjunction;
+		case equals:
+			return Restrictions.eq(fieldName, value);
+		case greaterThan:
+			return Restrictions.gt(fieldName, value);
+		case lessThan:
+			return Restrictions.lt(fieldName, value);
+		case greaterOrEqual:
+			return Restrictions.ge(fieldName, value);
+		case lessOrEqual:
+			return Restrictions.le(fieldName, value);
+		default:
+			return null;
+		}
+	}
+
+	public List<SmartCriteria> getCriteria()
+	{
+		return criteria;
+	}
+
+	public void setCriteria(List<SmartCriteria> criteria)
+	{
+		this.criteria = criteria;
 	}
 }
