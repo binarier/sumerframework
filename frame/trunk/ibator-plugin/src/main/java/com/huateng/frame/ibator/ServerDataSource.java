@@ -13,7 +13,7 @@ import org.apache.ibatis.ibator.api.dom.java.Method;
 import org.apache.ibatis.ibator.api.dom.java.Parameter;
 import org.apache.ibatis.ibator.api.dom.java.TopLevelClass;
 
-import com.huateng.frame.gwt.server.StandardSmartDataSource;
+import com.huateng.frame.gwt.server.HibernateSmartCriteriaService;
 
 public class ServerDataSource extends IbatorPluginAdapter {
 
@@ -26,10 +26,8 @@ public class ServerDataSource extends IbatorPluginAdapter {
 		String targetPackage = getProperties().getProperty("targetPackage");
 		String targetProject = getProperties().getProperty("targetProject");
 		
-		FullyQualifiedJavaType fqjtSuper = new FullyQualifiedJavaType(StandardSmartDataSource.class.getCanonicalName());
+		FullyQualifiedJavaType fqjtSuper = new FullyQualifiedJavaType(HibernateSmartCriteriaService.class.getCanonicalName());
 		fqjtSuper.addTypeArgument(ModelTypeUtils.getRecordType(introspectedTable));
-		fqjtSuper.addTypeArgument(ModelTypeUtils.getKeyType(introspectedTable));
-		fqjtSuper.addTypeArgument(introspectedTable.getExampleType());
 
 		TopLevelClass clazz = new TopLevelClass(new FullyQualifiedJavaType(targetPackage + "." + introspectedTable.getBaseRecordType().getShortName() + "DataSource"));
 		clazz.setVisibility(JavaVisibility.PUBLIC);
@@ -37,8 +35,6 @@ public class ServerDataSource extends IbatorPluginAdapter {
 		clazz.setSuperClass(fqjtSuper);
 
 		clazz.addImportedType(ModelTypeUtils.getRecordType(introspectedTable));
-		clazz.addImportedType(ModelTypeUtils.getKeyType(introspectedTable));
-		clazz.addImportedType(introspectedTable.getExampleType());
 
 		clazz.addImportedType(new FullyQualifiedJavaType("org.springframework.stereotype.Service"));
 		clazz.addAnnotation("@Service");
@@ -49,10 +45,7 @@ public class ServerDataSource extends IbatorPluginAdapter {
 		method.setConstructor(true);
 		clazz.addImportedType(new FullyQualifiedJavaType("org.springframework.beans.factory.annotation.Autowired"));
 		method.addAnnotation("@Autowired");
-		clazz.addImportedType(introspectedTable.getDAOInterfaceType());
-		method.addParameter(new Parameter(introspectedTable.getDAOInterfaceType(), "dao"));
-		clazz.addImportedType(introspectedTable.getExampleType());
-		method.addBodyLine(MessageFormat.format("super(dao, {0}.class);", introspectedTable.getExampleType().getShortName()));
+		method.addBodyLine(MessageFormat.format("super({0}.class);", ModelTypeUtils.getRecordType(introspectedTable).getShortName()));
 		clazz.addMethod(method);
 
 		List<GeneratedJavaFile> gjfs = new ArrayList<GeneratedJavaFile>();

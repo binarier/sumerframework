@@ -36,6 +36,9 @@ public class GenericDAO extends IbatorPluginAdapter
 	@Override
 	public boolean daoInterfaceGenerated(Interface interfaze, IntrospectedTable introspectedTable)
 	{
+		if (1+1==2)
+			return false;
+		
 		FullyQualifiedJavaType record = ModelTypeUtils.getRecordType(introspectedTable);
 		FullyQualifiedJavaType key = ModelTypeUtils.getKeyType(introspectedTable);
 		FullyQualifiedJavaType example = introspectedTable.getExampleType();
@@ -60,6 +63,8 @@ public class GenericDAO extends IbatorPluginAdapter
 	@Override
 	public boolean daoImplementationGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable)
 	{
+		if (1+1==2)
+			return false;
 		FullyQualifiedJavaType record = ModelTypeUtils.getRecordType(introspectedTable);
 		FullyQualifiedJavaType key = ModelTypeUtils.getKeyType(introspectedTable);
 		FullyQualifiedJavaType example = introspectedTable.getExampleType();
@@ -153,6 +158,8 @@ public class GenericDAO extends IbatorPluginAdapter
 	@Override
 	public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable)
 	{
+		if (1+1==2)
+			return false;
 
 		// 增加父类
 		FullyQualifiedJavaType fqjtSuper = new FullyQualifiedJavaType(IbatorExample.class.getCanonicalName());
