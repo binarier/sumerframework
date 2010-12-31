@@ -29,10 +29,9 @@
 		</repository>
 	</distributionManagement>
 	<modules>
-		<module>../frame-core/pom.xml</module>
-		<module>../base-frame-plugin/pom.xml</module>
-		<module>../base-frame-archetype/pom.xml</module>
-		<module>../ibator-plugin/pom.xml</module>
+		<module>../frame-core</module>
+		<module>../base-frame-plugin</module>
+		<module>../base-frame-archetype</module>
 	</modules>
 	<build>
 		<extensions>
