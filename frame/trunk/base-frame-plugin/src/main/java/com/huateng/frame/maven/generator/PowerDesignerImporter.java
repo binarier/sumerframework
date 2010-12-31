@@ -1,12 +1,13 @@
 package com.huateng.frame.maven.generator;
 
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.ibator.api.dom.java.FullyQualifiedJavaType;
-import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.logging.Log;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -22,9 +23,12 @@ public class PowerDesignerImporter
 {
 	private File pdmSource;
 	
-	public PowerDesignerImporter(File pdmSource)
+	private Log logger;
+	
+	public PowerDesignerImporter(File pdmSource, Log logger)
 	{
 		this.pdmSource = pdmSource;
+		this.logger = logger;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -70,7 +74,11 @@ public class PowerDesignerImporter
 
 				// 处理主键
 				Element nodePrimaryKeyRef = (Element) nodeTable.selectSingleNode("c:PrimaryKey/o:Key");
-				if (nodePrimaryKeyRef == null) throw new MojoExecutionException("主键没找到:" + table.getDbName());
+				if (nodePrimaryKeyRef == null)
+				{
+					logger.warn(MessageFormat.format("主键没找到[{0}], 跳过该表", table.getDbName()));
+					continue;
+				}
 				String ref = nodePrimaryKeyRef.attribute("Ref").getText();
 				List<Element> pkColumns = (List<Element>) nodeTable.selectNodes("c:Keys/o:Key[@Id=\"" + ref + "\"]/c:Key.Columns/o:Column");
 				for (Element pkColumn : pkColumns)
@@ -88,6 +96,8 @@ public class PowerDesignerImporter
 				Element table2 = (Element) r.selectSingleNode("c:Object2/o:Table");
 				String id1 = table1.attributeValue("Ref");
 				String id2 = table2.attributeValue("Ref");
+				if (!tableIdMap.containsKey(id1) || !tableIdMap.containsKey(id2))
+					continue;		//可能是因为没有主键而跳过的表
 				rel.setParent(tableIdMap.get(id1));
 				rel.setChild(tableIdMap.get(id2));
 				for (Element rj : (List<Element>) r.selectNodes("c:Joins/o:ReferenceJoin"))
@@ -120,7 +130,7 @@ public class PowerDesignerImporter
 		col.setDbType(type);
 		if (type.startsWith("CHAR") || type.startsWith("VARCHAR"))
 			fqjt = FullyQualifiedJavaType.getStringInstance();
-		else if (type.startsWith("DECIMAL"))
+		else if (type.startsWith("DECIMAL")||type.equals("NUMERIC"))
 		{
 			if (col.getScale() == 0)
 			{
@@ -158,6 +168,14 @@ public class PowerDesignerImporter
 		else if (type.equals("DATETIME") || type.equals("TIMESTAMP") || type.startsWith("DATE"))
 		{
 			fqjt = new FullyQualifiedJavaType("java.util.Date");
+		}
+		else if (type.equals("FLOAT"))
+		{
+			fqjt = new FullyQualifiedJavaType("java.lang.Float");
+		}
+		else if (type.equals("NUMBERIC"))
+		{
+			fqjt = new FullyQualifiedJavaType("java.lang.Float");
 		}
 		else
 		{

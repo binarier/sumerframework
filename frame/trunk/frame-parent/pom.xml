@@ -10,11 +10,18 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<gwt.version>2.1.0</gwt.version>
+		<hibernate.version>3.5.5-Final</hibernate.version>
 	</properties>
 	<scm>
 		<connection>scm:svn:http://sumerframework.googlecode.com/svn/frame/trunk/${project.artifactId}</connection>
 		<developerConnection>scm:svn:https://sumerframework.googlecode.com/svn/frame/trunk/${project.artifactId}</developerConnection>
 	</scm>
+	<repositories>
+		<repository>
+			<id>jboss</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
+		</repository>
+	</repositories>
 	<distributionManagement>
 		<repository>
 			<id>sumer_repo</id>

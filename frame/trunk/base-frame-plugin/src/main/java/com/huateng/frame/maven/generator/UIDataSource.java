@@ -24,11 +24,12 @@ public class UIDataSource implements Generator
 {
 	private String targetPackage;
 	private Map<String, String> constants = new TreeMap<String, String>();
-	
+
 	public UIDataSource(String targetPackage)
 	{
 		this.targetPackage = targetPackage;
 	}
+
 	private FullyQualifiedJavaType getConstantsInterface(String targetPackage)
 	{
 		return new FullyQualifiedJavaType(targetPackage + ".i18n.FieldTitleConstants");
@@ -62,7 +63,7 @@ public class UIDataSource implements Generator
 		clazz.addImportedType(getConstantsUtil(targetPackage));
 
 		// 字段子类
-		for (Column col :table.getColumns())
+		for (Column col : table.getColumns())
 		{
 			FullyQualifiedJavaType fqjtInner = new FullyQualifiedJavaType(WordUtils.capitalize(col.getPropertyName()));
 			InnerClass inner = new InnerClass(fqjtInner);
@@ -74,10 +75,9 @@ public class UIDataSource implements Generator
 			mi.setName(fqjtInner.getShortName());
 			mi.setConstructor(true);
 			mi.addBodyLine("setName(\"" + col.getPropertyName() + "\");");
-			
-			//主键
-			if (table.getPrimaryKeyColumns().contains(col))
-				mi.addBodyLine("setPrimaryKey(true);");
+
+			// 主键
+			if (table.getPrimaryKeyColumns().contains(col)) mi.addBodyLine("setPrimaryKey(true);");
 
 			// 国际化
 			String val = MessageFormat.format("{0}_{1}", table.getJavaClass().getShortName(), fqjtInner.getShortName());
@@ -93,21 +93,35 @@ public class UIDataSource implements Generator
 				// Integer or Long or Short
 				inner.setSuperClass(new FullyQualifiedJavaType("org.synthful.smartgwt.client.widgets.UIDataSourceIntegerField"));
 				clazz.addImportedType(inner.getSuperClass());
-			} else if (type.equals("BigDecimal"))
+			}
+			else if (type.equals("BigDecimal"))
 			{
 				// BigDecimal
 				inner.setSuperClass(new FullyQualifiedJavaType("org.synthful.smartgwt.client.widgets.UIDataSourceFloatField"));
 				clazz.addImportedType(inner.getSuperClass());
-			} else if (type.equals("Date"))
+			}
+			else if (type.equals("Date"))
 			{
 				// Date
 				inner.setSuperClass(new FullyQualifiedJavaType("org.synthful.smartgwt.client.widgets.UIDataSourceDateField"));
 				clazz.addImportedType(inner.getSuperClass());
-			} else if (type.equals("String"))
+			}
+			else if (type.equals("String"))
 			{
 				inner.setSuperClass(new FullyQualifiedJavaType("org.synthful.smartgwt.client.widgets.UIDataSourceTextField"));
 				clazz.addImportedType(inner.getSuperClass());
-			} else
+			}
+			else if (type.equals("Byte"))
+			{
+				inner.setSuperClass(new FullyQualifiedJavaType("org.synthful.smartgwt.client.widgets.UIDataSourceBinaryField"));
+				clazz.addImportedType(inner.getSuperClass());
+			}
+			else if (type.equals("Float"))
+			{
+				inner.setSuperClass(new FullyQualifiedJavaType("org.synthful.smartgwt.client.widgets.UIDataSourceFloatField"));
+				clazz.addImportedType(inner.getSuperClass());
+			}
+			else
 			{
 				throw new IllegalArgumentException("无法识别的类型：" + type);
 			}

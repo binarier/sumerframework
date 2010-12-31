@@ -47,7 +47,7 @@ public class HibernateSmartCriteriaService<T> implements FetchOperation<T, Smart
 			.setProjection(Projections.rowCount());
 		if (criterion != null)
 			cri.add(criterion);
-		Integer count = (Integer)cri.uniqueResult();
+		int count = ((Long)cri.uniqueResult()).intValue();
 		FetchResult<T> result = new FetchResult<T>();
 		result.setData(list);
 		result.setTotalRows(count);

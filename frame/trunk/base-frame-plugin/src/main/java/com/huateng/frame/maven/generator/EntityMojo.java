@@ -85,7 +85,7 @@ public class EntityMojo extends AbstractMojo
 			r.setDirectory(outputDirectory);
 			r.setIncludes(in);
 			project.addResource(r);
-			PowerDesignerImporter importer = new PowerDesignerImporter(pdmSource);
+			PowerDesignerImporter importer = new PowerDesignerImporter(pdmSource, getLog());
 			Database db = importer.doImport();
 
 			List<CompilationUnit> units = generateEntity(db);
