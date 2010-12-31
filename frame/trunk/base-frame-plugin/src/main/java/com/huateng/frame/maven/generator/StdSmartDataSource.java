@@ -42,8 +42,8 @@ public class StdSmartDataSource implements Generator
 		method.setName(clazz.getType().getShortName());
 		method.setVisibility(JavaVisibility.PUBLIC);
 		method.setConstructor(true);
-		clazz.addImportedType(new FullyQualifiedJavaType("org.springframework.beans.factory.annotation.Autowired"));
-		method.addAnnotation("@Autowired");
+//		clazz.addImportedType(new FullyQualifiedJavaType("org.springframework.beans.factory.annotation.Autowired"));
+//		method.addAnnotation("@Autowired");
 		method.addBodyLine(MessageFormat.format("super({0}.class);", table.getJavaClass().getShortName()));
 		clazz.addMethod(method);
 

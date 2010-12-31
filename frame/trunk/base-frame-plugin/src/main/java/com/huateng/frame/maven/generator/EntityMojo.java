@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.ibatis.ibator.api.GeneratedJavaFile;
 import org.apache.ibatis.ibator.api.dom.java.CompilationUnit;
@@ -25,7 +26,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.hibernate.tool.hbm2x.StringUtils;
 
 import com.huateng.frame.maven.generator.meta.Column;
 import com.huateng.frame.maven.generator.meta.Database;
