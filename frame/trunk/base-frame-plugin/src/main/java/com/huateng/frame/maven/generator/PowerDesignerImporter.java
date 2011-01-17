@@ -177,6 +177,10 @@ public class PowerDesignerImporter
 		{
 			fqjt = new FullyQualifiedJavaType("java.lang.Float");
 		}
+		else if (type.equals("BIT"))
+		{
+			fqjt = new FullyQualifiedJavaType("java.lang.Boolean");
+		}
 		else
 		{
 			System.err.println("未支持类型:" + type + "(" + col.getDbName() + ")");

@@ -121,6 +121,11 @@ public class UIDataSource implements Generator
 				inner.setSuperClass(new FullyQualifiedJavaType("org.synthful.smartgwt.client.widgets.UIDataSourceFloatField"));
 				clazz.addImportedType(inner.getSuperClass());
 			}
+			else if (type.equals("Boolean"))
+			{
+				inner.setSuperClass(new FullyQualifiedJavaType("org.synthful.smartgwt.client.widgets.UIDataSourceBooleanField"));
+				clazz.addImportedType(inner.getSuperClass());
+			}
 			else
 			{
 				throw new IllegalArgumentException("无法识别的类型：" + type);
