@@ -10,6 +10,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<gwt.version>2.1.0</gwt.version>
+		<smartgwt.version>2.2</smartgwt.version>
 		<hibernate.version>3.5.5-Final</hibernate.version>
 	</properties>
 	<scm>
@@ -20,6 +21,10 @@
 		<repository>
 			<id>jboss</id>
 			<url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
+		</repository>
+		<repository>
+			<id>smartgwt</id>
+			<url>http://www.smartclient.com/maven2</url>
 		</repository>
 	</repositories>
 	<distributionManagement>
