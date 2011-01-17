@@ -2,9 +2,9 @@ package com.huateng.frame.gwt.client.ui;
 
 import org.synthful.smartgwt.client.LazyCanvas;
 
-import com.smartgwt.client.widgets.layout.Layout;
+import com.smartgwt.client.widgets.Canvas;
 
-public abstract class BasicView<ViewHandler> extends LazyCanvas<Layout>
+public abstract class BasicView<RootElement extends Canvas, ViewHandler> extends LazyCanvas<RootElement>
 {
 	protected ViewHandler handler;
 	
@@ -21,4 +21,8 @@ public abstract class BasicView<ViewHandler> extends LazyCanvas<Layout>
 	{
 		this.handler = handler;
 	}
+	
+	public abstract void updateView(Object hint);
+	
+	public abstract void setupView();
 }

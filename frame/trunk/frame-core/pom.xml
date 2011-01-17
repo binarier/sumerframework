@@ -52,7 +52,7 @@
 		<dependency>
 			<groupId>com.smartgwt</groupId>
 			<artifactId>smartgwt</artifactId>
-			<version>2.2</version>
+			<version>${smartgwt.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -71,6 +71,11 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.8.3</version>
 		</dependency>
 	</dependencies>
 	<build>
