@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import com.huateng.frame.gwt.client.datasource.FetchResult;
 import com.huateng.frame.orm.IbatorDAO;
 import com.huateng.frame.orm.IbatorExample;
 

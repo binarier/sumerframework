@@ -1,4 +1,4 @@
-package com.huateng.frame.gwt.server;
+package com.huateng.frame.gwt.client.datasource;
 
 import java.util.List;
 

@@ -96,6 +96,7 @@ public class EntityMojo extends AbstractMojo
 			generators.add(new StdSmartDataSource(basePackage + ".server.ds"));
 			generators.add(new UIDataSource(basePackage + ".client.ds"));
 			generators.add(new ClientHome(basePackage + ".client.home"));
+			generators.add(new ServerHome(basePackage + ".server.home"));
 			for (Table table : db.getTables())
 			{
 				for (Generator gen : generators)

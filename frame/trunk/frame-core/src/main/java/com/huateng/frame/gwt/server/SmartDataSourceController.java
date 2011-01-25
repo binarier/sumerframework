@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import com.huateng.frame.gwt.client.datasource.FetchResult;
 import com.huateng.frame.gwt.client.ui.UIRestDataSource;
 
 @Controller

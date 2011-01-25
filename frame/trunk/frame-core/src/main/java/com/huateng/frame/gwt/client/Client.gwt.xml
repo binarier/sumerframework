@@ -5,4 +5,5 @@
 	<inherits name="com.google.gwt.activity.Activity" />
 	<source path="mvp" />
 	<source path="ui" />
+	<source path="datasource"/>
 </module>

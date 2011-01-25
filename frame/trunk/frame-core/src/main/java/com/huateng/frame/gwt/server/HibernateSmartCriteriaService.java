@@ -11,6 +11,8 @@ import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.huateng.frame.gwt.client.datasource.FetchResult;
+
 public class HibernateSmartCriteriaService<T> implements FetchOperation<T, SmartCriteria>
 {
 	@Autowired

@@ -30,7 +30,7 @@ public class ClientHome implements Generator
 		List<CompilationUnit> result = new ArrayList<CompilationUnit>();
 		TopLevelClass clazz = new TopLevelClass(new FullyQualifiedJavaType(
 				targetPackage + "." +
-				table.getJavaClass().getShortName() + "Home"));
+				table.getJavaClass().getShortName() + "ClientHome"));
 		
 		clazz.setVisibility(JavaVisibility.PUBLIC);
 		
@@ -44,7 +44,7 @@ public class ClientHome implements Generator
 			f.setFinal(true);
 			f.setStatic(true);
 			f.setType(fqjtHelper);
-			f.setInitializationString(MessageFormat.format("new ColumnHelper(\"{0}\", \"{1}\", {2});", col.getPropertyName(), col.getTextName(), col.getLength()));
+			f.setInitializationString(MessageFormat.format("new ColumnHelper(\"{0}\", \"{1}\", {2})", col.getPropertyName(), col.getTextName(), col.getLength()));
 			clazz.addField(f);
 		}
 		result.add(clazz);
