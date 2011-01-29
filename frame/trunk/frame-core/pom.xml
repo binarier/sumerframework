@@ -28,6 +28,12 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<!-- 用于支持json的转换，号称目前性能最好的库，使用其LGPL版 -->
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-lgpl</artifactId>
