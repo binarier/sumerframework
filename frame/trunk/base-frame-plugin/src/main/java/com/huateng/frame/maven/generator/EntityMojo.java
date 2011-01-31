@@ -93,7 +93,6 @@ public class EntityMojo extends AbstractMojo
 			//调各插件
 			//TODO使用配置方式调
 			List<Generator> generators = new ArrayList<Generator>();
-			generators.add(new StdSmartDataSource(basePackage + ".server.ds"));
 			generators.add(new UIDataSource(basePackage + ".client.ds"));
 			generators.add(new ClientHome(basePackage + ".client.home"));
 			generators.add(new ServerHome(basePackage + ".server.home"));

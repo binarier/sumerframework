@@ -1,23 +1,30 @@
 package com.huateng.frame.gwt.server;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.hibernate.criterion.Conjunction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.util.Assert;
-
-import com.huateng.frame.orm.IbatorCriteria;
 
 public class SmartCriteria
 {
+	private static final ObjectMapper mapper = new ObjectMapper();
 	protected String fieldName;
 	protected OperatorId operator;
 	protected Object value;
 	protected List<SmartCriteria> criteria;
+	
+	public static SmartCriteria createFromJSON(String json) throws JsonParseException, JsonMappingException, IOException
+	{
+		assert json != null;
+		
+		return mapper.readValue(json, SmartCriteria.class);
+	}
 
 	public String getFieldName()
 	{
@@ -54,70 +61,6 @@ public class SmartCriteria
 		// TODO SQL注入检查
 	}
 
-	public List<IbatorCriteria> toIbatorCriteria(Map<String, String> nameMapping)
-	{
-		validate();
-
-		List<IbatorCriteria> result = new ArrayList<IbatorCriteria>();
-		if (criteria != null)
-		{
-			Assert.isTrue(criteria.size() == 2);
-			List<IbatorCriteria> ic1 = criteria.get(0).toIbatorCriteria(nameMapping);
-			List<IbatorCriteria> ic2 = criteria.get(1).toIbatorCriteria(nameMapping);
-
-			switch (operator)
-			{
-			case or:
-				// (A||B)||(C||D) == A||B||C||D
-				result.addAll(ic1);
-				result.addAll(ic2);
-				break;
-			case and:
-				// (A||B)(C||D) == AC||AD||BC||BD
-				for (IbatorCriteria c1 : ic1)
-				{
-					for (IbatorCriteria c2 : ic2)
-					{
-						IbatorCriteria m = new IbatorCriteria();
-						m.merge(c1);
-						m.merge(c2);
-						result.add(m);
-					}
-				}
-				break;
-			default:
-				Assert.isTrue(false);
-				break;
-			}
-		} else
-		{
-			// 转换成Criteria
-			IbatorCriteria c = new IbatorCriteria();
-			String colName = nameMapping.get(fieldName);
-			switch (operator)
-			{
-			case equals:
-				c.addCriterion(colName + " = ", value, fieldName);
-				break;
-			case greaterThan:
-				c.addCriterion(colName + " > ", value, fieldName);
-				break;
-			case lessThan:
-				c.addCriterion(colName + " < ", value, fieldName);
-				break;
-			case greaterOrEqual:
-				c.addCriterion(colName + " >= ", value, fieldName);
-				break;
-			case lessOrEqual:
-				c.addCriterion(colName + " <= ", value, fieldName);
-				break;
-			}
-			if (c.isValid())
-				result.add(c);
-		}
-		return result;
-	}
-	
 	public Criterion toHibernateCriterion()
 	{
 		switch (operator)
