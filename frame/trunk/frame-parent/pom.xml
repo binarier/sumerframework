@@ -19,6 +19,10 @@
 	</scm>
 	<repositories>
 		<repository>
+			<id>central</id>
+			<url>http://repo1.maven.org/maven2</url>
+		</repository>
+		<repository>
 			<id>jboss</id>
 			<url>http://repository.jboss.org/nexus/content/groups/public-jboss</url>
 		</repository>
@@ -33,11 +37,6 @@
 			<url>svn:https://sumerframework.googlecode.com/svn/maven</url>
 		</repository>
 	</distributionManagement>
-	<modules>
-		<module>../frame-core</module>
-		<module>../base-frame-plugin</module>
-		<module>../base-frame-archetype</module>
-	</modules>
 	<build>
 		<extensions>
 			<extension>
