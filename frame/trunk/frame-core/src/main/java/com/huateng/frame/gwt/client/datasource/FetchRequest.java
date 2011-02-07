@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class FetchRequest implements Serializable
 {
+	private static final long serialVersionUID = 1L;
 	private int startRow;
 	private int endRow;
 	private String sortBy;
