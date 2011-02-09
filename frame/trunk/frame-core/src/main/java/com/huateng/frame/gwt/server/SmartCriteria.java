@@ -3,6 +3,7 @@ package com.huateng.frame.gwt.server;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -24,6 +25,11 @@ public class SmartCriteria
 		assert json != null;
 		
 		return mapper.readValue(json, SmartCriteria.class);
+	}
+	
+	public boolean isValid()
+	{
+		return operator != null && StringUtils.isNotBlank(fieldName);
 	}
 
 	public String getFieldName()

@@ -1,5 +1,7 @@
 package com.huateng.frame.gwt.client.ui;
 
+import com.smartgwt.client.data.DataSourceField;
+import com.smartgwt.client.data.fields.DataSourceTextField;
 import com.smartgwt.client.widgets.form.fields.FormItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 
@@ -49,10 +51,13 @@ public class ColumnHelper
 	
 	public TextItem createTextItem()
 	{
-		TextItem item = new TextItem();
-		return applyFormItem(item);
+		return applyFormItem(new TextItem());
 	}
 	
+	public DataSourceTextField createTextField()
+	{
+		return applyDataSourceField(new DataSourceTextField());
+	}
 	public <T extends FormItem> T applyFormItem(T item)
 	{
 		item.setName(name);
@@ -61,4 +66,15 @@ public class ColumnHelper
 			item.setAttribute("length", length);
 		return item;
 	}
+	
+	public <T extends DataSourceField> T applyDataSourceField(T field)
+	{
+		field.setName(name);
+		field.setTitle(title);
+		if (length != null)
+			field.setLength(length);
+		return field;
+	}
+
+	
 }

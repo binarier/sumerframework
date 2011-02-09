@@ -22,8 +22,11 @@ public abstract class HibernateDataSourceHelper
 		{
 			//处理request中的条件
 			if (StringUtils.isNotBlank(fetchRequest.getCriteriaJSON()))
-				criteria.add(SmartCriteria.createFromJSON(fetchRequest.getCriteriaJSON()).toHibernateCriterion());
-	
+			{
+				SmartCriteria smartCriteria = SmartCriteria.createFromJSON(fetchRequest.getCriteriaJSON());
+				if (smartCriteria.isValid())
+					criteria.add(smartCriteria.toHibernateCriterion());
+			}
 			FetchResponse fetchResponse = new FetchResponse();
 			
 			//先取总数
