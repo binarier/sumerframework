@@ -20,7 +20,7 @@ import com.huateng.frame.maven.generator.meta.Column;
 import com.huateng.frame.maven.generator.meta.Database;
 import com.huateng.frame.maven.generator.meta.Table;
 
-public class UIDataSource implements Generator
+public class UIDataSource extends AbstractGenerator
 {
 	private String targetPackage;
 	private Map<String, String> constants = new TreeMap<String, String>();

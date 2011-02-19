@@ -16,7 +16,7 @@ import com.huateng.frame.maven.generator.meta.Column;
 import com.huateng.frame.maven.generator.meta.Database;
 import com.huateng.frame.maven.generator.meta.Table;
 
-public class ClientHome implements Generator
+public class ClientHome extends AbstractGenerator
 {
 	private String targetPackage;
 	
@@ -34,8 +34,6 @@ public class ClientHome implements Generator
 		
 		clazz.setVisibility(JavaVisibility.PUBLIC);
 		
-		FullyQualifiedJavaType fqjtHelper = new FullyQualifiedJavaType(ColumnHelper.class.getCanonicalName());
-		clazz.addImportedType(fqjtHelper);
 		for (Column col : table.getColumns())
 		{
 			Field f = new Field();
@@ -43,8 +41,12 @@ public class ClientHome implements Generator
 			f.setVisibility(JavaVisibility.PUBLIC);
 			f.setFinal(true);
 			f.setStatic(true);
+			FullyQualifiedJavaType fqjtHelper = new FullyQualifiedJavaType(ColumnHelper.class.getCanonicalName());
+			clazz.addImportedType(fqjtHelper);
+			fqjtHelper.addTypeArgument(col.getJavaType());
 			f.setType(fqjtHelper);
-			f.setInitializationString(MessageFormat.format("new ColumnHelper(\"{0}\", \"{1}\", {2})", col.getPropertyName(), col.getTextName(), col.getLength()));
+			clazz.addImportedType(col.getJavaType());
+			f.setInitializationString(MessageFormat.format("new ColumnHelper<{0}>(\"{1}\", \"{2}\", {3})", col.getJavaType().getShortName(), col.getPropertyName(), col.getTextName(), col.getLength()));
 			clazz.addField(f);
 		}
 		result.add(clazz);

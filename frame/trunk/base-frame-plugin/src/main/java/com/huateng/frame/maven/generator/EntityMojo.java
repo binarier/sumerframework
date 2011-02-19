@@ -72,6 +72,7 @@ public class EntityMojo extends AbstractMojo
      */
     private MavenProject project;
 
+    private List<Generator> generators = new ArrayList<Generator>();
 
 	public void execute() throws MojoExecutionException, MojoFailureException
 	{
@@ -88,14 +89,14 @@ public class EntityMojo extends AbstractMojo
 			PowerDesignerImporter importer = new PowerDesignerImporter(pdmSource, getLog());
 			Database db = importer.doImport();
 
-			List<CompilationUnit> units = generateEntity(db);
 			
 			//调各插件
 			//TODO使用配置方式调
-			List<Generator> generators = new ArrayList<Generator>();
-			generators.add(new UIDataSource(basePackage + ".client.ds"));
 			generators.add(new ClientHome(basePackage + ".client.home"));
 			generators.add(new ServerHome(basePackage + ".server.home"));
+			generators.add(new Entity2Map());
+			
+			List<CompilationUnit> units = generateEntity(db);
 			for (Table table : db.getTables())
 			{
 				for (Generator gen : generators)
@@ -180,6 +181,8 @@ public class EntityMojo extends AbstractMojo
 			// 建立Entity类
 			TopLevelClass entityClass = new TopLevelClass(table.getJavaClass());
 			entityClass.setVisibility(JavaVisibility.PUBLIC);
+			// 序列化
+			entityClass.addSuperInterface(GeneratorUtils.forType(entityClass, Serializable.class.getCanonicalName()));
 
 			GeneratorUtils.forType(entityClass, "javax.persistence.Entity");
 			entityClass.addAnnotation("@Entity");
@@ -192,7 +195,11 @@ public class EntityMojo extends AbstractMojo
 				entityClass.addImportedType(keyClass.getType());
 				entityClass.addImportedType(new FullyQualifiedJavaType("javax.persistence.IdClass"));
 				entityClass.addAnnotation(MessageFormat.format("@IdClass({0}.class)", keyClass.getType().getShortName()));
-				table.setJavaKeyClass(entityClass.getType());
+				table.setJavaKeyClass(keyClass.getType());
+				
+				for (Generator generator : generators)
+					generator.afterKeyGenerated(keyClass);
+
 				generatedFiles.add(keyClass);
 			}
 			else
@@ -225,6 +232,10 @@ public class EntityMojo extends AbstractMojo
 				f.addAnnotation(MessageFormat.format("@Column(name=\"{0}\")", col.getDbName()));
 			}
 
+			for (Generator generator : generators)
+			{
+				generator.afterEntityGenerated(entityClass);
+			}
 			generatedFiles.add(entityClass);
 			generatingMap.put(table, entityClass);
 		}

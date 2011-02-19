@@ -19,7 +19,7 @@ import com.huateng.frame.maven.generator.meta.Database;
 import com.huateng.frame.maven.generator.meta.Table;
 import com.huateng.frame.orm.TypedProperty;
 
-public class ServerHome implements Generator
+public class ServerHome extends AbstractGenerator
 {
 	private String targetPackage;
 	
@@ -42,6 +42,8 @@ public class ServerHome implements Generator
 		FullyQualifiedJavaType fqjtSuper = new FullyQualifiedJavaType(HibernateServerHome.class.getCanonicalName());
 		clazz.addImportedType(table.getJavaClass());
 		fqjtSuper.addTypeArgument(table.getJavaClass());
+		clazz.addImportedType(table.getJavaKeyClass());
+		fqjtSuper.addTypeArgument(table.getJavaKeyClass());
 		clazz.addImportedType(fqjtSuper);
 		clazz.setSuperClass(fqjtSuper);
 		

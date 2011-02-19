@@ -1,12 +1,15 @@
 package com.huateng.frame.gwt.client.ui;
 
+import java.io.Serializable;
+
 import com.smartgwt.client.data.DataSourceField;
+import com.smartgwt.client.data.Record;
 import com.smartgwt.client.data.fields.DataSourceTextField;
 import com.smartgwt.client.widgets.form.fields.FormItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 
 
-public class ColumnHelper
+public class ColumnHelper<DATA_TYPE extends Serializable>
 {
 	private String name;
 	private String title;
@@ -74,6 +77,12 @@ public class ColumnHelper
 		if (length != null)
 			field.setLength(length);
 		return field;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public DATA_TYPE fromRecord(Record record)
+	{
+		return (DATA_TYPE)record.getAttributeAsObject(name);
 	}
 
 	
