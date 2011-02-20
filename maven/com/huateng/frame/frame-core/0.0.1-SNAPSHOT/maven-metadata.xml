@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<metadata>
+<metadata modelVersion="1.1.0">
   <groupId>com.huateng.frame</groupId>
   <artifactId>frame-core</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <timestamp>20110131.090639</timestamp>
-      <buildNumber>5</buildNumber>
+      <timestamp>20110220.030855</timestamp>
+      <buildNumber>6</buildNumber>
     </snapshot>
-    <lastUpdated>20110131090702</lastUpdated>
+    <lastUpdated>20110220030855</lastUpdated>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>0.0.1-20110220.030855-6</value>
+        <updated>20110220030855</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>0.0.1-20110220.030855-6</value>
+        <updated>20110220030855</updated>
+      </snapshotVersion>
+    </snapshotVersions>
   </versioning>
 </metadata>

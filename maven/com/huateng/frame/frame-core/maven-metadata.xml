@@ -2,11 +2,10 @@
 <metadata>
   <groupId>com.huateng.frame</groupId>
   <artifactId>frame-core</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
   <versioning>
     <versions>
       <version>0.0.1-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20110131090639</lastUpdated>
+    <lastUpdated>20110220030940</lastUpdated>
   </versioning>
 </metadata>
