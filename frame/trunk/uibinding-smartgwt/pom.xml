@@ -1,37 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
 	<modelVersion>4.0.0</modelVersion>
+	<!-- 接口项目，源代码靠svn外链从http://uibinding-smartgwt.googlecode.com/svn/trunk上链过来， 
+		这里只是替换了其pom.xml以修正一些行为 -->
+	<parent>
+		<groupId>com.huateng.frame</groupId>
+		<artifactId>frame-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../frame-parent/pom.xml</relativePath>
+	</parent>
 	<groupId>org.synthful</groupId>
 	<artifactId>uibinding-smartgwt</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0.1</version>
 	<name>uibinding-smartgwt</name>
-	<description>This project adapts Smart GWT visual classes to enable them to be used as UiBinder nodes</description>
-
-	<repositories>
-		<repository>
-			<id>smart-client</id>
-			<name>Smart Client Repository</name>
-			<url>http://www.smartclient.com/maven2</url>
-		</repository>
-	</repositories>
-
-	<properties>
-		<gwtVersion>2.0.4</gwtVersion>
-		<smartGwtVersion>2.3</smartGwtVersion>
-	</properties>
+	<description>smartgwt 与 uibinder的接口</description>
 
 	<dependencies>
- 		<dependency>
+		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-user</artifactId>
-			<version>${gwtVersion}</version>
+			<version>${gwt.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.smartgwt</groupId>
 			<artifactId>smartgwt</artifactId>
-			<version>${smartGwtVersion}</version>
+			<version>${smartgwt.version}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -45,7 +40,6 @@
 				<directory>src/main/java</directory>
 			</resource>
 		</resources>
-	
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
