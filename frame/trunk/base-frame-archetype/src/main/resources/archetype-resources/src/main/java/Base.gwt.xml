@@ -1,7 +1,0 @@
-<module>
-	<inherits name="com.smartgwt.SmartGwt"/>
-	<inherits name="org.synthful.smartgwt.UISmartGWT"/>
-	<inherits name="com.huateng.frame.gwt.client.Client"/>
-	<source path='client'/>
-	<source path='model'/>
-</module>
