@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<archetype-descriptor
+	xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd"
+	name="BaseFrame项目原型">
+	<requiredProperties>
+		<requiredProperty key="frameVersion">
+			<defaultValue>0.0.1-SNAPSHOT</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="springVersion">
+			<defaultValue>3.0.5.RELEASE</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="gwtVersion">
+			<defaultValue>2.1.0</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="jdbcLibPath">
+			<defaultValue>C:\Users\chenjun.li\.m2\repository\mysql\mysql-connector-java\5.1.12\mysql-connector-java-5.1.12.jar</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="jdbcDriverClass">
+			<defaultValue>com.mysql.jdbc.Driver</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="jdbcConnectionUrl">
+			<defaultValue>jdbc:mysql://localhost:3306/gwt</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="jdbcUsername">
+			<defaultValue>root</defaultValue>
+		</requiredProperty>
+		<requiredProperty key="jdbcPassword">
+			<defaultValue></defaultValue>
+		</requiredProperty>
+	</requiredProperties>
+	<fileSets>
+		<fileSet packaged="true">
+			<directory>src/main/java</directory>
+		</fileSet>
+		<fileSet packaged="true">
+			<directory>src/main/resources</directory>
+		</fileSet>
+		<fileSet filtered="true" encoding="utf-8">
+			<directory></directory>
+			<includes>
+				<include>ibator-config.xml</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+</archetype-descriptor>
