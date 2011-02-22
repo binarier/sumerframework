@@ -1,11 +1,14 @@
 package com.huateng.frame.gwt.server;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import org.springframework.transaction.annotation.Transactional;
 
 public abstract class HibernateServerHome<T, K extends Serializable> extends HibernateDaoSupport
 {
@@ -50,5 +53,24 @@ public abstract class HibernateServerHome<T, K extends Serializable> extends Hib
 	public T load(K key)
 	{
 		return getHibernateTemplate().load(entityClass, key);
+	}
+	
+	public void delete(K key)
+	{
+		final K id = key;	//为了传递
+		getHibernateTemplate().execute(new HibernateCallback<Void>()
+		{
+			public Void doInHibernate(Session session) throws HibernateException, SQLException
+			{
+				Object entity = session.load(entityClass, id);
+				session.delete(entity);
+				return null;
+			}
+		});
+	}
+	
+	public void delete(T entity)
+	{
+		getHibernateTemplate().delete(entity);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.hibernate.criterion.Conjunction;
@@ -12,6 +13,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 
+@JsonIgnoreProperties("_constructor")
 public class SmartCriteria
 {
 	private static final ObjectMapper mapper = new ObjectMapper();
@@ -29,7 +31,17 @@ public class SmartCriteria
 	
 	public boolean isValid()
 	{
-		return operator != null && StringUtils.isNotBlank(fieldName);
+		//两种情况是有效的
+		if (operator == OperatorId.and || operator == OperatorId.or || operator == OperatorId.not)
+		{
+			//有子条件
+			return criteria != null && criteria.size() > 0;
+		}
+		else
+		{
+			//字段名必须有值
+			return StringUtils.isNotBlank(fieldName);
+		}
 	}
 
 	public String getFieldName()
@@ -91,6 +103,9 @@ public class SmartCriteria
 			return Restrictions.ge(fieldName, value);
 		case lessOrEqual:
 			return Restrictions.le(fieldName, value);
+		case iContains:
+			//慎用
+			return Restrictions.ilike(fieldName, "%"+value+"%");
 		default:
 			return null;
 		}

@@ -1,10 +1,15 @@
 package com.huateng.frame.gwt.client.ui;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
+import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.data.DataSourceField;
 import com.smartgwt.client.data.Record;
+import com.smartgwt.client.data.fields.DataSourceEnumField;
 import com.smartgwt.client.data.fields.DataSourceTextField;
+import com.smartgwt.client.widgets.form.fields.ComboBoxItem;
 import com.smartgwt.client.widgets.form.fields.FormItem;
 import com.smartgwt.client.widgets.form.fields.TextItem;
 
@@ -57,10 +62,42 @@ public class ColumnHelper<DATA_TYPE extends Serializable>
 		return applyFormItem(new TextItem());
 	}
 	
+	public ComboBoxItem createComboBoxItem()
+	{
+		return applyFormItem(new ComboBoxItem());
+	}
+	
+	public ComboBoxItem createComboBoxItem(LinkedHashMap valueMap)
+	{
+		ComboBoxItem item = createComboBoxItem();
+		item.setValueMap(valueMap);
+		return item;
+	}
+
+	public ComboBoxItem createComboBoxItem(DataSource dataSource)
+	{
+		ComboBoxItem item = createComboBoxItem();
+		item.setOptionDataSource(dataSource);
+		return item;
+	}
+	
 	public DataSourceTextField createTextField()
 	{
 		return applyDataSourceField(new DataSourceTextField());
 	}
+	
+	public DataSourceEnumField createEnumField()
+	{
+		return applyDataSourceField(new DataSourceEnumField());
+	}
+	
+	public DataSourceEnumField createEnumField(Map valueMap)
+	{
+		DataSourceEnumField field = createEnumField();
+		field.setValueMap(valueMap);
+		return field;
+	}
+	
 	public <T extends FormItem> T applyFormItem(T item)
 	{
 		item.setName(name);
