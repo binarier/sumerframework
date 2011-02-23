@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<!-- 接口项目，源代码靠svn外链从http://uibinding-smartgwt.googlecode.com/svn/trunk上链过来， 
+		这里只是替换了其pom.xml以修正一些行为 -->
+	<parent>
+		<groupId>com.huateng.frame</groupId>
+		<artifactId>frame-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../frame-parent/pom.xml</relativePath>
+	</parent>
+	<groupId>org.synthful</groupId>
+	<artifactId>uibinding-smartgwt</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0.1</version>
+	<name>uibinding-smartgwt</name>
+	<description>smartgwt 与 uibinder的接口</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.smartgwt</groupId>
+			<artifactId>smartgwt</artifactId>
+			<version>${smartgwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+			</resource>
+		</resources>
+	</build>
+
+</project>
