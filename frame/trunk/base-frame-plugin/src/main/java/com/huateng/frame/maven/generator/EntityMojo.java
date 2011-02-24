@@ -86,7 +86,7 @@ public class EntityMojo extends AbstractMojo
 			r.setDirectory(outputDirectory);
 			r.setIncludes(in);
 			project.addResource(r);
-			PowerDesignerImporter importer = new PowerDesignerImporter(pdmSource, getLog());
+			PDMImporter importer = new PDMImporter(pdmSource, getLog());
 			Database db = importer.doImport();
 
 			
@@ -268,7 +268,7 @@ public class EntityMojo extends AbstractMojo
 				childClass.addImportedType(new FullyQualifiedJavaType("javax.persistence.ManyToOne"));
 				f.addAnnotation("@ManyToOne");
 			}
-			childClass.addImportedType(new FullyQualifiedJavaType("javax.persistence.JoinColumns"));
+			childClass.addImportedType(new FullyQualifiedJavaType("javax.persistence.JoinColumn"));
 			if (rel.getJoinColumns().size() > 1)
 			{
 				childClass.addImportedType(new FullyQualifiedJavaType("javax.persistence.JoinColumns"));
@@ -278,7 +278,7 @@ public class EntityMojo extends AbstractMojo
 				while (iter.hasNext())
 				{
 					JoinColumn jc = iter.next();
-					f.addAnnotation(MessageFormat.format("	@JoinColumn(name=\"{0}\", referencedColumnName = \"{1}\"){2}", jc.getFk().getDbName(), jc.getPk()
+					f.addAnnotation(MessageFormat.format("	@JoinColumn(name=\"{0}\", referencedColumnName = \"{1}\", updatable=false, insertable=false){2}", jc.getFk().getDbName(), jc.getPk()
 							.getDbName(), iter.hasNext() ? "," : ""));
 				}
 				f.addAnnotation("})");
@@ -286,7 +286,7 @@ public class EntityMojo extends AbstractMojo
 			else
 			{
 				JoinColumn jc = rel.getJoinColumns().get(0);
-				f.addAnnotation(MessageFormat.format("@JoinColumn(name=\"{0}\", referencedColumnName = \"{1}\")", jc.getFk().getDbName(), jc.getPk()
+				f.addAnnotation(MessageFormat.format("@JoinColumn(name=\"{0}\", referencedColumnName = \"{1}\", updatable=false, insertable=false)", jc.getFk().getDbName(), jc.getPk()
 						.getDbName()));
 			}
 
@@ -305,10 +305,11 @@ public class EntityMojo extends AbstractMojo
 			else
 			{
 				parentClass.addImportedType(new FullyQualifiedJavaType("javax.persistence.OneToMany"));
-				FullyQualifiedJavaType fqjtArrayList = GeneratorUtils.forType(parentClass, "java.util.ArrayList");
-				fqjtArrayList.addTypeArgument(childClass.getType());
-				f = GeneratorUtils.generateProperty(childClass, fqjtArrayList, WordUtils.uncapitalize(childClass.getType().getShortName() + "s"), false);
-				f.setInitializationString("new ArrayList<" + childClass.getType().getShortName() + ">()");
+				FullyQualifiedJavaType fqjtSet = GeneratorUtils.forType(parentClass, "java.util.Set");
+				fqjtSet.addTypeArgument(childClass.getType());
+				f = GeneratorUtils.generateProperty(parentClass, fqjtSet, WordUtils.uncapitalize(childClass.getType().getShortName() + "s"), false);
+//				f.setInitializationString("new ArrayList<" + childClass.getType().getShortName() + ">()");
+				parentClass.addImportedType(new FullyQualifiedJavaType("javax.persistence.CascadeType"));
 				f.addAnnotation(MessageFormat.format("@OneToMany(mappedBy = \"{0}\", cascade = CascadeType.ALL)",
 						WordUtils.uncapitalize(childClass.getType().getShortName())));
 			}
