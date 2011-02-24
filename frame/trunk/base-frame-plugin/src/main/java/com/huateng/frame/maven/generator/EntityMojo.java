@@ -300,7 +300,7 @@ public class EntityMojo extends AbstractMojo
 				parentClass.addImportedType(new FullyQualifiedJavaType("javax.persistence.OneToOne"));
 				f = GeneratorUtils.generateProperty(parentClass, childClass.getType(), WordUtils.uncapitalize(childClass.getType().getShortName()), false);
 				f.addAnnotation(MessageFormat.format("@OneToOne(mappedBy = \"{0}\", optional = true, cascade = CascadeType.ALL)",
-						WordUtils.uncapitalize(childClass.getType().getShortName())));
+						WordUtils.uncapitalize(parentClass.getType().getShortName())));
 			}
 			else
 			{
@@ -311,7 +311,7 @@ public class EntityMojo extends AbstractMojo
 //				f.setInitializationString("new ArrayList<" + childClass.getType().getShortName() + ">()");
 				parentClass.addImportedType(new FullyQualifiedJavaType("javax.persistence.CascadeType"));
 				f.addAnnotation(MessageFormat.format("@OneToMany(mappedBy = \"{0}\", cascade = CascadeType.ALL)",
-						WordUtils.uncapitalize(childClass.getType().getShortName())));
+						WordUtils.uncapitalize(parentClass.getType().getShortName())));
 			}
 		}
 		return generatedFiles;
