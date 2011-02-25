@@ -7,6 +7,7 @@ public class Database {
 	
 	private List<Table> tables = new ArrayList<Table>();
 	private List<Relationship> relationships = new ArrayList<Relationship>();
+	private List<Domain> domains = new ArrayList<Domain>();
 	
 	public List<Table> getTables() {
 		return tables;
@@ -19,5 +20,13 @@ public class Database {
 	}
 	public void setRelationships(List<Relationship> relationships) {
 		this.relationships = relationships;
+	}
+	public List<Domain> getDomains()
+	{
+		return domains;
+	}
+	public void setDomains(List<Domain> domains)
+	{
+		this.domains = domains;
 	}
 }

@@ -30,7 +30,10 @@ public abstract class HibernateDataSourceHelper
 			FetchResponse fetchResponse = new FetchResponse();
 			
 			//先取总数
-			int count = ((Long)criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+			Long countResult = (Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
+			int count = 0;
+			if (countResult != null)
+				count = countResult.intValue();
 			
 			fetchResponse.setTotalRows(count);
 			

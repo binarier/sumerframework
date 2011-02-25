@@ -13,6 +13,7 @@ public class Column {
 	private FullyQualifiedJavaType javaType;
 	private boolean lob = false;
 	private String dbType;
+	private Domain domain;
 	
 	//由总控填写
 	private String propertyName;
@@ -102,5 +103,13 @@ public class Column {
 	public void setDbType(String dbType)
 	{
 		this.dbType = dbType;
+	}
+	public Domain getDomain()
+	{
+		return domain;
+	}
+	public void setDomain(Domain domain)
+	{
+		this.domain = domain;
 	}
 }

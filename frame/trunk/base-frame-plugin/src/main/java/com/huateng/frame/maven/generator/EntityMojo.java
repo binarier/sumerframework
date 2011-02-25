@@ -82,7 +82,7 @@ public class EntityMojo extends AbstractMojo
 			Resource r = new Resource();
 			ArrayList<String> in = new ArrayList<String>();
 			in.add("**/client/**");
-			in.add("**/model/**");
+			in.add("**/shared/**");
 			r.setDirectory(outputDirectory);
 			r.setIncludes(in);
 			project.addResource(r);
@@ -91,12 +91,20 @@ public class EntityMojo extends AbstractMojo
 
 			
 			//调各插件
-			//TODO使用配置方式调
+			//TODO使用配置方式调，并且各组件间需要调整整合，现在还是耦合性很大
+			generators.add(new DomainGenerator(basePackage + ".shared.domain"));//以后需要整合基础组件，因为需要写入domain的类全名
 			generators.add(new ClientHome(basePackage + ".client.home"));
 			generators.add(new ServerHome(basePackage + ".server.home"));
 			generators.add(new Entity2Map());
 			
 			List<CompilationUnit> units = generateEntity(db);
+			//为了DomainGenerator和ClientHome的需要将generateAdditionalClasses放在前面，待改进
+			for (Generator gen : generators)
+			{
+				List<CompilationUnit> result = gen.generateAdditionalClasses(db);
+				if (result != null)
+					units.addAll(result);
+			}
 			for (Table table : db.getTables())
 			{
 				for (Generator gen : generators)
@@ -105,12 +113,6 @@ public class EntityMojo extends AbstractMojo
 					if (result != null)
 						units.addAll(result);
 				}
-			}
-			for (Generator gen : generators)
-			{
-				List<CompilationUnit> result = gen.generateAdditionalClasses(db);
-				if (result != null)
-					units.addAll(result);
 			}
 			for (CompilationUnit unit : units)
 			{
@@ -173,7 +175,7 @@ public class EntityMojo extends AbstractMojo
 		for (Table table : db.getTables())
 		{
 			//计算表名及列名
-			table.setJavaClass(new FullyQualifiedJavaType(basePackage + ".model." + JavaBeansUtil.getCamelCaseString(table.getDbName(), true)));
+			table.setJavaClass(new FullyQualifiedJavaType(basePackage + ".shared.model." + JavaBeansUtil.getCamelCaseString(table.getDbName(), true)));
 
 			for (Column col : table.getColumns())
 				col.setPropertyName(JavaBeansUtil.getCamelCaseString(col.getDbName(), false));

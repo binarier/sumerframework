@@ -3,9 +3,11 @@ package com.huateng.frame.maven.generator;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.ibator.api.dom.java.FullyQualifiedJavaType;
 import org.apache.maven.plugin.logging.Log;
 import org.dom4j.Document;
@@ -15,6 +17,7 @@ import org.dom4j.io.SAXReader;
 
 import com.huateng.frame.maven.generator.meta.Column;
 import com.huateng.frame.maven.generator.meta.Database;
+import com.huateng.frame.maven.generator.meta.Domain;
 import com.huateng.frame.maven.generator.meta.JoinColumn;
 import com.huateng.frame.maven.generator.meta.Relationship;
 import com.huateng.frame.maven.generator.meta.Table;
@@ -41,6 +44,56 @@ public class PDMImporter
 			// 解析源文件
 			SAXReader sar = new SAXReader();
 			Document docSource = sar.read(pdmSource);
+			
+			// 首先处理domain
+			Map<String, Domain> domainMap = new HashMap<String, Domain>();
+			for (Element nodeDomain : (List<Element>) docSource.selectNodes("//c:Domains/o:PhysicalDomain"))
+			{
+				Node nodeCode = nodeDomain.selectSingleNode("a:Code");
+				Node nodeName = nodeDomain.selectSingleNode("a:Name");
+				Node nodeLength = nodeDomain.selectSingleNode("a:Length");
+				Node nodeDataType = nodeDomain.selectSingleNode("a:DataType");
+				Node nodePrecision = nodeDomain.selectSingleNode("a:Precision");
+				Node nodeValues = nodeDomain.selectSingleNode("a:ListOfValues");
+
+				Domain domain = new Domain();
+				int length = 0;
+				int scale = 0;
+				if (nodeCode != null) domain.setCode(nodeCode.getText());
+				if (nodeName != null) domain.setName(nodeName.getText());
+				if (nodeLength != null)
+					length = Integer.parseInt(nodeLength.getText());
+				if (nodePrecision != null)
+					scale = Integer.parseInt(nodePrecision.getText());
+				if (nodeDataType != null)
+				{
+					domain.setDbType(nodeDataType.getText());
+					domain.setJavaType(resolveColumnType(domain.getDbType(), length, scale));
+				}
+				
+				if (nodeValues != null)
+				{
+					String text = nodeValues.getText();
+					if (StringUtils.isNotBlank(text))
+					{
+						LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+						String lines[] = StringUtils.split(text, "\r\n");
+						for (String line : lines)
+						{
+							if (StringUtils.isNotBlank(line))
+							{
+								String kv[] = StringUtils.split(line, "\t");
+								if (kv.length != 2)
+									throw new IllegalArgumentException("("+domain.getCode()+")无效键值对:"+line);
+								map.put(kv[0], kv[1]);
+							}
+						}
+						domain.setValueMap(map);
+					}
+				}
+				domainMap.put(nodeDomain.attributeValue("Id"), domain);
+				result.getDomains().add(domain);
+			}
 
 			// 取所有表
 			Map<String, Column> columnIdMap = new HashMap<String, Column>();
@@ -65,10 +118,20 @@ public class PDMImporter
 					if (nodeDescription != null) col.setDescription(nodeDescription.getText());
 					if (nodeLength != null) col.setLength(Integer.parseInt(nodeLength.getText()));
 					if (nodePrecision != null) col.setScale(Integer.parseInt(nodePrecision.getText()));
-					if (nodeDataType != null) resolveColumnType(nodeDataType.getText(), col);
+					if (nodeDataType != null)
+					{
+						col.setDbType(nodeDataType.getText());
+						col.setLob(isLobType(col.getDbType()));
+						col.setJavaType(resolveColumnType(col.getDbType(), col.getLength(), col.getScale()));
+					}
 
 					columnIdMap.put(nodeColumn.attributeValue("Id"), col);
 					
+					//处理domain
+					Element nodeDomain = (Element) nodeColumn.selectSingleNode("c:Domain/o:PhysicalDomain");
+					if (nodeDomain != null)
+						col.setDomain(domainMap.get(nodeDomain.attributeValue("Ref")));
+
 					table.getColumns().add(col);
 				}
 
@@ -85,6 +148,7 @@ public class PDMImporter
 				{
 					table.getPrimaryKeyColumns().add(columnIdMap.get(pkColumn.attributeValue("Ref")));
 				}
+				
 				result.getTables().add(table);
 			}
 			// 处理关系
@@ -123,21 +187,20 @@ public class PDMImporter
 		}
 	}
 
-	private void resolveColumnType(String type, Column col)
+	private FullyQualifiedJavaType resolveColumnType(String dbType, int length, int scale)
 	{
 		FullyQualifiedJavaType fqjt = null;
-		type = type.toUpperCase().trim();
-		col.setDbType(type);
-		if (type.startsWith("CHAR") || type.startsWith("VARCHAR"))
+		dbType = dbType.toUpperCase().trim();
+		if (dbType.startsWith("CHAR") || dbType.startsWith("VARCHAR"))
 			fqjt = FullyQualifiedJavaType.getStringInstance();
-		else if (type.startsWith("DECIMAL")||type.equals("NUMERIC"))
+		else if (dbType.startsWith("DECIMAL")||dbType.equals("NUMERIC"))
 		{
-			if (col.getScale() == 0)
+			if (scale == 0)
 			{
 				// 整数
-				if (col.getLength() <= 8)
+				if (length <= 8)
 					fqjt = new FullyQualifiedJavaType("java.lang.Integer");
-				else if (col.getLength() <= 18)
+				else if (length <= 18)
 					fqjt = new FullyQualifiedJavaType("java.lang.Long");
 				else
 					fqjt = new FullyQualifiedJavaType("java.math.BigDecimal");
@@ -147,46 +210,49 @@ public class PDMImporter
 				fqjt = new FullyQualifiedJavaType("java.math.BigDecimal");
 			}
 		}
-		else if (type.equals("INTEGER") || type.equals("INT") || type.equals("SMALLINT") || type.equals("TINYINT"))
+		else if (dbType.equals("INTEGER") || dbType.equals("INT") || dbType.equals("SMALLINT") || dbType.equals("TINYINT"))
 		{
 			fqjt = new FullyQualifiedJavaType("java.lang.Integer");
 		}
-		else if (type.equals("BIGINT") || type.equals("LONG"))
+		else if (dbType.equals("BIGINT") || dbType.equals("LONG"))
 		{
 			fqjt = new FullyQualifiedJavaType("java.lang.Long");
 		}
-		else if (type.equals("LONGTEXT") || type.equals("TEXT") || type.equals("LONG VARCHAR"))
+		else if (dbType.equals("LONGTEXT") || dbType.equals("TEXT") || dbType.equals("LONG VARCHAR"))
 		{
-			col.setLob(true);
 			fqjt = new FullyQualifiedJavaType("java.lang.String");
 		}
-		else if (type.equals("LONGBLOB") || type.equals("BLOB"))
+		else if (dbType.equals("LONGBLOB") || dbType.equals("BLOB"))
 		{
-			col.setLob(true);
 			fqjt = new FullyQualifiedJavaType("java.lang.Byte");
 		}
-		else if (type.equals("DATETIME") || type.equals("TIMESTAMP") || type.startsWith("DATE"))
+		else if (dbType.equals("DATETIME") || dbType.equals("TIMESTAMP") || dbType.startsWith("DATE"))
 		{
 			fqjt = new FullyQualifiedJavaType("java.util.Date");
 		}
-		else if (type.equals("FLOAT"))
+		else if (dbType.equals("FLOAT"))
 		{
 			fqjt = new FullyQualifiedJavaType("java.lang.Float");
 		}
-		else if (type.equals("NUMBERIC"))
+		else if (dbType.equals("NUMBERIC"))
 		{
 			fqjt = new FullyQualifiedJavaType("java.lang.Float");
 		}
-		else if (type.equals("BIT"))
+		else if (dbType.equals("BIT"))
 		{
 			fqjt = new FullyQualifiedJavaType("java.lang.Boolean");
 		}
 		else
 		{
-			System.err.println("未支持类型:" + type + "(" + col.getDbName() + ")");
+			System.err.println("未支持类型:" + dbType + "(" + dbType + ")");
 			throw new IllegalArgumentException();
 		}
 
-		col.setJavaType(fqjt);
+		return fqjt;
+	}
+	
+	private boolean isLobType(String dbType)
+	{
+		return dbType.equals("LONGTEXT") || dbType.equals("TEXT") || dbType.equals("LONG VARCHAR")||dbType.equals("LONGBLOB") || dbType.equals("BLOB");
 	}
 }

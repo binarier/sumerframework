@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.huateng.frame.gwt.shared.DomainSupport;
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.data.DataSourceField;
 import com.smartgwt.client.data.Record;
@@ -62,14 +63,22 @@ public class ColumnHelper<DATA_TYPE extends Serializable>
 		return applyFormItem(new TextItem());
 	}
 	
-	public ComboBoxItem createComboBoxItem()
+	public ComboBoxItem createEmptyComboBoxItem()
 	{
 		return applyFormItem(new ComboBoxItem());
+	}
+	public ComboBoxItem createComboBoxItem()
+	{
+		DomainSupport<DATA_TYPE> ds = getDomain();
+		if (ds == null)
+			return createEmptyComboBoxItem();
+		else
+			return createComboBoxItem(ds.asLinkedHashMap());
 	}
 	
 	public ComboBoxItem createComboBoxItem(LinkedHashMap valueMap)
 	{
-		ComboBoxItem item = createComboBoxItem();
+		ComboBoxItem item = createEmptyComboBoxItem();
 		item.setValueMap(valueMap);
 		return item;
 	}
@@ -85,10 +94,19 @@ public class ColumnHelper<DATA_TYPE extends Serializable>
 	{
 		return applyDataSourceField(new DataSourceTextField());
 	}
-	
-	public DataSourceEnumField createEnumField()
+
+	public DataSourceEnumField createEmptyEnumField()
 	{
 		return applyDataSourceField(new DataSourceEnumField());
+	}
+
+	public DataSourceEnumField createEnumField()
+	{
+		DomainSupport<DATA_TYPE> ds = getDomain();
+		if (ds == null)
+			return createEmptyEnumField();
+		else
+			return createEnumField(ds.asMap());
 	}
 	
 	public DataSourceEnumField createEnumField(Map valueMap)
@@ -121,6 +139,9 @@ public class ColumnHelper<DATA_TYPE extends Serializable>
 	{
 		return (DATA_TYPE)record.getAttributeAsObject(name);
 	}
-
 	
+	public DomainSupport<DATA_TYPE> getDomain()
+	{
+		return null;
+	}
 }
