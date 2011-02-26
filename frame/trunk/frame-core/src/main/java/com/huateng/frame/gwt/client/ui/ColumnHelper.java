@@ -111,7 +111,7 @@ public class ColumnHelper<DATA_TYPE extends Serializable>
 	
 	public DataSourceEnumField createEnumField(Map valueMap)
 	{
-		DataSourceEnumField field = createEnumField();
+		DataSourceEnumField field = createEmptyEnumField();
 		field.setValueMap(valueMap);
 		return field;
 	}
