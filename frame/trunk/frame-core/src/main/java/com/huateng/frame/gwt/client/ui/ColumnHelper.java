@@ -10,24 +10,63 @@ import com.smartgwt.client.data.DataSourceField;
 import com.smartgwt.client.data.Record;
 import com.smartgwt.client.data.fields.DataSourceEnumField;
 import com.smartgwt.client.data.fields.DataSourceTextField;
-import com.smartgwt.client.widgets.form.fields.ComboBoxItem;
 import com.smartgwt.client.widgets.form.fields.FormItem;
-import com.smartgwt.client.widgets.form.fields.TextItem;
+import com.smartgwt.client.widgets.form.fields.SelectItem;
 
 
-public class ColumnHelper<DATA_TYPE extends Serializable>
+public abstract class ColumnHelper<DATA_TYPE extends Serializable>
 {
 	private String name;
 	private String title;
 	private Integer length;
 	
-	public ColumnHelper(String name, String title, Integer length)
+	protected ColumnHelper(String name, String title, Integer length)
 	{
 		this.name = name;
 		this.title = title;
 		this.length = length;
 	}
 
+	/**
+	 * 子类扩展点，用于建立默认的FormItem实例
+	 * @return
+	 */
+	protected abstract FormItem doCreateFormItem();
+
+	/**
+	 * 子类扩展点，用于为FormItem添加额外的属性
+	 * @param item
+	 */
+	protected abstract void setupItemAttributes(FormItem item);
+	
+	/**
+	 * 子类扩展点，用于为FormItem添加默认校验
+	 * @param item
+	 */
+	protected abstract void setupItemValidators(FormItem item);
+	
+	
+	public FormItem createFormItem()
+	{
+		return setupFormItem(doCreateFormItem());
+	}
+	
+	
+	public <T extends FormItem> T setupFormItem(T item)
+	{
+		item.setName(name);
+		item.setTitle(title);
+		if (length != null)
+			item.setAttribute("length", length);
+		
+		setupItemAttributes(item);
+		
+		setupItemValidators(item);
+		
+		return item;
+	}
+
+	
 	public String getName()
 	{
 		return name;
@@ -58,39 +97,34 @@ public class ColumnHelper<DATA_TYPE extends Serializable>
 		this.length = length;
 	}
 	
-	public TextItem createTextItem()
+	public SelectItem createEmptySelectItem()
 	{
-		return applyFormItem(new TextItem());
+		return setupFormItem(new SelectItem());
 	}
-	
-	public ComboBoxItem createEmptyComboBoxItem()
-	{
-		return applyFormItem(new ComboBoxItem());
-	}
-	public ComboBoxItem createComboBoxItem()
+	public SelectItem createSelectItem()
 	{
 		DomainSupport<DATA_TYPE> ds = getDomain();
 		if (ds == null)
-			return createEmptyComboBoxItem();
+			return createEmptySelectItem();
 		else
-			return createComboBoxItem(ds.asLinkedHashMap());
+			return createSelectItem(ds.asLinkedHashMap());
 	}
 	
-	public ComboBoxItem createComboBoxItem(LinkedHashMap valueMap)
+	public SelectItem createSelectItem(LinkedHashMap valueMap)
 	{
-		ComboBoxItem item = createEmptyComboBoxItem();
+		SelectItem item = createEmptySelectItem();
 		item.setValueMap(valueMap);
 		return item;
 	}
 
-	public ComboBoxItem createComboBoxItem(DataSource dataSource)
+	public SelectItem createSelectItem(DataSource dataSource)
 	{
-		ComboBoxItem item = createComboBoxItem();
+		SelectItem item = createSelectItem();
 		item.setOptionDataSource(dataSource);
 		return item;
 	}
 	
-	public DataSourceTextField createTextField()
+	public DataSourceTextField createField()
 	{
 		return applyDataSourceField(new DataSourceTextField());
 	}
@@ -116,21 +150,13 @@ public class ColumnHelper<DATA_TYPE extends Serializable>
 		return field;
 	}
 	
-	public <T extends FormItem> T applyFormItem(T item)
-	{
-		item.setName(name);
-		item.setTitle(title);
-		if (length != null)
-			item.setAttribute("length", length);
-		return item;
-	}
-	
 	public <T extends DataSourceField> T applyDataSourceField(T field)
 	{
 		field.setName(name);
 		field.setTitle(title);
 		if (length != null)
 			field.setLength(length);
+		
 		return field;
 	}
 	
@@ -140,6 +166,10 @@ public class ColumnHelper<DATA_TYPE extends Serializable>
 		return (DATA_TYPE)record.getAttributeAsObject(name);
 	}
 	
+	/**
+	 * 供带有Domain的字段进行动态子类覆盖
+	 * @return
+	 */
 	public DomainSupport<DATA_TYPE> getDomain()
 	{
 		return null;

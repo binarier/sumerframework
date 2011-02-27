@@ -156,8 +156,8 @@ public class PDMImporter
 			for (Element r : references)
 			{
 				Relationship rel = new Relationship();
-				Element table1 = (Element) r.selectSingleNode("c:Object1/o:Table");
-				Element table2 = (Element) r.selectSingleNode("c:Object2/o:Table");
+				Element table1 = (Element) r.selectSingleNode("c:ParentTable/o:Table");
+				Element table2 = (Element) r.selectSingleNode("c:ChildTable/o:Table");
 				String id1 = table1.attributeValue("Ref");
 				String id2 = table2.attributeValue("Ref");
 				if (!tableIdMap.containsKey(id1) || !tableIdMap.containsKey(id2))

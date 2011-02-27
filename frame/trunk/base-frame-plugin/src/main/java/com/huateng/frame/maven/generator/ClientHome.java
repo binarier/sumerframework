@@ -1,17 +1,20 @@
 package com.huateng.frame.maven.generator;
 
+import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.ibator.api.dom.java.CompilationUnit;
 import org.apache.ibatis.ibator.api.dom.java.FullyQualifiedJavaType;
 import org.apache.ibatis.ibator.api.dom.java.JavaVisibility;
 import org.apache.ibatis.ibator.api.dom.java.Method;
 import org.apache.ibatis.ibator.api.dom.java.TopLevelClass;
-import org.springframework.util.StringUtils;
 
-import com.huateng.frame.gwt.client.ui.ColumnHelper;
+import com.huateng.frame.gwt.client.ui.DecimalColumnHelper;
+import com.huateng.frame.gwt.client.ui.IntegerColumnHelper;
+import com.huateng.frame.gwt.client.ui.TextColumnHelper;
 import com.huateng.frame.gwt.shared.DomainSupport;
 import com.huateng.frame.maven.generator.meta.Column;
 import com.huateng.frame.maven.generator.meta.Database;
@@ -46,13 +49,50 @@ public class ClientHome extends AbstractGenerator
 			m.setVisibility(JavaVisibility.PUBLIC);
 			m.setFinal(true);
 			m.setStatic(true);
-			FullyQualifiedJavaType fqjtHelper = new FullyQualifiedJavaType(ColumnHelper.class.getCanonicalName());
+			
+			FullyQualifiedJavaType fqjtHelper;
+			String line;
+			if (col.getJavaType().equals(FullyQualifiedJavaType.getStringInstance()))
+			{
+				//文本字段
+				fqjtHelper = new FullyQualifiedJavaType(TextColumnHelper.class.getCanonicalName());
+				line = MessageFormat.format("return new {0}<{1}>(\"{2}\", \"{3}\", {4})", fqjtHelper.getShortName(), col.getJavaType().getShortName(), col.getPropertyName(), col.getTextName(), col.getLength());
+			}
+			else if (col.getJavaType().equals(FullyQualifiedJavaType.getIntInstance()))
+			{
+				//整型
+				fqjtHelper = new FullyQualifiedJavaType(IntegerColumnHelper.class.getCanonicalName());
+				String max = StringUtils.repeat("9", col.getLength());
+				line = MessageFormat.format("return new {0}<{1}>(\"{2}\", \"{3}\", {4}, {5}, {6})",
+						fqjtHelper.getShortName(),
+						col.getJavaType().getShortName(),
+						col.getPropertyName(),
+						col.getTextName(),
+						col.getLength(),
+						0,
+						max);
+			}
+			else
+			{
+				//带小数
+				fqjtHelper = new FullyQualifiedJavaType(DecimalColumnHelper.class.getCanonicalName());
+				String max = StringUtils.repeat("9", col.getLength() - col.getScale()) + "." + StringUtils.repeat("9", col.getScale());
+				line = MessageFormat.format("return new {0}<{1}>(\"{2}\", \"{3}\", {4}, {5}, {6}f, {7})",
+						fqjtHelper.getShortName(), 
+						col.getJavaType().getShortName(),
+						col.getPropertyName(),
+						col.getTextName(),
+						col.getLength(),
+						0,
+						max,
+						col.getScale());
+			}
+
 			clazz.addImportedType(fqjtHelper);
 			fqjtHelper.addTypeArgument(col.getJavaType());
 			m.setReturnType(fqjtHelper);
 			clazz.addImportedType(col.getJavaType());
 			
-			String line = MessageFormat.format("return new ColumnHelper<{0}>(\"{1}\", \"{2}\", {3})", col.getJavaType().getShortName(), col.getPropertyName(), col.getTextName(), col.getLength());
 			if (col.getDomain() == null)
 				m.addBodyLine(line + ";");
 			else
