@@ -1,5 +1,6 @@
 package com.huateng.frame.maven.generator;
 
+import java.math.BigDecimal;
 import java.text.MessageFormat;
 
 import org.apache.commons.lang.StringUtils;
@@ -34,10 +35,20 @@ public class Entity2Map extends AbstractGenerator
 		for (Field field : entityClass.getFields())
 		{
 			entityClass.addImportedType(field.getType());
-			from.addBodyLine(MessageFormat.format("instance.set{0}(({1})map.get(\"{2}\"));", 
+			if (!field.getType().getShortName().equals("BigDecimal"))
+			{
+				from.addBodyLine(MessageFormat.format("instance.set{0}(({1})map.get(\"{2}\"));", 
 					StringUtils.capitalize(field.getName()),
 					field.getType().getShortName(),
 					field.getName()));
+			}
+			else
+			{
+				//由于SmartGWT目前还不正式支持BigDecimal，所以我们使用String来传递BigDecimal
+				from.addBodyLine(MessageFormat.format("instance.set{0}(new BigDecimal((String)map.get(\"{1}\")));", 
+						StringUtils.capitalize(field.getName()),
+						field.getName()));
+			}
 		}
 		from.addBodyLine("return instance;");
 		entityClass.addMethod(from);

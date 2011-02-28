@@ -1,6 +1,5 @@
 package com.huateng.frame.maven.generator;
 
-import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,13 +76,13 @@ public class ClientHome extends AbstractGenerator
 				//带小数
 				fqjtHelper = new FullyQualifiedJavaType(DecimalColumnHelper.class.getCanonicalName());
 				String max = StringUtils.repeat("9", col.getLength() - col.getScale()) + "." + StringUtils.repeat("9", col.getScale());
-				line = MessageFormat.format("return new {0}<{1}>(\"{2}\", \"{3}\", {4}, {5}, {6}f, {7})",
+				line = MessageFormat.format("return new {0}<{1}>(\"{2}\", \"{3}\", {4}, {5}, BigDecimal.valueOf({6}), {7})",
 						fqjtHelper.getShortName(), 
 						col.getJavaType().getShortName(),
 						col.getPropertyName(),
 						col.getTextName(),
 						col.getLength(),
-						0,
+						"BigDecimal.ZERO",
 						max,
 						col.getScale());
 			}
