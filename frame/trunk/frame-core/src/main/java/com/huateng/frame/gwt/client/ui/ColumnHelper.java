@@ -110,7 +110,7 @@ public abstract class ColumnHelper<DATA_TYPE extends Serializable>
 			return createSelectItem(ds.asLinkedHashMap());
 	}
 	
-	public SelectItem createSelectItem(LinkedHashMap valueMap)
+	public SelectItem createSelectItem(LinkedHashMap<?, String> valueMap)
 	{
 		SelectItem item = createEmptySelectItem();
 		item.setValueMap(valueMap);
@@ -143,7 +143,7 @@ public abstract class ColumnHelper<DATA_TYPE extends Serializable>
 			return createEnumField(ds.asMap());
 	}
 	
-	public DataSourceEnumField createEnumField(Map valueMap)
+	public DataSourceEnumField createEnumField(Map<?, String> valueMap)
 	{
 		DataSourceEnumField field = createEmptyEnumField();
 		field.setValueMap(valueMap);
