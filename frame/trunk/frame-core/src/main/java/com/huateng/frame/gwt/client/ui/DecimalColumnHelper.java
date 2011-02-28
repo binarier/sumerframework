@@ -1,37 +1,35 @@
 package com.huateng.frame.gwt.client.ui;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
-import com.smartgwt.client.widgets.form.fields.FloatItem;
 import com.smartgwt.client.widgets.form.fields.FormItem;
-import com.smartgwt.client.widgets.form.validator.FloatPrecisionValidator;
-import com.smartgwt.client.widgets.form.validator.FloatRangeValidator;
-import com.smartgwt.client.widgets.form.validator.IsFloatValidator;
+import com.smartgwt.client.widgets.form.fields.TextItem;
 
 /**
- * 用于处理带小数的数字。由于这是GWT客户端程序，所有的小数被统一使用javascript的64位 float来处理，所以这里的最大/最小值表示使用32位的float型，不会有精度损失
+ * 用于处理带小数的数字。由于这是GWT客户端程序，所有的小数被统一使用javascript的64位 BigDecimal来处理，所以这里的最大/最小值表示使用32位的BigDecimal型，不会有精度损失
  * @author binarier
  *
  * @param <DATA_TYPE>
  */
 public class DecimalColumnHelper<DATA_TYPE extends Serializable> extends ColumnHelper<DATA_TYPE> {
 	
-	private float min;
-	private float max;
-	private int scale;
+	private BigDecimal min;
+	private BigDecimal max;
+	private int precision;
 	
-	public DecimalColumnHelper(String name, String title, Integer length, float min, float max, int scale)
+	public DecimalColumnHelper(String name, String title, Integer length, BigDecimal min, BigDecimal max, int precision)
 	{
 		super(name, title, length);
 		
 		this.min = min;
 		this.max = max;
-		this.scale = scale;
+		this.precision = precision;
 	}
 
 	@Override
 	protected FormItem doCreateFormItem() {
-		return new FloatItem();
+		return new TextItem();
 	}
 
 	@Override
@@ -42,40 +40,33 @@ public class DecimalColumnHelper<DATA_TYPE extends Serializable> extends ColumnH
 	@Override
 	protected void setupItemValidators(FormItem item) {
 		
-		IsFloatValidator ifv = new IsFloatValidator();
+		BigDecimalValidator bdv = new BigDecimalValidator(min, max, precision);
 		
-		FloatRangeValidator frv = new FloatRangeValidator();
-		frv.setMin(min);
-		frv.setMax(max);
-		
-		FloatPrecisionValidator fpv = new FloatPrecisionValidator();
-		fpv.setPrecision(scale);
-		
-		item.setValidators(ifv, frv, fpv);
+		item.setValidators(bdv);
 	}
 
-	public float getMin() {
+	public BigDecimal getMin() {
 		return min;
 	}
 
-	public void setMin(float min) {
+	public void setMin(BigDecimal min) {
 		this.min = min;
 	}
 
-	public float getMax() {
+	public BigDecimal getMax() {
 		return max;
 	}
 
-	public void setMax(float max) {
+	public void setMax(BigDecimal max) {
 		this.max = max;
 	}
 
-	public int getScale() {
-		return scale;
+	public int getPrecision() {
+		return precision;
 	}
 
-	public void setScale(int scale) {
-		this.scale = scale;
+	public void setPrecision(int precision) {
+		this.precision = precision;
 	}
 
 }
