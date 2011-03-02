@@ -1,6 +1,5 @@
 package com.huateng.frame.maven.generator;
 
-import java.math.BigDecimal;
 import java.text.MessageFormat;
 
 import org.apache.commons.lang.StringUtils;
@@ -32,24 +31,8 @@ public class Entity2Map extends AbstractGenerator
 		from.addParameter(new Parameter(fqjtMap, "map"));
 		from.addBodyLine(MessageFormat.format("{0} instance = new {0}();", entityClass.getType().getShortName()));
 
-		for (Field field : entityClass.getFields())
-		{
-			entityClass.addImportedType(field.getType());
-			if (!field.getType().getShortName().equals("BigDecimal"))
-			{
-				from.addBodyLine(MessageFormat.format("instance.set{0}(({1})map.get(\"{2}\"));", 
-					StringUtils.capitalize(field.getName()),
-					field.getType().getShortName(),
-					field.getName()));
-			}
-			else
-			{
-				//由于SmartGWT目前还不正式支持BigDecimal，所以我们使用String来传递BigDecimal
-				from.addBodyLine(MessageFormat.format("instance.set{0}(new BigDecimal((String)map.get(\"{1}\")));", 
-						StringUtils.capitalize(field.getName()),
-						field.getName()));
-			}
-		}
+		setupSetFields(entityClass, from, "instance");
+
 		from.addBodyLine("return instance;");
 		entityClass.addMethod(from);
 		
@@ -69,7 +52,41 @@ public class Entity2Map extends AbstractGenerator
 			to.addBodyLine(MessageFormat.format("map.put(\"{0}\", {0});", field.getName()));
 		}
 		to.addBodyLine("return map;");
-		
 		entityClass.addMethod(to);
+
+		
+		//updateFromMap
+		Method uf = new Method();
+		uf.setName("updateFromMap");
+		uf.setVisibility(JavaVisibility.PUBLIC);
+		uf.addParameter(new Parameter(fqjtMap, "map"));
+
+		setupSetFields(entityClass, uf, "this");
+		
+		entityClass.addMethod(uf);
+	}
+	
+	private void setupSetFields(TopLevelClass clazz, Method method, String instanceName)
+	{
+		for (Field field : clazz.getFields())
+		{
+			clazz.addImportedType(field.getType());
+			if (!field.getType().getShortName().equals("BigDecimal"))
+			{
+				method.addBodyLine(MessageFormat.format("{0}.set{1}(({2})map.get(\"{3}\"));",
+					instanceName,
+					StringUtils.capitalize(field.getName()),
+					field.getType().getShortName(),
+					field.getName()));
+			}
+			else
+			{
+				//由于SmartGWT目前还不正式支持BigDecimal，所以我们使用String来传递BigDecimal
+				method.addBodyLine(MessageFormat.format("{0}.set{1}(new BigDecimal((String)map.get(\"{2}\")));",
+						instanceName,
+						StringUtils.capitalize(field.getName()),
+						field.getName()));
+			}
+		}
 	}
 }
