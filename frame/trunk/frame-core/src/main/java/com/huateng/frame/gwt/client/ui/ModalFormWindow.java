@@ -14,6 +14,10 @@ public abstract class ModalFormWindow extends Window
 	
 	private DynamicForm form;
 	
+	protected ModalFormWindow()
+	{
+	}
+	
 	public ModalFormWindow(DynamicForm form)
 	{
 		setForm(form);

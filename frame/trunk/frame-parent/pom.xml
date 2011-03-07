@@ -7,10 +7,12 @@
 	<packaging>pom</packaging>
 	<name>Frame 应用程序开发框架</name>
 	<properties>
+		<frame.version>0.0.1-SNAPSHOT</frame.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>3.0.5.RELEASE</spring.version>
-		<gwt.version>2.1.0</gwt.version>
+		<gwt.version>2.1.1</gwt.version>
 		<smartgwt.version>2.4</smartgwt.version>
+		<gin.version>1.0</gin.version>
 		<hibernate.version>3.5.5-Final</hibernate.version>
 	</properties>
 	<scm>
