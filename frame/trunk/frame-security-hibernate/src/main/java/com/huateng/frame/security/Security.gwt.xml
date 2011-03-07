@@ -1,0 +1,5 @@
+<module>
+	<inherits name="com.huateng.frame.gwt.Client" />
+	<source path="client" />
+	<source path="shared"/>
+</module>
