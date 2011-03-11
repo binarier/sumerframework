@@ -53,14 +53,6 @@ public class TblSecRole implements Serializable {
         this.authorities = authorities;
     }
 
-    public static TblSecRole createFromMap(Map<String, Serializable> map) {
-        TblSecRole instance = new TblSecRole();
-        instance.setRoleId((String)map.get("roleId"));
-        instance.setRoleName((String)map.get("roleName"));
-        instance.setAuthorities((String)map.get("authorities"));
-        return instance;
-    }
-
     public Map<String, Serializable> convertToMap() {
         HashMap<String, Serializable> map = new HashMap<String, Serializable>();
         map.put("roleId", roleId);

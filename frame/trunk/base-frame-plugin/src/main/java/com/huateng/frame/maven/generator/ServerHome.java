@@ -60,9 +60,19 @@ public class ServerHome extends AbstractGenerator
 		
 		for (Column col : table.getColumns())
 		{
+			//判断是否有Domain
+			FullyQualifiedJavaType fqjtDomain;
+			if (col.getDomain() == null)
+				fqjtDomain = new FullyQualifiedJavaType("java.lang.Void");
+			else
+				fqjtDomain = col.getDomain().getType();
+
 			FullyQualifiedJavaType fqjtTypedProperty = new FullyQualifiedJavaType(TypedProperty.class.getCanonicalName());
 			clazz.addImportedType(fqjtTypedProperty);
 			fqjtTypedProperty.addTypeArgument(col.getJavaType());
+			clazz.addImportedType(fqjtDomain);
+			fqjtTypedProperty.addTypeArgument(fqjtDomain);
+			
 
 			Field f = new Field();
 			f.setName(StringUtils.capitalize(col.getPropertyName()));
@@ -71,7 +81,7 @@ public class ServerHome extends AbstractGenerator
 			f.setStatic(true);
 			f.setType(fqjtTypedProperty);
 			clazz.addImportedType(col.getJavaType());
-			f.setInitializationString(MessageFormat.format("new TypedProperty<{0}>(\"{1}\")", col.getJavaType().getShortName(), col.getPropertyName()));
+			f.setInitializationString(MessageFormat.format("new TypedProperty<{0}, {1}>(\"{2}\")", col.getJavaType().getShortName(), fqjtDomain.getShortName(), col.getPropertyName()));
 			clazz.addField(f);
 		}
 		result.add(clazz);

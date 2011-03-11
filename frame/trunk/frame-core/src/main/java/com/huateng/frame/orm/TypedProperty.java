@@ -24,7 +24,7 @@ import org.hibernate.criterion.Subqueries;
  * @param <T> 属性类型
  * 
  */
-public class TypedProperty<T>
+public class TypedProperty<T, D>
 {
 	private String propertyName;
 	
@@ -87,27 +87,27 @@ public class TypedProperty<T>
 		return Restrictions.ge(getPropertyName(), value);
 	}
 
-	public PropertyExpression eqProperty(TypedProperty<T> other) {
+	public PropertyExpression eqProperty(TypedProperty<T, D> other) {
 		return Restrictions.eqProperty( getPropertyName(), other.getPropertyName() );
 	}
 
-	public PropertyExpression neProperty(TypedProperty<T> other) {
+	public PropertyExpression neProperty(TypedProperty<T, D> other) {
 		return Restrictions.neProperty( getPropertyName(), other.getPropertyName() );
 	}
 	
-	public PropertyExpression leProperty(TypedProperty<T> other) {
+	public PropertyExpression leProperty(TypedProperty<T, D> other) {
 		return Restrictions.leProperty( getPropertyName(), other.getPropertyName() );
 	}
 
-	public PropertyExpression geProperty(TypedProperty<T> other) {
+	public PropertyExpression geProperty(TypedProperty<T, D> other) {
 		return Restrictions.geProperty( getPropertyName(), other.getPropertyName() );
 	}
 	
-	public PropertyExpression ltProperty(TypedProperty<T> other) {
+	public PropertyExpression ltProperty(TypedProperty<T, D> other) {
 		return Restrictions.ltProperty( getPropertyName(), other.getPropertyName() );
 	}
 
-	public PropertyExpression gtProperty(TypedProperty<T> other) {
+	public PropertyExpression gtProperty(TypedProperty<T, D> other) {
 		return Restrictions.gtProperty( getPropertyName(), other.getPropertyName() );
 	}
 	
@@ -158,8 +158,8 @@ public class TypedProperty<T>
 	/**
 	 * Get a component attribute of this property
 	 */
-	public <TT> TypedProperty<TT> getProperty(String propertyName, Class<TT> clazz) {
-		return new TypedProperty<TT>( getPropertyName() + '.' + propertyName );
+	public <TT, DD> TypedProperty<TT, DD> getProperty(String propertyName, Class<TT> clazz) {
+		return new TypedProperty<TT, DD>( getPropertyName() + '.' + propertyName );
 	}
 	
 	public Criterion eq(DetachedCriteria subselect) {
@@ -230,4 +230,7 @@ public class TypedProperty<T>
 		return Subqueries.propertyGeSome( getPropertyName(), subselect );
 	}
 	
+	public D domain(){
+		return null;
+	}
 }

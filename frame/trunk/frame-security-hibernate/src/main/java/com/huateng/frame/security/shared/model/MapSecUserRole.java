@@ -47,13 +47,6 @@ public class MapSecUserRole implements Serializable {
         this.roleId = roleId;
     }
 
-    public static MapSecUserRole createFromMap(Map<String, Serializable> map) {
-        MapSecUserRole instance = new MapSecUserRole();
-        instance.setUserId((String)map.get("userId"));
-        instance.setRoleId((String)map.get("roleId"));
-        return instance;
-    }
-
     public Map<String, Serializable> convertToMap() {
         HashMap<String, Serializable> map = new HashMap<String, Serializable>();
         map.put("userId", userId);

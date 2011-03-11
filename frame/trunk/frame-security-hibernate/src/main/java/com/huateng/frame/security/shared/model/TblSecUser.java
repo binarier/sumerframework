@@ -62,15 +62,6 @@ public class TblSecUser implements Serializable {
         this.status = status;
     }
 
-    public static TblSecUser createFromMap(Map<String, Serializable> map) {
-        TblSecUser instance = new TblSecUser();
-        instance.setUserId((String)map.get("userId"));
-        instance.setUserName((String)map.get("userName"));
-        instance.setEmail((String)map.get("email"));
-        instance.setStatus((String)map.get("status"));
-        return instance;
-    }
-
     public Map<String, Serializable> convertToMap() {
         HashMap<String, Serializable> map = new HashMap<String, Serializable>();
         map.put("userId", userId);

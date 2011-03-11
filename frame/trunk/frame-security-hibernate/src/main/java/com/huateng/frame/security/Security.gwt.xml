@@ -1,5 +1,6 @@
 <module>
 	<inherits name="com.huateng.frame.gwt.Client" />
+	<inherits name="com.google.gwt.place.Place"/>
 	<source path="client" />
 	<source path="shared"/>
 </module>

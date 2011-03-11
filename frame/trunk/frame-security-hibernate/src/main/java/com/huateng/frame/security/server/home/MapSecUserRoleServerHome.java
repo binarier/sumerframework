@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MapSecUserRoleServerHome extends HibernateServerHome<MapSecUserRole, MapSecUserRoleKey> {
-    public static final TypedProperty<String> UserId = new TypedProperty<String>("userId");
+    public static final TypedProperty<String, Void> UserId = new TypedProperty<String, Void>("userId");
 
-    public static final TypedProperty<String> RoleId = new TypedProperty<String>("roleId");
+    public static final TypedProperty<String, Void> RoleId = new TypedProperty<String, Void>("roleId");
 
     @Autowired
     public MapSecUserRoleServerHome(SessionFactory sessionFactory) {

@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.ibator.api.dom.java.CompilationUnit;
+import org.apache.ibatis.ibator.api.dom.java.Field;
 import org.apache.ibatis.ibator.api.dom.java.FullyQualifiedJavaType;
 import org.apache.ibatis.ibator.api.dom.java.JavaVisibility;
 import org.apache.ibatis.ibator.api.dom.java.Method;
@@ -61,13 +63,37 @@ public class DomainGenerator extends AbstractGenerator
 			{
 				for (Entry<String, String> entry : domain.getValueMap().entrySet())
 				{
-					String key, value;
+					String constName = entry.getKey();
+					if (!StringUtils.isAlpha(StringUtils.left(constName, 1)))
+						constName = "C" + constName;	//常量名必须以字母打头
+					constName = StringUtils.replace(constName.toUpperCase(), " ", "_");					
+
+					String constValue;
 					if (domain.getJavaType().equals(FullyQualifiedJavaType.getStringInstance()))
-						key = "\"" + entry.getKey() + "\"";
+						constValue = "\"" + entry.getKey() + "\"";
 					else
-						key = entry.getKey();
-					value = "\"" + entry.getValue() + "\"";
-					fill.addBodyLine(MessageFormat.format("map.put({0}, {1});", key, value));
+						constValue = entry.getKey();
+					
+					String label = entry.getValue();		//中文说明
+
+					//生成常量
+					Field field = new Field();
+					field.setFinal(true);
+					field.setStatic(true);
+					field.setVisibility(JavaVisibility.PUBLIC);
+					field.setType(domain.getJavaType());
+					
+					field.setName(constName);
+					field.setInitializationString(constValue);
+					
+					field.addJavaDocLine("/**");
+					field.addJavaDocLine(" * " + label);
+					field.addJavaDocLine(" */");
+					
+					clazz.addField(field);
+
+					fill.addBodyLine(MessageFormat.format("map.put({0}, \"{1}\");", constName, label));
+
 				}
 			}
 			clazz.addMethod(fill);

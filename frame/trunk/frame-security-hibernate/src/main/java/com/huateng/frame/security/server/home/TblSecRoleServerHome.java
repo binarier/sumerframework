@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class TblSecRoleServerHome extends HibernateServerHome<TblSecRole, String> {
-    public static final TypedProperty<String> RoleId = new TypedProperty<String>("roleId");
+    public static final TypedProperty<String, Void> RoleId = new TypedProperty<String, Void>("roleId");
 
-    public static final TypedProperty<String> RoleName = new TypedProperty<String>("roleName");
+    public static final TypedProperty<String, Void> RoleName = new TypedProperty<String, Void>("roleName");
 
-    public static final TypedProperty<String> Authorities = new TypedProperty<String>("authorities");
+    public static final TypedProperty<String, Void> Authorities = new TypedProperty<String, Void>("authorities");
 
     @Autowired
     public TblSecRoleServerHome(SessionFactory sessionFactory) {

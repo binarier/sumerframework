@@ -15,26 +15,13 @@ public class Entity2Map extends AbstractGenerator
 	@Override
 	public void afterEntityGenerated(TopLevelClass entityClass)
 	{
-		//建立 createFromMap 方法和 convertToMap方法
+		//建立 convertToMap方法
 		FullyQualifiedJavaType fqjtSerializable = new FullyQualifiedJavaType("java.io.Serializable");
 		entityClass.addImportedType(fqjtSerializable);
 		FullyQualifiedJavaType fqjtMap = new FullyQualifiedJavaType("java.util.Map");
 		fqjtMap.addTypeArgument(FullyQualifiedJavaType.getStringInstance());
 		fqjtMap.addTypeArgument(fqjtSerializable);
 		entityClass.addImportedType(fqjtMap);
-		
-		Method from = new Method();
-		from.setName("createFromMap");
-		from.setVisibility(JavaVisibility.PUBLIC);
-		from.setStatic(true);
-		from.setReturnType(entityClass.getType());
-		from.addParameter(new Parameter(fqjtMap, "map"));
-		from.addBodyLine(MessageFormat.format("{0} instance = new {0}();", entityClass.getType().getShortName()));
-
-		setupSetFields(entityClass, from, "instance");
-
-		from.addBodyLine("return instance;");
-		entityClass.addMethod(from);
 		
 		Method to = new Method();
 		to.setName("convertToMap");
