@@ -39,6 +39,8 @@ public abstract class BrowseView extends BasicView<Layout> {
 		layout.addMember(searchForm = new DynamicForm());
 		layout.addMember(listGrid);
 		layout.addMember(buttonsLayout = new HLayout());
+		
+		setupButtons(buttonsLayout);
 
 		return layout;
 	}

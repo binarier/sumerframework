@@ -1,5 +1,7 @@
 package com.huateng.frame.security.client.ui.users;
 
+import java.util.Map;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.place.shared.Place;
@@ -10,6 +12,7 @@ import com.huateng.frame.gwt.client.datasource.DataSourceCallback;
 import com.huateng.frame.gwt.client.datasource.FetchRequest;
 import com.huateng.frame.gwt.client.ui.BrowseView;
 import com.huateng.frame.gwt.client.ui.ModalFormWindow;
+import com.huateng.frame.gwt.client.ui.SimpleCallback;
 import com.huateng.frame.security.client.home.TblSecUserClientHome;
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.widgets.form.DynamicForm;
@@ -63,11 +66,25 @@ public class UsersView extends BrowseView {
 				UsersView.this.onBtnCreateClick();
 			}
 		});
+		layout.addMember(btnCreate);
+		
+		btnEdit = new Button("编辑用户");
+		btnEdit.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				UsersView.this.onBtnEditClick();
+			}
+		});
+		layout.addMember(btnCreate);
+
 	}
 
 	@Override
 	public void updateView(boolean clientSideOnly, Object hint) {
-		
+		if (!clientSideOnly)
+		{
+			listGrid.invalidateCache();
+		}
 	}
 
 	@Override
@@ -78,7 +95,7 @@ public class UsersView extends BrowseView {
 	
 	protected void onBtnCreateClick()
 	{
-		DynamicForm form = new DynamicForm();
+		final DynamicForm form = new DynamicForm();
 		form.setItems(
 			TblSecUserClientHome.UserId().createFormItem(),
 			TblSecUserClientHome.UserName().createFormItem(),
@@ -87,8 +104,38 @@ public class UsersView extends BrowseView {
 		ModalFormWindow window = new ModalFormWindow(form) {
 			@Override
 			public void onOK() {
-				
+				if (form.validate())
+				{
+					Map values = getForm().getValues();
+					server.createUser(values, new SimpleCallback<Void>().closeWindow(this).refreshView(UsersView.this));
+				}
 			}
 		};
+		
+		window.show();
+	}
+	
+	protected void onBtnEditClick()
+	{
+		
+		final DynamicForm form = new DynamicForm();
+		form.setItems(
+			TblSecUserClientHome.UserId().createFormItem(),
+			TblSecUserClientHome.UserName().createFormItem(),
+			TblSecUserClientHome.Email().createFormItem());
+
+		
+		ModalFormWindow window = new ModalFormWindow(form) {
+			@Override
+			public void onOK() {
+				if (form.validate())
+				{
+					Map values = getForm().getValues();
+					server.createUser(values, new SimpleCallback<Void>().closeWindow(this).refreshView(UsersView.this));
+				}
+			}
+		};
+		
+		window.show();
 	}
 }

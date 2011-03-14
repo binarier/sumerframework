@@ -45,14 +45,14 @@ public class FrameUsersServer extends GWTService implements UsersInter{
 	@Transactional
 	public void lockUser(String id) {
 		TblSecUser user = shUser.load(id);
-		user.setStatus(TblSecUserServerHome.Status.domain().LOCKED);
+		user.setStatus(DmnScmUserStatus.LOCKED);
 	}
 
 	@Override
 	@Transactional
 	public void unlockUser(String id) {
 		TblSecUser user = shUser.load(id);
-		user.setStatus(TblSecUserServerHome.Status.domain().NORMAL);
+		user.setStatus(DmnScmUserStatus.NORMAL);
 	}
 	
 	
