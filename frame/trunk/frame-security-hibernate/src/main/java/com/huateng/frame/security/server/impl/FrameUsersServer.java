@@ -54,6 +54,15 @@ public class FrameUsersServer extends GWTService implements UsersInter{
 		TblSecUser user = shUser.load(id);
 		user.setStatus(DmnScmUserStatus.NORMAL);
 	}
+
+	@Override
+	@Transactional
+	public Map getUser(String id) {
+		TblSecUser user = shUser.load(id);
+		if (user == null)
+			return null;
+		return user.convertToMap();
+	}
 	
 	
 }

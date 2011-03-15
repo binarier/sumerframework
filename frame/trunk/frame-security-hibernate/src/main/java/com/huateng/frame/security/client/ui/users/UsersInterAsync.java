@@ -18,4 +18,6 @@ public interface UsersInterAsync {
 
 	void unlockUser(String id, AsyncCallback<Void> callback);
 
+	void getUser(String id, AsyncCallback<Map> callback);
+
 }

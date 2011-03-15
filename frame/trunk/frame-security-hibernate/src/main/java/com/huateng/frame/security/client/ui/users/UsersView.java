@@ -11,11 +11,13 @@ import com.google.inject.Singleton;
 import com.huateng.frame.gwt.client.datasource.DataSourceCallback;
 import com.huateng.frame.gwt.client.datasource.FetchRequest;
 import com.huateng.frame.gwt.client.ui.BrowseView;
+import com.huateng.frame.gwt.client.ui.DefaultCallback;
 import com.huateng.frame.gwt.client.ui.ModalFormWindow;
 import com.huateng.frame.gwt.client.ui.SimpleCallback;
 import com.huateng.frame.security.client.home.TblSecUserClientHome;
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.widgets.form.DynamicForm;
+import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.Layout;
 
 @Singleton
@@ -75,7 +77,7 @@ public class UsersView extends BrowseView {
 				UsersView.this.onBtnEditClick();
 			}
 		});
-		layout.addMember(btnCreate);
+		layout.addMember(btnEdit);
 
 	}
 
@@ -85,6 +87,9 @@ public class UsersView extends BrowseView {
 		{
 			listGrid.invalidateCache();
 		}
+		
+		boolean selected = (listGrid.getSelectedRecord() != null);
+		btnEdit.setEnabled(selected);
 	}
 
 	@Override
@@ -118,24 +123,33 @@ public class UsersView extends BrowseView {
 	protected void onBtnEditClick()
 	{
 		
-		final DynamicForm form = new DynamicForm();
-		form.setItems(
-			TblSecUserClientHome.UserId().createFormItem(),
-			TblSecUserClientHome.UserName().createFormItem(),
-			TblSecUserClientHome.Email().createFormItem());
-
+		ListGridRecord record = listGrid.getSelectedRecord();
+		final String id = TblSecUserClientHome.UserId().fromRecord(record);
 		
-		ModalFormWindow window = new ModalFormWindow(form) {
+		server.getUser(id, new DefaultCallback<Map>(){
 			@Override
-			public void onOK() {
-				if (form.validate())
-				{
-					Map values = getForm().getValues();
-					server.createUser(values, new SimpleCallback<Void>().closeWindow(this).refreshView(UsersView.this));
-				}
+			public void onSuccess(Map result)
+			{
+				final DynamicForm form = new DynamicForm();
+				form.setItems(
+					TblSecUserClientHome.UserId().createFormItem(),
+					TblSecUserClientHome.UserName().createFormItem(),
+					TblSecUserClientHome.Email().createFormItem());
+
+				form.setValues(result);
+
+				ModalFormWindow window = new ModalFormWindow(form) {
+					@Override
+					public void onOK() {
+						if (form.validate())
+						{
+							Map values = getForm().getValues();
+							server.updateUser(id, values, new SimpleCallback<Void>().closeWindow(this).refreshView(UsersView.this));
+						}
+					}
+				};
+				window.show();
 			}
-		};
-		
-		window.show();
+		});
 	}
 }

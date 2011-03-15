@@ -11,6 +11,8 @@ import com.huateng.frame.gwt.client.datasource.FetchResponse;
 public interface UsersInter extends RpcService {
 
 	FetchResponse listUsers(FetchRequest request);
+	
+	Map getUser(String id);
 
 	void createUser(Map values);
 	
