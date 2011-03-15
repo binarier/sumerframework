@@ -62,9 +62,10 @@ public class TblSecRole implements Serializable {
     }
 
     public void updateFromMap(Map<String, Serializable> map) {
-        this.setRoleId((String)map.get("roleId"));
-        this.setRoleName((String)map.get("roleName"));
-        this.setAuthorities((String)map.get("authorities"));
+        Object _t;
+        if ((_t = map.get("roleId")) != null) this.setRoleId((String)_t);
+        if ((_t = map.get("roleName")) != null) this.setRoleName((String)_t);
+        if ((_t = map.get("authorities")) != null) this.setAuthorities((String)_t);
     }
 
     public Set<MapSecUserRole> getMapSecUserRoles() {

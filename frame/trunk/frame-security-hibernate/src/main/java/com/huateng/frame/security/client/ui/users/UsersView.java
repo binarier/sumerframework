@@ -85,6 +85,7 @@ public class UsersView extends BrowseView {
 	public void updateView(boolean clientSideOnly, Object hint) {
 		if (!clientSideOnly)
 		{
+			//刷新列表
 			listGrid.invalidateCache();
 		}
 		
@@ -124,15 +125,14 @@ public class UsersView extends BrowseView {
 	{
 		
 		ListGridRecord record = listGrid.getSelectedRecord();
-		final String id = TblSecUserClientHome.UserId().fromRecord(record);
+		final String userId = TblSecUserClientHome.UserId().fromRecord(record);
 		
-		server.getUser(id, new DefaultCallback<Map>(){
+		server.getUser(userId, new DefaultCallback<Map>(){
 			@Override
 			public void onSuccess(Map result)
 			{
 				final DynamicForm form = new DynamicForm();
 				form.setItems(
-					TblSecUserClientHome.UserId().createFormItem(),
 					TblSecUserClientHome.UserName().createFormItem(),
 					TblSecUserClientHome.Email().createFormItem());
 
@@ -144,7 +144,7 @@ public class UsersView extends BrowseView {
 						if (form.validate())
 						{
 							Map values = getForm().getValues();
-							server.updateUser(id, values, new SimpleCallback<Void>().closeWindow(this).refreshView(UsersView.this));
+							server.updateUser(userId, values, new SimpleCallback<Void>().closeWindow(this).refreshView(UsersView.this));
 						}
 					}
 				};

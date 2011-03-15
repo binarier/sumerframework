@@ -36,6 +36,7 @@ public class FrameUsersServer extends GWTService implements UsersInter{
 	}
 
 	@Override
+	@Transactional
 	public void updateUser(String id, Map values) {
 		TblSecUser user = shUser.load(id);
 		user.updateFromMap(values);
