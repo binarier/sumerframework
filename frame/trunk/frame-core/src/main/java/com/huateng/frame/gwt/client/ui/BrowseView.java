@@ -6,6 +6,8 @@ import com.huateng.frame.gwt.client.datasource.FrameDataSource;
 import com.smartgwt.client.data.DataSource;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.grid.ListGrid;
+import com.smartgwt.client.widgets.grid.events.SelectionChangedHandler;
+import com.smartgwt.client.widgets.grid.events.SelectionEvent;
 import com.smartgwt.client.widgets.layout.HLayout;
 import com.smartgwt.client.widgets.layout.Layout;
 import com.smartgwt.client.widgets.layout.VLayout;
@@ -35,6 +37,12 @@ public abstract class BrowseView extends BasicView<Layout> {
 		listGrid.setAutoFetchData(true);
 		setupDataSource(fds);
 		listGrid.setDataSource(fds);
+		listGrid.addSelectionChangedHandler(new SelectionChangedHandler() {
+			@Override
+			public void onSelectionChanged(SelectionEvent event) {
+				BrowseView.this.updateView(true, null);
+			}
+		});
 
 		layout.addMember(searchForm = new DynamicForm());
 		layout.addMember(listGrid);
