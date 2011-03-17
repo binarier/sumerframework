@@ -10,10 +10,12 @@ import org.apache.ibatis.ibator.api.dom.java.Method;
 import org.apache.ibatis.ibator.api.dom.java.Parameter;
 import org.apache.ibatis.ibator.api.dom.java.TopLevelClass;
 
+import com.huateng.frame.maven.generator.meta.Table;
+
 public class Entity2Map extends AbstractGenerator
 {
 	@Override
-	public void afterEntityGenerated(TopLevelClass entityClass)
+	public void afterEntityGenerated(TopLevelClass entityClass, Table table)
 	{
 		//建立 convertToMap方法
 		FullyQualifiedJavaType fqjtSerializable = new FullyQualifiedJavaType("java.io.Serializable");

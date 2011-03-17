@@ -27,6 +27,14 @@ public class TblSecUser implements Serializable {
     @Column(name="STATUS")
     private String status;
 
+    public static final String P_UserId = "userId";
+
+    public static final String P_UserName = "userName";
+
+    public static final String P_Email = "email";
+
+    public static final String P_Status = "status";
+
     @OneToMany(mappedBy = "tblSecUser", cascade = CascadeType.ALL)
     private Set<MapSecUserRole> mapSecUserRoles;
 

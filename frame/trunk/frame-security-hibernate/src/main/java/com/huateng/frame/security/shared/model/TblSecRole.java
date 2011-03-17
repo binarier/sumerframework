@@ -26,6 +26,12 @@ public class TblSecRole implements Serializable {
     @Column(name="AUTHORITIES")
     private String authorities;
 
+    public static final String P_RoleId = "roleId";
+
+    public static final String P_RoleName = "roleName";
+
+    public static final String P_Authorities = "authorities";
+
     @OneToMany(mappedBy = "tblSecRole", cascade = CascadeType.ALL)
     private Set<MapSecUserRole> mapSecUserRoles;
 

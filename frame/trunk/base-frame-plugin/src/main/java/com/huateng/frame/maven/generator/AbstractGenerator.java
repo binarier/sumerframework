@@ -26,7 +26,7 @@ public abstract class AbstractGenerator implements Generator
 		return null;
 	}
 
-	public void afterEntityGenerated(TopLevelClass entityClass)
+	public void afterEntityGenerated(TopLevelClass entityClass, Table table)
 	{
 	}
 

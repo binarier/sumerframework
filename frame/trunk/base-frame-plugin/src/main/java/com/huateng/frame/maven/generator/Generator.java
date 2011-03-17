@@ -14,7 +14,7 @@ public interface Generator
 	
 	List<CompilationUnit> generateAdditionalClasses(Database database);
 	
-	void afterEntityGenerated(TopLevelClass entityClass);
+	void afterEntityGenerated(TopLevelClass entityClass, Table table);
 
 	void afterKeyGenerated(TopLevelClass keyClass);
 }

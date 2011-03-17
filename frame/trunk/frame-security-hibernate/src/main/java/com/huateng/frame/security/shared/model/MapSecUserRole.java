@@ -23,6 +23,10 @@ public class MapSecUserRole implements Serializable {
     @Column(name="ROLE_ID")
     private String roleId;
 
+    public static final String P_UserId = "userId";
+
+    public static final String P_RoleId = "roleId";
+
     @ManyToOne
     @JoinColumn(name="USER_ID", referencedColumnName = "USER_ID", updatable=false, insertable=false)
     private TblSecUser tblSecUser;

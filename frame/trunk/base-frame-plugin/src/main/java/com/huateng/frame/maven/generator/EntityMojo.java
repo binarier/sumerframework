@@ -96,6 +96,7 @@ public class EntityMojo extends AbstractMojo
 			generators.add(new ClientHome(basePackage + ".client.home"));
 			generators.add(new ServerHome(basePackage + ".server.home"));
 			generators.add(new Entity2Map());
+			generators.add(new EntityConstant());
 			
 			List<CompilationUnit> units = generateEntity(db);
 			//为了DomainGenerator和ClientHome的需要将generateAdditionalClasses放在前面，待改进
@@ -236,7 +237,7 @@ public class EntityMojo extends AbstractMojo
 
 			for (Generator generator : generators)
 			{
-				generator.afterEntityGenerated(entityClass);
+				generator.afterEntityGenerated(entityClass, table);
 			}
 			generatedFiles.add(entityClass);
 			generatingMap.put(table, entityClass);
