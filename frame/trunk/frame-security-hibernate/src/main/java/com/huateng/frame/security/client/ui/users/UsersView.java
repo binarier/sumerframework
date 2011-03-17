@@ -16,6 +16,9 @@ import com.huateng.frame.gwt.client.ui.ModalFormWindow;
 import com.huateng.frame.gwt.client.ui.SimpleCallback;
 import com.huateng.frame.security.client.home.TblSecUserClientHome;
 import com.smartgwt.client.data.DataSource;
+import com.smartgwt.client.util.SC;
+import com.smartgwt.client.widgets.events.DoubleClickEvent;
+import com.smartgwt.client.widgets.events.DoubleClickHandler;
 import com.smartgwt.client.widgets.form.DynamicForm;
 import com.smartgwt.client.widgets.grid.ListGridRecord;
 import com.smartgwt.client.widgets.layout.Layout;
@@ -47,7 +50,9 @@ public class UsersView extends BrowseView {
 	protected void setupDataSource(DataSource ds) {
 		ds.setFields(
 			TblSecUserClientHome.UserId().createField(),
-			TblSecUserClientHome.UserName().createField());
+			TblSecUserClientHome.UserName().createField(),
+			TblSecUserClientHome.Email().createField(),
+			TblSecUserClientHome.Status().createEnumField());
 	}
 
 	@Override
@@ -65,7 +70,7 @@ public class UsersView extends BrowseView {
 		btnCreate.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				UsersView.this.onBtnCreateClick();
+				UsersView.this.createUser();
 			}
 		});
 		layout.addMember(btnCreate);
@@ -74,11 +79,43 @@ public class UsersView extends BrowseView {
 		btnEdit.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
-				UsersView.this.onBtnEditClick();
+				UsersView.this.editUser();
+			}
+		});
+		listGrid.addDoubleClickHandler(new DoubleClickHandler() {
+			@Override
+			public void onDoubleClick(DoubleClickEvent event) {
+				UsersView.this.editUser();
 			}
 		});
 		layout.addMember(btnEdit);
 
+		btnLock = new Button("锁定用户");
+		btnLock.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				UsersView.this.lockUser();
+			}
+		});
+		layout.addMember(btnLock);
+
+		btnUnlock = new Button("解锁用户");
+		btnUnlock.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				UsersView.this.onBtnUnlockClick();
+			}
+		});
+		layout.addMember(btnUnlock);
+		
+		btnReset = new Button("重置密码");
+		btnReset.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				UsersView.this.onBtnUnlockClick();
+			}
+		});
+		layout.addMember(btnReset);
 	}
 
 	@Override
@@ -89,8 +126,11 @@ public class UsersView extends BrowseView {
 			listGrid.invalidateCache();
 		}
 		
-		boolean selected = (listGrid.getSelectedRecord() != null);
-		btnEdit.setEnabled(selected);
+		int selection = listGrid.getSelection().length;
+		
+		btnEdit.setEnabled(selection == 1);
+		btnLock.setEnabled(selection >= 1);
+		btnUnlock.setEnabled(selection >= 1);
 	}
 
 	@Override
@@ -99,13 +139,14 @@ public class UsersView extends BrowseView {
 		
 	}
 	
-	protected void onBtnCreateClick()
+	protected void createUser()
 	{
 		final DynamicForm form = new DynamicForm();
 		form.setItems(
-			TblSecUserClientHome.UserId().createFormItem(),
-			TblSecUserClientHome.UserName().createFormItem(),
-			TblSecUserClientHome.Email().createFormItem());
+			TblSecUserClientHome.UserId().required().createFormItem(),
+			TblSecUserClientHome.UserName().required().createFormItem(),
+			TblSecUserClientHome.Email().createFormItem(),
+			TblSecUserClientHome.Status().createSelectItem());
 		
 		ModalFormWindow window = new ModalFormWindow(form) {
 			@Override
@@ -117,11 +158,11 @@ public class UsersView extends BrowseView {
 				}
 			}
 		};
-		
+
 		window.show();
 	}
 	
-	protected void onBtnEditClick()
+	protected void editUser()
 	{
 		
 		ListGridRecord record = listGrid.getSelectedRecord();
@@ -133,8 +174,10 @@ public class UsersView extends BrowseView {
 			{
 				final DynamicForm form = new DynamicForm();
 				form.setItems(
-					TblSecUserClientHome.UserName().createFormItem(),
-					TblSecUserClientHome.Email().createFormItem());
+					TblSecUserClientHome.UserId().readOnly().createFormItem(),
+					TblSecUserClientHome.UserName().required().createFormItem(),
+					TblSecUserClientHome.Email().createFormItem(),
+					TblSecUserClientHome.Status().createSelectItem());
 
 				form.setValues(result);
 
@@ -151,5 +194,32 @@ public class UsersView extends BrowseView {
 				window.show();
 			}
 		});
+	}
+	
+	protected void lockUser()
+	{
+		final String userId = TblSecUserClientHome.UserId().fromRecord(listGrid.getSelectedRecord());
+		server.lockUser(userId, new DefaultCallback<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				SC.say("操作成功");
+			}
+		});
+	}
+	
+	protected void onBtnUnlockClick()
+	{
+		final String userId = TblSecUserClientHome.UserId().fromRecord(listGrid.getSelectedRecord());
+		server.unlockUser(userId, new DefaultCallback<Void>() {
+			@Override
+			public void onSuccess(Void result) {
+				SC.say("操作成功");
+			}
+		});
+	}
+	
+	protected void resetPassword()
+	{
+		
 	}
 }

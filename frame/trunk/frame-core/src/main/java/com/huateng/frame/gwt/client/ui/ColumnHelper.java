@@ -12,6 +12,7 @@ import com.smartgwt.client.data.fields.DataSourceEnumField;
 import com.smartgwt.client.data.fields.DataSourceTextField;
 import com.smartgwt.client.widgets.form.fields.FormItem;
 import com.smartgwt.client.widgets.form.fields.SelectItem;
+import com.smartgwt.client.widgets.form.fields.StaticTextItem;
 
 
 public abstract class ColumnHelper<DATA_TYPE extends Serializable>
@@ -19,6 +20,9 @@ public abstract class ColumnHelper<DATA_TYPE extends Serializable>
 	private String name;
 	private String title;
 	private Integer length;
+	private boolean readOnly = false;
+	private boolean required = false;
+	private boolean asLabel = false;
 	
 	protected ColumnHelper(String name, String title, Integer length)
 	{
@@ -48,7 +52,15 @@ public abstract class ColumnHelper<DATA_TYPE extends Serializable>
 	
 	public FormItem createFormItem()
 	{
-		return setupFormItem(doCreateFormItem());
+		if (asLabel)
+		{
+			//只显示一个文本标签
+			return new StaticTextItem(name, title);
+		}
+		else
+		{
+			return setupFormItem(doCreateFormItem());
+		}
 	}
 	
 	
@@ -58,6 +70,8 @@ public abstract class ColumnHelper<DATA_TYPE extends Serializable>
 		item.setTitle(title);
 		if (length != null)
 			item.setAttribute("length", length);
+		item.setRequired(required);
+		item.setDisabled(readOnly);
 		
 		setupItemAttributes(item);
 		
@@ -67,36 +81,7 @@ public abstract class ColumnHelper<DATA_TYPE extends Serializable>
 	}
 
 	
-	public String getName()
-	{
-		return name;
-	}
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-
-	public String getTitle()
-	{
-		return title;
-	}
-
-	public void setTitle(String title)
-	{
-		this.title = title;
-	}
-
-	public Integer getLength()
-	{
-		return length;
-	}
-
-	public void setLength(Integer length)
-	{
-		this.length = length;
-	}
-	
 	public SelectItem createEmptySelectItem()
 	{
 		return setupFormItem(new SelectItem());
@@ -147,6 +132,7 @@ public abstract class ColumnHelper<DATA_TYPE extends Serializable>
 	{
 		DataSourceEnumField field = createEmptyEnumField();
 		field.setValueMap(valueMap);
+		field.setRequired(required);
 		return field;
 	}
 	
@@ -156,7 +142,7 @@ public abstract class ColumnHelper<DATA_TYPE extends Serializable>
 		field.setTitle(title);
 		if (length != null)
 			field.setLength(length);
-		
+		field.setRequired(required);
 		return field;
 	}
 	
@@ -173,5 +159,53 @@ public abstract class ColumnHelper<DATA_TYPE extends Serializable>
 	public DomainSupport<DATA_TYPE> getDomain()
 	{
 		return null;
+	}
+	
+	public ColumnHelper<DATA_TYPE> readOnly()
+	{
+		this.readOnly = true;
+		return this;
+	}
+	
+	public ColumnHelper<DATA_TYPE> required()
+	{
+		this.required = true;
+		return this;
+	}
+	
+	public ColumnHelper<DATA_TYPE> asLabel()
+	{
+		this.asLabel = true;
+		return this;
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public String getTitle()
+	{
+		return title;
+	}
+
+	public void setTitle(String title)
+	{
+		this.title = title;
+	}
+
+	public Integer getLength()
+	{
+		return length;
+	}
+
+	public void setLength(Integer length)
+	{
+		this.length = length;
 	}
 }

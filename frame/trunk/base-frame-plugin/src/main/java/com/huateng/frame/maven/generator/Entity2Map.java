@@ -55,13 +55,12 @@ public class Entity2Map extends AbstractGenerator
 	
 	private void setupSetFields(TopLevelClass clazz, Method method, String instanceName)
 	{
-		method.addBodyLine("Object _t;");
 		for (Field field : clazz.getFields())
 		{
 			clazz.addImportedType(field.getType());
 			if (!field.getType().getShortName().equals("BigDecimal"))
 			{
-				method.addBodyLine(MessageFormat.format("if ((_t = map.get(\"{0}\")) != null) {1}.set{2}(({3})_t);",
+				method.addBodyLine(MessageFormat.format("if (map.containsKey(\"{0}\")) {1}.set{2}(({3})map.get(\"{0}\"));",
 					field.getName(),
 					instanceName,
 					StringUtils.capitalize(field.getName()),
@@ -70,7 +69,7 @@ public class Entity2Map extends AbstractGenerator
 			else
 			{
 				//由于SmartGWT目前还不正式支持BigDecimal，所以我们使用String来传递BigDecimal
-				method.addBodyLine(MessageFormat.format("if ((_t = map.get(\"{0}\")) != null) {1}.set{2}(new BigDecimal((String)_t));",
+				method.addBodyLine(MessageFormat.format("if (map.containsKey(\"{0}\")) != null) {1}.set{2}(new BigDecimal((String)map.get(\"{0}\")));",
 						field.getName(),
 						instanceName,
 						StringUtils.capitalize(field.getName())));

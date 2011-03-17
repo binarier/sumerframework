@@ -72,11 +72,10 @@ public class TblSecUser implements Serializable {
     }
 
     public void updateFromMap(Map<String, Serializable> map) {
-        Object _t;
-        if ((_t = map.get("userId")) != null) this.setUserId((String)_t);
-        if ((_t = map.get("userName")) != null) this.setUserName((String)_t);
-        if ((_t = map.get("email")) != null) this.setEmail((String)_t);
-        if ((_t = map.get("status")) != null) this.setStatus((String)_t);
+        if (map.containsKey("userId")) this.setUserId((String)map.get("userId"));
+        if (map.containsKey("userName")) this.setUserName((String)map.get("userName"));
+        if (map.containsKey("email")) this.setEmail((String)map.get("email"));
+        if (map.containsKey("status")) this.setStatus((String)map.get("status"));
     }
 
     public Set<MapSecUserRole> getMapSecUserRoles() {
