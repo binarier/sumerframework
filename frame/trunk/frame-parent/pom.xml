@@ -17,8 +17,8 @@
 		<hibernate.version>3.5.5-Final</hibernate.version>
 	</properties>
 	<scm>
-		<connection>scm:svn:http://sumerframework.googlecode.com/svn/frame/trunk/frame-parent</connection>
-		<developerConnection>scm:svn:https://sumerframework.googlecode.com/svn/frame/trunk/frame-parent</developerConnection>
+		<connection>scm:svn:http://sumerframework.googlecode.com/svn/frame/trunk/${project.artifactId}</connection>
+		<developerConnection>scm:svn:https://sumerframework.googlecode.com/svn/frame/trunk/${project.artifactId}</developerConnection>
 	</scm>
 	<repositories>
 		<repository>
