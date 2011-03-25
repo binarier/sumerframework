@@ -11,6 +11,10 @@
 	<artifactId>frame-core</artifactId>
 	<packaging>jar</packaging>
 	<name>Frame - 核心运行库</name>
+	<scm>
+		<connection>scm:svn:http://sumerframework.googlecode.com/svn/frame/trunk/frame-core</connection>
+		<developerConnection>scm:svn:https://sumerframework.googlecode.com/svn/frame/trunk/frame-core</developerConnection>
+	</scm>
 	<repositories>
 		<repository>
 			<id>sumer_repo</id>
