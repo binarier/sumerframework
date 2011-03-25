@@ -11,10 +11,6 @@
 	<name>BaseFrame - 代码生成Maven插件</name>
 	<artifactId>base-frame-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
-	<scm>
-		<connection>scm:svn:http://sumerframework.googlecode.com/svn/frame/trunk/base-frame-plugin</connection>
-		<developerConnection>scm:svn:https://sumerframework.googlecode.com/svn/frame/trunk/base-frame-plugin</developerConnection>
-	</scm>
 	<repositories>
 		<repository>
 			<id>sumer_repo</id>
